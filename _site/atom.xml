@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>Coffee and Contemplation</title>
+ <link href="http://localhost:4000/atom.xml" rel="self"/>
+ <link href="http://localhost:4000/"/>
+ <updated>2020-10-21T00:15:21+05:30</updated>
+ <id>http://localhost:4000</id>
+ <author>
+   <name>coffee and contemplation</name>
+   <email></email>
+ </author>
+
+ 
+ <entry>
+   <title>How to quit vim</title>
+   <link href="http://localhost:4000/2020/10/20/quitting-vim/"/>
+   <updated>2020-10-20T00:00:00+05:30</updated>
+   <id>http://localhost:4000/2020/10/20/quitting-vim</id>
+   <content type="html">&lt;p&gt;Vim has multiple modes. You normally insert text in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Insert&lt;/code&gt; mode. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Normal&lt;/code&gt; mode is where you move around and give commands to vim.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Esc&lt;/code&gt; will take you to normal mode(usually). You can enter a command starting with a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:&lt;/code&gt;. Quit vim with the below command:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;Esc&amp;gt;:qa!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;q&lt;/code&gt; - quit&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; - all&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!&lt;/code&gt; - force do the operation.
+This will quit all the buffers including the unsaved ones.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
+ 
+
+</feed>
