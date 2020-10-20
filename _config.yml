@@ -2,7 +2,7 @@
 title:               Coffee and Contemplation
 tagline:             'A developer blog'
 description:         'A blog attempting to journal my learnings'
-url:                 http://coffeeandcontemplation.github.io
+url:                 https://coffeeandcontemplation.github.io
 baseurl:             ''
 paginate:            5
 permalink:           pretty
