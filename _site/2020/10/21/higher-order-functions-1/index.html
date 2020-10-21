@@ -9,12 +9,12 @@
 
   <title>
     
-      Coffee and Contemplation &middot; A developer blog
+      Higher order functions and where to find them &middot; Coffee and Contemplation
     
   </title>
 
   
-  <link rel="canonical" href="http://localhost:4000/">
+  <link rel="canonical" href="http://localhost:4000/2020/10/21/higher-order-functions-1/">
   
 
   <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
@@ -53,7 +53,7 @@
   </div>
 
   <nav class="sidebar-nav">
-    <a class="sidebar-nav-item active" href="http://localhost:4000/">Home</a>
+    <a class="sidebar-nav-item" href="http://localhost:4000/">Home</a>
 
     
 
@@ -102,18 +102,10 @@
       </div>
 
       <div class="container content">
-        <div class="posts">
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://localhost:4000/2020/10/21/higher-order-functions-1/">
-        Higher order functions and where to find them
-      </a>
-    </h1>
-
-    <span class="post-date">21 Oct 2020</span>
-
-    <p>My first encounter with a higher order function was when I ran <code class="language-plaintext highlighter-rouge">man qsort</code> and noticed its type.</p>
+        <div class="post">
+  <h1 class="post-title">Higher order functions and where to find them</h1>
+  <span class="post-date">21 Oct 2020</span>
+  <p>My first encounter with a higher order function was when I ran <code class="language-plaintext highlighter-rouge">man qsort</code> and noticed its type.</p>
 
 <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">qsort</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">base</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">nmemb</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span>
             <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">compar</span><span class="p">)(</span><span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="p">));</span>
@@ -185,43 +177,25 @@ I later found out that it was the type for a function which took two arguments a
 
 <p>Languages like <code class="language-plaintext highlighter-rouge">python</code>, <code class="language-plaintext highlighter-rouge">javascript</code>, <code class="language-plaintext highlighter-rouge">dart</code> etc supports closures.</p>
 
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://localhost:4000/2020/10/20/quitting-vim/">
-        How to quit vim
-      </a>
-    </h1>
-
-    <span class="post-date">20 Oct 2020</span>
-
-    <p>Vim has multiple modes. You normally insert text in the <code class="language-plaintext highlighter-rouge">Insert</code> mode. <code class="language-plaintext highlighter-rouge">Normal</code> mode is where you move around and give commands to vim.</p>
-
-<p><code class="language-plaintext highlighter-rouge">Esc</code> will take you to normal mode(usually). You can enter a command starting with a <code class="language-plaintext highlighter-rouge">:</code>. Quit vim with the below command:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;Esc&gt;:qa!
-</code></pre></div></div>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">q</code> - quit</li>
-  <li><code class="language-plaintext highlighter-rouge">a</code> - all</li>
-  <li><code class="language-plaintext highlighter-rouge">!</code> - force do the operation.
-This will quit all the buffers including the unsaved ones.</li>
-</ul>
-
-  </div>
-  
 </div>
 
-<div class="pagination">
-  
-    <span class="pagination-item older">Older</span>
-  
-  
-    <span class="pagination-item newer">Newer</span>
-  
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2020/10/20/quitting-vim/">
+            How to quit vim
+            <small>20 Oct 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
 </div>
+
 
       </div>
     </div>
