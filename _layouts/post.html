@@ -8,6 +8,13 @@ layout: default
   {{ content }}
 </div>
 
+{% capture page_url %}
+{{ page.url | absolute_url }}
+{% endcapture %}
+
+
+{% include sharing_buttons.html url=page_url %}
+
 {% if site.related_posts.size >= 1 %}
 <div class="related">
   <h2>Related posts</h2>
