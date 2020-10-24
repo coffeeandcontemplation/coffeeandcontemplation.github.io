@@ -2,6 +2,7 @@
 layout: post
 title: Higher order functions and where to find them
 comments: true
+tags: [python, functional]
 ---
 My first encounter with a higher order function was when I ran `man qsort` and noticed its type.
 

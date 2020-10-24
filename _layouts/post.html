@@ -4,8 +4,15 @@ layout: default
 
 <div class="post">
   <h1 class="post-title">{{ page.title }}</h1>
-  <span class="post-date">{{ page.date | date_to_string }}</span>
+  <span class="post-date">
+    {{ page.date | date_to_string }} |
+    {% for tag in page.tags %}
+        <a class="post-tag" href="{{ site.url }}/{{ site.tag_page }}#{{ tag | slugify }}"> {{ tag }} </a>
+    {% endfor %}
+  </span>
+
   {{ content }}
+
 </div>
 
 {% capture page_url %}{{ page.url | absolute_url }}{% endcapture %}

@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
   <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
   <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/tag.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" >
 
@@ -77,6 +78,12 @@
     
       
     
+      
+        
+          <a class="sidebar-nav-item" href="http://localhost:4000/tag/">Tags</a>
+        
+      
+    
 
     <span class="sidebar-nav-item">
         <a href="/atom.xml"><i class="fa fa-rss"></i> Feed</a>
@@ -109,7 +116,15 @@
       <div class="container content">
         <div class="post">
   <h1 class="post-title">Higher order functions and where to find them</h1>
-  <span class="post-date">21 Oct 2020</span>
+  <span class="post-date">
+    21 Oct 2020 |
+    
+        <a class="post-tag" href="http://localhost:4000/tag/#python"> python </a>
+    
+        <a class="post-tag" href="http://localhost:4000/tag/#functional"> functional </a>
+    
+  </span>
+
   <p>My first encounter with a higher order function was when I ran <code class="language-plaintext highlighter-rouge">man qsort</code> and noticed its type.</p>
 
 <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">qsort</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">base</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">nmemb</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span>
@@ -181,6 +196,7 @@ I later found out that it was the type for a function which took two arguments a
 <p>Here, we return a function <code class="language-plaintext highlighter-rouge">adder</code> from inside <code class="language-plaintext highlighter-rouge">make_adder</code>. Notice how the inner function has access to the variable <code class="language-plaintext highlighter-rouge">n</code> even after the execution of <code class="language-plaintext highlighter-rouge">make_adder</code> is complete. This inner function along with its scope is called a <strong>closure</strong>.</p>
 
 <p>Languages like <code class="language-plaintext highlighter-rouge">python</code>, <code class="language-plaintext highlighter-rouge">javascript</code>, <code class="language-plaintext highlighter-rouge">dart</code> etc supports closures.</p>
+
 
 </div>
 

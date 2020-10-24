@@ -2,6 +2,7 @@
 layout: post
 title: How to quit vim
 comments: true
+tags: [vim]
 ---
 Vim has multiple modes. You normally insert text in the `Insert` mode. `Normal` mode is where you move around and give commands to vim.
 
