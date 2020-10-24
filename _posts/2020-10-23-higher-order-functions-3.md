@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Higher order functions and where to find them - Decorators
+comments: true
 ---
 We saw [what higher order functions are](/2020/10/21/higher-order-functions-1) and how they can be used in [creating partially applied functions](/2020/10/22/higher-order-functions-2) in previous posts. Now let us see how we can use higher order functions to implement python decorators.
 
