@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Higher order functions and where to find them - Partial Application
+comments: true
 ---
 In the [previous post](/2020/10/21/higher-order-functions-1), we discussed higher order functions. Ones that take functions as arguments and ones that return functions as arguments. Now let us look at some that do both.
 
