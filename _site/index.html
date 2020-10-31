@@ -193,7 +193,7 @@ There are a couple of ways to solve this.</p>
 </code></pre></div></div>
 <p>When entering the block, the <code class="language-plaintext highlighter-rouge">__enter__</code> method is called. When exiting the block, the <code class="language-plaintext highlighter-rouge">__exit__</code> method is called. The cleanup(like closing the file) can be done in the <code class="language-plaintext highlighter-rouge">__exit__</code> method.</p>
 
-<p>Luckily, python provides a <a href="https://docs.python.org/3/library/contextlib.html">contextlib</a> class so that you won’t have to write a class with <code class="language-plaintext highlighter-rouge">__enter__</code> and <code class="language-plaintext highlighter-rouge">__exit__</code> methods.</p>
+<p>Luckily, python provides a <a href="https://docs.python.org/3/library/contextlib.html">contextlib</a> class so that you won’t have to write a class with <code class="language-plaintext highlighter-rouge">__enter__</code> and <code class="language-plaintext highlighter-rouge">__exit__</code> methods. In the example below, code before <code class="language-plaintext highlighter-rouge">yield</code> will be executed before entering the block. Code after <code class="language-plaintext highlighter-rouge">yield</code> will be executed on exiting the block.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 

@@ -4,7 +4,7 @@
  <title>Coffee and Contemplation</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2020-10-31T13:08:42+05:30</updated>
+ <updated>2020-11-01T00:19:23+05:30</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>coffee and contemplation</name>
@@ -78,7 +78,7 @@ There are a couple of ways to solve this.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;When entering the block, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__enter__&lt;/code&gt; method is called. When exiting the block, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__exit__&lt;/code&gt; method is called. The cleanup(like closing the file) can be done in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__exit__&lt;/code&gt; method.&lt;/p&gt;
 
-&lt;p&gt;Luckily, python provides a &lt;a href=&quot;https://docs.python.org/3/library/contextlib.html&quot;&gt;contextlib&lt;/a&gt; class so that you won’t have to write a class with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__enter__&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__exit__&lt;/code&gt; methods.&lt;/p&gt;
+&lt;p&gt;Luckily, python provides a &lt;a href=&quot;https://docs.python.org/3/library/contextlib.html&quot;&gt;contextlib&lt;/a&gt; class so that you won’t have to write a class with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__enter__&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__exit__&lt;/code&gt; methods. In the example below, code before &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yield&lt;/code&gt; will be executed before entering the block. Code after &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yield&lt;/code&gt; will be executed on exiting the block.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;contextlib&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;contextmanager&lt;/span&gt;
 

@@ -64,7 +64,7 @@ with context() as val:
 ```
 When entering the block, the `__enter__` method is called. When exiting the block, the `__exit__` method is called. The cleanup(like closing the file) can be done in the `__exit__` method.
 
-Luckily, python provides a [contextlib](https://docs.python.org/3/library/contextlib.html) class so that you won't have to write a class with `__enter__` and `__exit__` methods.
+Luckily, python provides a [contextlib](https://docs.python.org/3/library/contextlib.html) class so that you won't have to write a class with `__enter__` and `__exit__` methods. In the example below, code before `yield` will be executed before entering the block. Code after `yield` will be executed on exiting the block.
 
 ```python
 from contextlib import contextmanager
