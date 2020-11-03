@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Coffee and Contemplation</title>
- <link href="http://localhost:4000/atom.xml" rel="self"/>
- <link href="http://localhost:4000/"/>
- <updated>2020-11-01T00:19:23+05:30</updated>
- <id>http://localhost:4000</id>
+ <link href="https://coffeeandcontemplation.dev/atom.xml" rel="self"/>
+ <link href="https://coffeeandcontemplation.dev/"/>
+ <updated>2020-11-03T22:50:18+05:30</updated>
+ <id>https://coffeeandcontemplation.dev</id>
  <author>
    <name>coffee and contemplation</name>
    <email></email>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Context managers in python</title>
-   <link href="http://localhost:4000/2020/10/31/python-context-manager/"/>
+   <link href="https://coffeeandcontemplation.dev/2020/10/31/python-context-manager/"/>
    <updated>2020-10-31T00:00:00+05:30</updated>
-   <id>http://localhost:4000/2020/10/31/python-context-manager</id>
+   <id>https://coffeeandcontemplation.dev/2020/10/31/python-context-manager</id>
    <content type="html">&lt;p&gt;Say, you have to open and process a file in python. You can do that using a function like this&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;open_and_process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -158,9 +158,9 @@ Here, we are building a calculator which calls an &lt;code class=&quot;language-
  
  <entry>
    <title>Higher order functions and where to find them - Decorators</title>
-   <link href="http://localhost:4000/2020/10/23/higher-order-functions-3/"/>
+   <link href="https://coffeeandcontemplation.dev/2020/10/23/higher-order-functions-3/"/>
    <updated>2020-10-23T00:00:00+05:30</updated>
-   <id>http://localhost:4000/2020/10/23/higher-order-functions-3</id>
+   <id>https://coffeeandcontemplation.dev/2020/10/23/higher-order-functions-3</id>
    <content type="html">&lt;p&gt;We saw &lt;a href=&quot;/2020/10/21/higher-order-functions-1&quot;&gt;what higher order functions are&lt;/a&gt; and how they can be used in &lt;a href=&quot;/2020/10/22/higher-order-functions-2&quot;&gt;creating partially applied functions&lt;/a&gt; in previous posts. Now let us see how we can use higher order functions to implement python decorators.&lt;/p&gt;
 
 &lt;p&gt;Let us say you want to intercept your function call to log the arguments passed and the return value. ie.&lt;/p&gt;
@@ -212,9 +212,9 @@ Here, we are building a calculator which calls an &lt;code class=&quot;language-
  
  <entry>
    <title>Higher order functions and where to find them - Partial Application</title>
-   <link href="http://localhost:4000/2020/10/22/higher-order-functions-2/"/>
+   <link href="https://coffeeandcontemplation.dev/2020/10/22/higher-order-functions-2/"/>
    <updated>2020-10-22T00:00:00+05:30</updated>
-   <id>http://localhost:4000/2020/10/22/higher-order-functions-2</id>
+   <id>https://coffeeandcontemplation.dev/2020/10/22/higher-order-functions-2</id>
    <content type="html">&lt;p&gt;In the &lt;a href=&quot;/2020/10/21/higher-order-functions-1&quot;&gt;previous post&lt;/a&gt;, we discussed higher order functions. Ones that take functions as arguments and ones that return functions as arguments. Now let us look at some that do both.&lt;/p&gt;
 
 &lt;p&gt;In languages like haskell, there is a feature called &lt;strong&gt;Currying&lt;/strong&gt;. When a function which takes multiple arguments is called with less than the number of expected arguments, it returns another function with the arguments “partially applied”&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. For Eg:-&lt;/p&gt;
@@ -271,9 +271,9 @@ Here, we are building a calculator which calls an &lt;code class=&quot;language-
  
  <entry>
    <title>Higher order functions and where to find them</title>
-   <link href="http://localhost:4000/2020/10/21/higher-order-functions-1/"/>
+   <link href="https://coffeeandcontemplation.dev/2020/10/21/higher-order-functions-1/"/>
    <updated>2020-10-21T00:00:00+05:30</updated>
-   <id>http://localhost:4000/2020/10/21/higher-order-functions-1</id>
+   <id>https://coffeeandcontemplation.dev/2020/10/21/higher-order-functions-1</id>
    <content type="html">&lt;p&gt;My first encounter with a higher order function was when I ran &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;man qsort&lt;/code&gt; and noticed its type.&lt;/p&gt;
 
 &lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;qsort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;base&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;size_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nmemb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;size_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
@@ -350,9 +350,9 @@ I later found out that it was the type for a function which took two arguments a
  
  <entry>
    <title>How to quit vim</title>
-   <link href="http://localhost:4000/2020/10/20/quitting-vim/"/>
+   <link href="https://coffeeandcontemplation.dev/2020/10/20/quitting-vim/"/>
    <updated>2020-10-20T00:00:00+05:30</updated>
-   <id>http://localhost:4000/2020/10/20/quitting-vim</id>
+   <id>https://coffeeandcontemplation.dev/2020/10/20/quitting-vim</id>
    <content type="html">&lt;p&gt;Vim has multiple modes. You normally insert text in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Insert&lt;/code&gt; mode. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Normal&lt;/code&gt; mode is where you move around and give commands to vim.&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Esc&lt;/code&gt; will take you to normal mode(usually). You can enter a command starting with a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:&lt;/code&gt;. Quit vim with the below command:&lt;/p&gt;
