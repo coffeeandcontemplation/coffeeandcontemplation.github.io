@@ -14,20 +14,20 @@
   </title>
 
   
-  <link rel="canonical" href="https://coffeeandcontemplation.dev/">
+  <link rel="canonical" href="http://localhost:4000/">
   
 
-  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/poole.css">
-  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/syntax.css">
-  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/lanyon.css">
-  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/tag.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/tag.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" >
 
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://coffeeandcontemplation.dev/public/apple-touch-icon-precomposed.png">
-  <link rel="shortcut icon" href="https://coffeeandcontemplation.dev/public/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
 
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://coffeeandcontemplation.dev/atom.xml">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
 
   
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -56,7 +56,7 @@
   </div>
 
   <nav class="sidebar-nav">
-    <a class="sidebar-nav-item active" href="https://coffeeandcontemplation.dev/">Home</a>
+    <a class="sidebar-nav-item active" href="http://localhost:4000/">Home</a>
 
     
 
@@ -72,7 +72,7 @@
     
       
         
-          <a class="sidebar-nav-item" href="https://coffeeandcontemplation.dev/about/">About</a>
+          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
         
       
     
@@ -80,7 +80,11 @@
     
       
         
-          <a class="sidebar-nav-item" href="https://coffeeandcontemplation.dev/tag/">Tags</a>
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="http://localhost:4000/tag/">Tags</a>
         
       
     
@@ -118,7 +122,152 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="https://coffeeandcontemplation.dev/2020/10/31/python-context-manager/">
+      <a href="http://localhost:4000/2020/11/07/vimming-in-2020/">
+        Vimming in 2020
+      </a>
+    </h1>
+
+  <span class="post-date">
+    07 Nov 2020 |
+    
+        <a class="post-tag" href="http://localhost:4000/tag/#vim"> vim </a>
+    
+        <a class="post-tag" href="http://localhost:4000/tag/#neovim"> neovim </a>
+    
+        <a class="post-tag" href="http://localhost:4000/tag/#plugin"> plugin </a>
+    
+  </span>
+
+    <blockquote>
+  <p>If you use vim, you can use <code class="language-plaintext highlighter-rouge">h,j,k,l</code> keys to navigate instead of the arrow keys. You won’t have to move your hands away from the home row, and you’ll end up saving a lot of time.</p>
+</blockquote>
+
+<p>One of my seniors in college told me this about vim. It sounded so incredibly ridiculous at that time, that I decided to give it a shot.</p>
+
+<p>For the first couple of years, my <code class="language-plaintext highlighter-rouge">.vimrc</code> looked like this.</p>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">set</span> <span class="k">nu</span>
+<span class="k">set</span> <span class="nb">cindent</span>
+<span class="nb">syntax</span> <span class="k">on</span>
+</code></pre></div></div>
+<p>This enabled line numbers, indentation and added some syntax highligting to the code.</p>
+
+<p>My real journey into vim started with this post titled <a href="https://nvie.com/posts/how-i-boosted-my-vim/">“How I boosted my vim”</a> by Vincent Driessen.
+It introduced me to vim’s plugin ecosystem and I found out there is more to vim than <code class="language-plaintext highlighter-rouge">h,j,k,l</code>.</p>
+
+<p>10 years later, my <a href="https://neovim.io/">(neo)vim</a> looks like this:
+<img src="/public/neovim_scrot.png" alt="neovim screenshot" title="Screenshot of neovim" /></p>
+
+<h2 id="basic-setup">Basic setup</h2>
+<p>Depending on if you are using vim or neovim, startup file is different. For vim, it is <code class="language-plaintext highlighter-rouge">~/.vimrc</code>.
+For neovim, it is <code class="language-plaintext highlighter-rouge">~/.config/nvim/init.vim</code>. Add the following block into your startup file.</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">filetype</span> plugin <span class="nb">indent</span> <span class="k">on</span>
+<span class="nb">syntax</span> <span class="k">on</span>
+
+<span class="k">set</span> <span class="nb">modeline</span>
+<span class="k">set</span> <span class="nb">encoding</span><span class="p">=</span>utf<span class="m">-8</span>
+<span class="k">set</span> <span class="nb">termencoding</span><span class="p">=</span>utf<span class="m">-8</span>
+<span class="k">set</span> <span class="nb">tabstop</span><span class="p">=</span><span class="m">4</span>                   " <span class="k">a</span> <span class="k">tab</span> <span class="k">is</span> four spaces
+<span class="k">set</span> <span class="nb">expandtab</span>                   " Use spaces <span class="k">to</span> <span class="nb">insert</span> <span class="k">a</span> <span class="p">&lt;</span>TAB<span class="p">&gt;</span>
+<span class="k">set</span> <span class="nb">backspace</span><span class="p">=</span><span class="nb">indent</span><span class="p">,</span><span class="nb">eol</span><span class="p">,</span>start  " allow backspacing over everything
+                                <span class="c">" in insert mode</span>
+<span class="k">set</span> <span class="nb">autoindent</span>                  " always <span class="k">set</span> autoindenting <span class="k">on</span>
+<span class="k">set</span> <span class="nb">copyindent</span>                  " <span class="k">copy</span> the <span class="k">previous</span> indentation
+                                <span class="c">" on autoindenting</span>
+<span class="k">set</span> <span class="k">number</span>                      " always show <span class="nb">line</span> numbers
+<span class="k">set</span> <span class="nb">shiftwidth</span><span class="p">=</span><span class="m">4</span>                " <span class="k">number</span> of spaces <span class="k">to</span> use
+                                <span class="c">" for autoindenting</span>
+<span class="k">set</span> <span class="nb">shiftround</span>                  " use multiple of <span class="nb">shiftwidth</span> when
+                                <span class="c">" indenting with '&lt;' and '&gt;'</span>
+<span class="k">set</span> <span class="nb">smarttab</span>                    " <span class="nb">insert</span> <span class="k">tabs</span> <span class="k">on</span> the start
+                                <span class="c">" of a line according to</span>
+                                <span class="c">" shiftwidth, not tabstop</span>
+<span class="k">set</span> <span class="nb">hlsearch</span>                    " <span class="nb">highlight</span> <span class="nb">search</span> terms
+<span class="k">set</span> <span class="nb">incsearch</span>                   " show <span class="nb">search</span> matches <span class="k">as</span> you <span class="nb">type</span>
+<span class="k">set</span> <span class="nb">ignorecase</span>                  " ignore case when searching
+<span class="k">set</span> <span class="nb">smartcase</span>                   " ignore case <span class="k">if</span> <span class="nb">search</span> pattern <span class="k">is</span> <span class="k">all</span>
+                                <span class="c">" lowercase, case-sensitive otherwise</span>
+<span class="k">set</span> <span class="nb">scrolloff</span><span class="p">=</span><span class="m">8</span>                 " Start scrolling at the <span class="k">last</span> <span class="m">8</span> <span class="nb">lines</span>
+<span class="k">set</span> <span class="k">history</span><span class="p">=</span><span class="m">1000</span>                " remember <span class="nb">more</span> commands <span class="nb">and</span> <span class="nb">search</span> <span class="k">history</span>
+<span class="k">set</span> <span class="nb">undolevels</span><span class="p">=</span><span class="m">1000</span>             " <span class="m">1000</span> levels of <span class="k">undo</span>
+<span class="k">set</span> <span class="nb">title</span>                       " <span class="k">change</span> the <span class="k">terminal</span>'s <span class="nb">title</span>
+<span class="k">set</span> <span class="nb">noerrorbells</span>                " don'<span class="k">t</span> beep
+<span class="k">set</span> <span class="nb">wildmenu</span>                    " Better command <span class="nb">line</span> completion
+<span class="k">set</span> <span class="nb">wildmode</span><span class="p">=</span><span class="k">list</span><span class="p">:</span>longest<span class="p">,</span>full
+<span class="k">set</span> <span class="nb">nobackup</span>                    " no <span class="nb">backup</span> <span class="k">files</span>
+<span class="k">set</span> <span class="nb">nowritebackup</span>
+<span class="k">set</span> <span class="k">noswapfile</span>                  " no swap <span class="k">files</span>
+<span class="k">set</span> <span class="nb">nolazyredraw</span>
+<span class="k">set</span> <span class="nb">hidden</span>
+<span class="k">set</span> <span class="nb">cmdheight</span><span class="p">=</span><span class="m">2</span>                 " Better <span class="k">display</span> <span class="k">for</span> <span class="k">messages</span>
+<span class="k">set</span> <span class="nb">updatetime</span><span class="p">=</span><span class="m">300</span>
+<span class="k">set</span> inccommand<span class="p">=</span>nosplit          " Preview <span class="k">for</span> <span class="nb">search</span> <span class="nb">and</span> replace
+                                <span class="c">" (neovim only)</span>
+
+<span class="k">set</span> <span class="nb">pastetoggle</span><span class="p">=&lt;</span>F2<span class="p">&gt;</span> " F2 Toggles <span class="k">set</span> <span class="nb">paste</span>
+<span class="k">au</span> <span class="nb">InsertLeave</span> * <span class="k">set</span> <span class="nb">nopaste</span> " Exit <span class="nb">paste</span> <span class="k">mode</span> when leaving <span class="nb">insert</span> <span class="k">mode</span>
+
+<span class="c">" No shift for :</span>
+nnoremap ; <span class="p">:</span>
+
+<span class="c">" Navigate wrapped lines easily</span>
+nnoremap <span class="k">j</span> gj
+nnoremap <span class="k">k</span> gk
+
+<span class="c">" Remove highlight on ,/</span>
+nmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">,</span>/ <span class="p">:</span><span class="k">nohlsearch</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>
+
+<span class="c">" Correct typos</span>
+aug FixTypos
+    <span class="p">:</span>command<span class="p">!</span> WQ <span class="k">wq</span>
+    <span class="p">:</span>command<span class="p">!</span> Wq <span class="k">wq</span>
+    <span class="p">:</span>command<span class="p">!</span> QA <span class="k">qa</span>
+    <span class="p">:</span>command<span class="p">!</span> Qa <span class="k">qa</span>
+    <span class="p">:</span>command<span class="p">!</span> W <span class="k">w</span>
+    <span class="p">:</span>command<span class="p">!</span> Q <span class="k">q</span>
+aug end
+</code></pre></div></div>
+
+<p>If you would like to know more details about any of these settings, you can do a <code class="language-plaintext highlighter-rouge">:h &lt;command&gt;</code>. For eg:- <code class="language-plaintext highlighter-rouge">:h autoindent</code></p>
+
+<h2 id="plugins">Plugins</h2>
+<p><a href="https://github.com/junegunn/vim-plug"><code class="language-plaintext highlighter-rouge">vim-plug</code></a> by Junegunn Choi is a good candidate for a plugin manager.</p>
+
+<p>Install <code class="language-plaintext highlighter-rouge">vim-plug</code>.</p>
+
+<p><strong>For vim in osx, linux</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+</code></pre></div></div>
+<p><strong>For neovim in osx, linux</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+</code></pre></div></div>
+<p>For others, see <a href="https://github.com/junegunn/vim-plug#installation">here</a>. When you start vim next, the <code class="language-plaintext highlighter-rouge">vim-plug</code> will be installed.</p>
+
+<p>Now, let us install a plugin called <code class="language-plaintext highlighter-rouge">lightline</code>.  The URL for <code class="language-plaintext highlighter-rouge">lightline</code> on github is <a href="https://github.com/itchyny/lightline.vim">https://github.com/itchyny/lightline.vim</a>. You need to use the url slug for the plugin to install it; like shown below.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>call plug#begin('~/.vim/plugged')
+
+Plug 'itchyny/lightline.vim'
+
+call plug#end()
+</code></pre></div></div>
+<p>To install the plugin, quit vim and run <code class="language-plaintext highlighter-rouge">vim +PlugInstall</code>. When you restart vim, you can see a better status line(the line the bottom of vim).</p>
+
+<p><code class="language-plaintext highlighter-rouge">vim-plug</code> provides some <a href="https://github.com/junegunn/vim-plug#commands">commands</a> to manage plugins. Here are some I use often.</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">PlugInstall</code> - Installs all the listed plugins in <code class="language-plaintext highlighter-rouge">vimrc</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">PlugUpdate</code> - Updates all the listed plugins in <code class="language-plaintext highlighter-rouge">vimrc</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">PlugClean</code> - Removes unlisted plugins.</li>
+</ol>
+
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://localhost:4000/2020/10/31/python-context-manager/">
         Context managers in python
       </a>
     </h1>
@@ -126,9 +275,9 @@
   <span class="post-date">
     31 Oct 2020 |
     
-        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#python"> python </a>
+        <a class="post-tag" href="http://localhost:4000/tag/#python"> python </a>
     
-        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#functional"> functional </a>
+        <a class="post-tag" href="http://localhost:4000/tag/#functional"> functional </a>
     
   </span>
 
@@ -273,7 +422,7 @@ Here, we are building a calculator which calls an <code class="language-plaintex
   
   <div class="post">
     <h1 class="post-title">
-      <a href="https://coffeeandcontemplation.dev/2020/10/23/higher-order-functions-3/">
+      <a href="http://localhost:4000/2020/10/23/higher-order-functions-3/">
         Higher order functions and where to find them - Decorators
       </a>
     </h1>
@@ -281,11 +430,11 @@ Here, we are building a calculator which calls an <code class="language-plaintex
   <span class="post-date">
     23 Oct 2020 |
     
-        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#python"> python </a>
+        <a class="post-tag" href="http://localhost:4000/tag/#python"> python </a>
     
-        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#decorators"> decorators </a>
+        <a class="post-tag" href="http://localhost:4000/tag/#decorators"> decorators </a>
     
-        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#functional"> functional </a>
+        <a class="post-tag" href="http://localhost:4000/tag/#functional"> functional </a>
     
   </span>
 
@@ -340,7 +489,7 @@ Here, we are building a calculator which calls an <code class="language-plaintex
   
   <div class="post">
     <h1 class="post-title">
-      <a href="https://coffeeandcontemplation.dev/2020/10/22/higher-order-functions-2/">
+      <a href="http://localhost:4000/2020/10/22/higher-order-functions-2/">
         Higher order functions and where to find them - Partial Application
       </a>
     </h1>
@@ -348,9 +497,9 @@ Here, we are building a calculator which calls an <code class="language-plaintex
   <span class="post-date">
     22 Oct 2020 |
     
-        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#python"> python </a>
+        <a class="post-tag" href="http://localhost:4000/tag/#python"> python </a>
     
-        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#functional"> functional </a>
+        <a class="post-tag" href="http://localhost:4000/tag/#functional"> functional </a>
     
   </span>
 
@@ -410,7 +559,7 @@ Here, we are building a calculator which calls an <code class="language-plaintex
   
   <div class="post">
     <h1 class="post-title">
-      <a href="https://coffeeandcontemplation.dev/2020/10/21/higher-order-functions-1/">
+      <a href="http://localhost:4000/2020/10/21/higher-order-functions-1/">
         Higher order functions and where to find them
       </a>
     </h1>
@@ -418,9 +567,9 @@ Here, we are building a calculator which calls an <code class="language-plaintex
   <span class="post-date">
     21 Oct 2020 |
     
-        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#python"> python </a>
+        <a class="post-tag" href="http://localhost:4000/tag/#python"> python </a>
     
-        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#functional"> functional </a>
+        <a class="post-tag" href="http://localhost:4000/tag/#functional"> functional </a>
     
   </span>
 
@@ -498,41 +647,11 @@ I later found out that it was the type for a function which took two arguments a
 
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://coffeeandcontemplation.dev/2020/10/20/quitting-vim/">
-        How to quit vim
-      </a>
-    </h1>
-
-  <span class="post-date">
-    20 Oct 2020 |
-    
-        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#vim"> vim </a>
-    
-  </span>
-
-    <p>Vim has multiple modes. You normally insert text in the <code class="language-plaintext highlighter-rouge">Insert</code> mode. <code class="language-plaintext highlighter-rouge">Normal</code> mode is where you move around and give commands to vim.</p>
-
-<p><code class="language-plaintext highlighter-rouge">Esc</code> will take you to normal mode(usually). You can enter a command starting with a <code class="language-plaintext highlighter-rouge">:</code>. Quit vim with the below command:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;Esc&gt;:qa!
-</code></pre></div></div>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">q</code> - quit</li>
-  <li><code class="language-plaintext highlighter-rouge">a</code> - all</li>
-  <li><code class="language-plaintext highlighter-rouge">!</code> - force do the operation.
-This will quit all the buffers including the unsaved ones.</li>
-</ul>
-
-  </div>
-  
 </div>
 
 <div class="pagination">
   
-    <span class="pagination-item older">Older</span>
+    <a class="pagination-item older" href="http://localhost:4000/page2">Older</a>
   
   
     <span class="pagination-item newer">Newer</span>

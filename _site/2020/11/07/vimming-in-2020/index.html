@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Vimming in 2020 &middot; Coffee and Contemplation
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/2020/11/07/vimming-in-2020/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/tag.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" >
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FG8YL6SVEH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-FG8YL6SVEH');
+    </script>
+  
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>A blog attempting to journal my learnings</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="http://localhost:4000/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
+        
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="http://localhost:4000/tag/">Tags</a>
+        
+      
+    
+
+    <span class="sidebar-nav-item">
+        <a href="/atom.xml"><i class="fa fa-rss"></i> Feed</a>
+    </div>
+
+    <!--<a class="sidebar-nav-item" href="/archive/v1.1.0.zip">Download</a>-->
+    <!--<span class="sidebar-nav-item">Currently v1.1.0</span>-->
+  </nav>
+
+  <!--<div class="sidebar-item">-->
+    <!--<p>-->
+      <!--&copy; 2020. All rights reserved.-->
+    <!--</p>-->
+  <!--</div>-->
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Coffee and Contemplation</a>
+            <small>A developer blog</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Vimming in 2020</h1>
+  <span class="post-date">
+    07 Nov 2020 |
+    
+        <a class="post-tag" href="http://localhost:4000/tag/#vim"> vim </a>
+    
+        <a class="post-tag" href="http://localhost:4000/tag/#neovim"> neovim </a>
+    
+        <a class="post-tag" href="http://localhost:4000/tag/#plugin"> plugin </a>
+    
+  </span>
+
+  <blockquote>
+  <p>If you use vim, you can use <code class="language-plaintext highlighter-rouge">h,j,k,l</code> keys to navigate instead of the arrow keys. You won’t have to move your hands away from the home row, and you’ll end up saving a lot of time.</p>
+</blockquote>
+
+<p>One of my seniors in college told me this about vim. It sounded so incredibly ridiculous at that time, that I decided to give it a shot.</p>
+
+<p>For the first couple of years, my <code class="language-plaintext highlighter-rouge">.vimrc</code> looked like this.</p>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">set</span> <span class="k">nu</span>
+<span class="k">set</span> <span class="nb">cindent</span>
+<span class="nb">syntax</span> <span class="k">on</span>
+</code></pre></div></div>
+<p>This enabled line numbers, indentation and added some syntax highligting to the code.</p>
+
+<p>My real journey into vim started with this post titled <a href="https://nvie.com/posts/how-i-boosted-my-vim/">“How I boosted my vim”</a> by Vincent Driessen.
+It introduced me to vim’s plugin ecosystem and I found out there is more to vim than <code class="language-plaintext highlighter-rouge">h,j,k,l</code>.</p>
+
+<p>10 years later, my <a href="https://neovim.io/">(neo)vim</a> looks like this:
+<img src="/public/neovim_scrot.png" alt="neovim screenshot" title="Screenshot of neovim" /></p>
+
+<h2 id="basic-setup">Basic setup</h2>
+<p>Depending on if you are using vim or neovim, startup file is different. For vim, it is <code class="language-plaintext highlighter-rouge">~/.vimrc</code>.
+For neovim, it is <code class="language-plaintext highlighter-rouge">~/.config/nvim/init.vim</code>. Add the following block into your startup file.</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">filetype</span> plugin <span class="nb">indent</span> <span class="k">on</span>
+<span class="nb">syntax</span> <span class="k">on</span>
+
+<span class="k">set</span> <span class="nb">modeline</span>
+<span class="k">set</span> <span class="nb">encoding</span><span class="p">=</span>utf<span class="m">-8</span>
+<span class="k">set</span> <span class="nb">termencoding</span><span class="p">=</span>utf<span class="m">-8</span>
+<span class="k">set</span> <span class="nb">tabstop</span><span class="p">=</span><span class="m">4</span>                   " <span class="k">a</span> <span class="k">tab</span> <span class="k">is</span> four spaces
+<span class="k">set</span> <span class="nb">expandtab</span>                   " Use spaces <span class="k">to</span> <span class="nb">insert</span> <span class="k">a</span> <span class="p">&lt;</span>TAB<span class="p">&gt;</span>
+<span class="k">set</span> <span class="nb">backspace</span><span class="p">=</span><span class="nb">indent</span><span class="p">,</span><span class="nb">eol</span><span class="p">,</span>start  " allow backspacing over everything
+                                <span class="c">" in insert mode</span>
+<span class="k">set</span> <span class="nb">autoindent</span>                  " always <span class="k">set</span> autoindenting <span class="k">on</span>
+<span class="k">set</span> <span class="nb">copyindent</span>                  " <span class="k">copy</span> the <span class="k">previous</span> indentation
+                                <span class="c">" on autoindenting</span>
+<span class="k">set</span> <span class="k">number</span>                      " always show <span class="nb">line</span> numbers
+<span class="k">set</span> <span class="nb">shiftwidth</span><span class="p">=</span><span class="m">4</span>                " <span class="k">number</span> of spaces <span class="k">to</span> use
+                                <span class="c">" for autoindenting</span>
+<span class="k">set</span> <span class="nb">shiftround</span>                  " use multiple of <span class="nb">shiftwidth</span> when
+                                <span class="c">" indenting with '&lt;' and '&gt;'</span>
+<span class="k">set</span> <span class="nb">smarttab</span>                    " <span class="nb">insert</span> <span class="k">tabs</span> <span class="k">on</span> the start
+                                <span class="c">" of a line according to</span>
+                                <span class="c">" shiftwidth, not tabstop</span>
+<span class="k">set</span> <span class="nb">hlsearch</span>                    " <span class="nb">highlight</span> <span class="nb">search</span> terms
+<span class="k">set</span> <span class="nb">incsearch</span>                   " show <span class="nb">search</span> matches <span class="k">as</span> you <span class="nb">type</span>
+<span class="k">set</span> <span class="nb">ignorecase</span>                  " ignore case when searching
+<span class="k">set</span> <span class="nb">smartcase</span>                   " ignore case <span class="k">if</span> <span class="nb">search</span> pattern <span class="k">is</span> <span class="k">all</span>
+                                <span class="c">" lowercase, case-sensitive otherwise</span>
+<span class="k">set</span> <span class="nb">scrolloff</span><span class="p">=</span><span class="m">8</span>                 " Start scrolling at the <span class="k">last</span> <span class="m">8</span> <span class="nb">lines</span>
+<span class="k">set</span> <span class="k">history</span><span class="p">=</span><span class="m">1000</span>                " remember <span class="nb">more</span> commands <span class="nb">and</span> <span class="nb">search</span> <span class="k">history</span>
+<span class="k">set</span> <span class="nb">undolevels</span><span class="p">=</span><span class="m">1000</span>             " <span class="m">1000</span> levels of <span class="k">undo</span>
+<span class="k">set</span> <span class="nb">title</span>                       " <span class="k">change</span> the <span class="k">terminal</span>'s <span class="nb">title</span>
+<span class="k">set</span> <span class="nb">noerrorbells</span>                " don'<span class="k">t</span> beep
+<span class="k">set</span> <span class="nb">wildmenu</span>                    " Better command <span class="nb">line</span> completion
+<span class="k">set</span> <span class="nb">wildmode</span><span class="p">=</span><span class="k">list</span><span class="p">:</span>longest<span class="p">,</span>full
+<span class="k">set</span> <span class="nb">nobackup</span>                    " no <span class="nb">backup</span> <span class="k">files</span>
+<span class="k">set</span> <span class="nb">nowritebackup</span>
+<span class="k">set</span> <span class="k">noswapfile</span>                  " no swap <span class="k">files</span>
+<span class="k">set</span> <span class="nb">nolazyredraw</span>
+<span class="k">set</span> <span class="nb">hidden</span>
+<span class="k">set</span> <span class="nb">cmdheight</span><span class="p">=</span><span class="m">2</span>                 " Better <span class="k">display</span> <span class="k">for</span> <span class="k">messages</span>
+<span class="k">set</span> <span class="nb">updatetime</span><span class="p">=</span><span class="m">300</span>
+<span class="k">set</span> inccommand<span class="p">=</span>nosplit          " Preview <span class="k">for</span> <span class="nb">search</span> <span class="nb">and</span> replace
+                                <span class="c">" (neovim only)</span>
+
+<span class="k">set</span> <span class="nb">pastetoggle</span><span class="p">=&lt;</span>F2<span class="p">&gt;</span> " F2 Toggles <span class="k">set</span> <span class="nb">paste</span>
+<span class="k">au</span> <span class="nb">InsertLeave</span> * <span class="k">set</span> <span class="nb">nopaste</span> " Exit <span class="nb">paste</span> <span class="k">mode</span> when leaving <span class="nb">insert</span> <span class="k">mode</span>
+
+<span class="c">" No shift for :</span>
+nnoremap ; <span class="p">:</span>
+
+<span class="c">" Navigate wrapped lines easily</span>
+nnoremap <span class="k">j</span> gj
+nnoremap <span class="k">k</span> gk
+
+<span class="c">" Remove highlight on ,/</span>
+nmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">,</span>/ <span class="p">:</span><span class="k">nohlsearch</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>
+
+<span class="c">" Correct typos</span>
+aug FixTypos
+    <span class="p">:</span>command<span class="p">!</span> WQ <span class="k">wq</span>
+    <span class="p">:</span>command<span class="p">!</span> Wq <span class="k">wq</span>
+    <span class="p">:</span>command<span class="p">!</span> QA <span class="k">qa</span>
+    <span class="p">:</span>command<span class="p">!</span> Qa <span class="k">qa</span>
+    <span class="p">:</span>command<span class="p">!</span> W <span class="k">w</span>
+    <span class="p">:</span>command<span class="p">!</span> Q <span class="k">q</span>
+aug end
+</code></pre></div></div>
+
+<p>If you would like to know more details about any of these settings, you can do a <code class="language-plaintext highlighter-rouge">:h &lt;command&gt;</code>. For eg:- <code class="language-plaintext highlighter-rouge">:h autoindent</code></p>
+
+<h2 id="plugins">Plugins</h2>
+<p><a href="https://github.com/junegunn/vim-plug"><code class="language-plaintext highlighter-rouge">vim-plug</code></a> by Junegunn Choi is a good candidate for a plugin manager.</p>
+
+<p>Install <code class="language-plaintext highlighter-rouge">vim-plug</code>.</p>
+
+<p><strong>For vim in osx, linux</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+</code></pre></div></div>
+<p><strong>For neovim in osx, linux</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+</code></pre></div></div>
+<p>For others, see <a href="https://github.com/junegunn/vim-plug#installation">here</a>. When you start vim next, the <code class="language-plaintext highlighter-rouge">vim-plug</code> will be installed.</p>
+
+<p>Now, let us install a plugin called <code class="language-plaintext highlighter-rouge">lightline</code>.  The URL for <code class="language-plaintext highlighter-rouge">lightline</code> on github is <a href="https://github.com/itchyny/lightline.vim">https://github.com/itchyny/lightline.vim</a>. You need to use the url slug for the plugin to install it; like shown below.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>call plug#begin('~/.vim/plugged')
+
+Plug 'itchyny/lightline.vim'
+
+call plug#end()
+</code></pre></div></div>
+<p>To install the plugin, quit vim and run <code class="language-plaintext highlighter-rouge">vim +PlugInstall</code>. When you restart vim, you can see a better status line(the line the bottom of vim).</p>
+
+<p><code class="language-plaintext highlighter-rouge">vim-plug</code> provides some <a href="https://github.com/junegunn/vim-plug#commands">commands</a> to manage plugins. Here are some I use often.</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">PlugInstall</code> - Installs all the listed plugins in <code class="language-plaintext highlighter-rouge">vimrc</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">PlugUpdate</code> - Updates all the listed plugins in <code class="language-plaintext highlighter-rouge">vimrc</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">PlugClean</code> - Removes unlisted plugins.</li>
+</ol>
+
+
+
+</div>
+
+
+
+
+<!-- Sharingbutton Facebook -->
+<link rel="stylesheet" href="http://localhost:4000/public/css/sharing-buttons.css">
+
+<div class="sharing-buttons">
+    <!-- Sharingbutton Facebook -->
+    <a class="resp-sharing-button__link" href='https://facebook.com/sharer/sharer.php?u=http://localhost:4000/2020/11/07/vimming-in-2020/' target="_blank" rel="noopener" aria-label="">
+    <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"/></svg>
+        </div>
+    </div>
+    </a>
+
+    <!-- Sharingbutton Twitter -->
+    <a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?text=I%20liked%20this%20article.%20May%20be%20you%20will%20too.&amp;url=http://localhost:4000/2020/11/07/vimming-in-2020/" target="_blank" rel="noopener" aria-label="">
+    <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"/></svg>
+        </div>
+    </div>
+    </a>
+
+    <!-- Sharingbutton Reddit -->
+    <a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=http://localhost:4000/2020/11/07/vimming-in-2020/&amp;resubmit=true&amp;title=I%20liked%20this%20article.%20May%20be%20you%20will%20too." target="_blank" rel="noopener" aria-label="">
+    <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 11.5c0-1.65-1.35-3-3-3-.96 0-1.86.48-2.42 1.24-1.64-1-3.75-1.64-6.07-1.72.08-1.1.4-3.05 1.52-3.7.72-.4 1.73-.24 3 .5C17.2 6.3 18.46 7.5 20 7.5c1.65 0 3-1.35 3-3s-1.35-3-3-3c-1.38 0-2.54.94-2.88 2.22-1.43-.72-2.64-.8-3.6-.25-1.64.94-1.95 3.47-2 4.55-2.33.08-4.45.7-6.1 1.72C4.86 8.98 3.96 8.5 3 8.5c-1.65 0-3 1.35-3 3 0 1.32.84 2.44 2.05 2.84-.03.22-.05.44-.05.66 0 3.86 4.5 7 10 7s10-3.14 10-7c0-.22-.02-.44-.05-.66 1.2-.4 2.05-1.54 2.05-2.84zM2.3 13.37C1.5 13.07 1 12.35 1 11.5c0-1.1.9-2 2-2 .64 0 1.22.32 1.6.82-1.1.85-1.92 1.9-2.3 3.05zm3.7.13c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9.8 4.8c-1.08.63-2.42.96-3.8.96-1.4 0-2.74-.34-3.8-.95-.24-.13-.32-.44-.2-.68.15-.24.46-.32.7-.18 1.83 1.06 4.76 1.06 6.6 0 .23-.13.53-.05.67.2.14.23.06.54-.18.67zm.2-2.8c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm5.7-2.13c-.38-1.16-1.2-2.2-2.3-3.05.38-.5.97-.82 1.6-.82 1.1 0 2 .9 2 2 0 .84-.53 1.57-1.3 1.87z"/></svg>
+        </div>
+    </div>
+    </a>
+
+    <!-- Sharingbutton WhatsApp -->
+    <a class="resp-sharing-button__link" href="whatsapp://send?text=I%20liked%20this%20article.%20May%20be%20you%20will%20too.%20http://localhost:4000/2020/11/07/vimming-in-2020/" target="_blank" rel="noopener" aria-label="">
+    <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.1 3.9C17.9 1.7 15 .5 12 .5 5.8.5.7 5.6.7 11.9c0 2 .5 3.9 1.5 5.6L.6 23.4l6-1.6c1.6.9 3.5 1.3 5.4 1.3 6.3 0 11.4-5.1 11.4-11.4-.1-2.8-1.2-5.7-3.3-7.8zM12 21.4c-1.7 0-3.3-.5-4.8-1.3l-.4-.2-3.5 1 1-3.4L4 17c-1-1.5-1.4-3.2-1.4-5.1 0-5.2 4.2-9.4 9.4-9.4 2.5 0 4.9 1 6.7 2.8 1.8 1.8 2.8 4.2 2.8 6.7-.1 5.2-4.3 9.4-9.5 9.4zm5.1-7.1c-.3-.1-1.7-.9-1.9-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1s-1.2-.5-2.3-1.4c-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6s.3-.3.4-.5c.2-.1.3-.3.4-.5.1-.2 0-.4 0-.5C10 9 9.3 7.6 9 7c-.1-.4-.4-.3-.5-.3h-.6s-.4.1-.7.3c-.3.3-1 1-1 2.4s1 2.8 1.1 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.3-.3-.4-.6-.5z"/></svg>
+        </div>
+    </div>
+    </a>
+
+    <!-- Sharingbutton Telegram -->
+    <a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=I%20liked%20this%20article.%20May%20be%20you%20will%20too.&amp;url=http://localhost:4000/2020/11/07/vimming-in-2020/" target="_blank" rel="noopener" aria-label="">
+    <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M.707 8.475C.275 8.64 0 9.508 0 9.508s.284.867.718 1.03l5.09 1.897 1.986 6.38a1.102 1.102 0 0 0 1.75.527l2.96-2.41a.405.405 0 0 1 .494-.013l5.34 3.87a1.1 1.1 0 0 0 1.046.135 1.1 1.1 0 0 0 .682-.803l3.91-18.795A1.102 1.102 0 0 0 22.5.075L.706 8.475z"/></svg>
+        </div>
+    </div>
+    </a>
+
+</div>
+
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2020/10/31/python-context-manager/">
+            Context managers in python
+            <small>31 Oct 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2020/10/23/higher-order-functions-3/">
+            Higher order functions and where to find them - Decorators
+            <small>23 Oct 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2020/10/22/higher-order-functions-2/">
+            Higher order functions and where to find them - Partial Application
+            <small>22 Oct 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+<div id="disqus_thread"></div>
+<script>
+
+var disqus_config = function () {
+    this.page.url = "http://localhost:4000/2020/11/07/vimming-in-2020/";
+    this.page.identifier = "/2020/11/07/vimming-in-2020/";
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-coffeeandcontemplation-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script src='/public/js/script.js'></script>
+  </body>
+</html>
