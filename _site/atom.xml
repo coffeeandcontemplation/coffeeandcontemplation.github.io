@@ -4,13 +4,118 @@
  <title>Coffee and Contemplation</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2020-11-07T17:12:05+05:30</updated>
+ <updated>2020-11-14T13:36:06+05:30</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>coffee and contemplation</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Fuzzy finding in vim - vim + fzf</title>
+   <link href="http://localhost:4000/2020/11/13/fuzzy-finding-in-vim/"/>
+   <updated>2020-11-13T00:00:00+05:30</updated>
+   <id>http://localhost:4000/2020/11/13/fuzzy-finding-in-vim</id>
+   <content type="html">&lt;p&gt;FZF is the center-piece of my vim configuration. It is another excellent piece of software by &lt;a href=&quot;https://github.com/junegunn&quot;&gt;Junegunn Choi&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fzf&lt;/code&gt; is a command line fuzzy finder.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Now, that doesn’t sound like much. But the way it can integrate with your other tools will blow your mind. The repository for FZF is located &lt;a href=&quot;https://github.com/junegunn/fzf&quot;&gt;here&lt;/a&gt; and has extensive documentation on how to use it. Follow &lt;a href=&quot;https://github.com/junegunn/fzf#installation&quot;&gt;these instructions&lt;/a&gt; to install it.&lt;/p&gt;
+
+&lt;p&gt;To see how it works, run this command:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vim &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;find &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; | fzf&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find .&lt;/code&gt; will list all the files in the directory recursively. You pipe that output into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fzf&lt;/code&gt;.  Fuzzy search for the file of your choice and press enter. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fzf&lt;/code&gt; will output that filename and that is passed as an argument to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt;. Pretty neat, huh? &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fzf&lt;/code&gt; also has a multiselect mode which can be activated with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fzf -m&lt;/code&gt;. You can select multiple entries by pressing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TAB&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fzf&lt;/code&gt; has a &lt;a href=&quot;https://github.com/junegunn/fzf.vim&quot;&gt;plugin&lt;/a&gt; interface for using it in vim. Before installing and jumping into it, we need to lay some groundwork.&lt;/p&gt;
+
+&lt;h2 id=&quot;ripgrep&quot;&gt;RipGrep&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/BurntSushi/ripgrep&quot;&gt;RipGrep&lt;/a&gt; is a faster replacement for grep written in rust. Output of some ripgrep commands will be piped into fzf to get our desired setup.
+Now, go &lt;a href=&quot;https://github.com/BurntSushi/ripgrep#installation&quot;&gt;install ripgrep&lt;/a&gt;. The binary is called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rg&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;vim-leader-key&quot;&gt;Vim leader key&lt;/h2&gt;
+&lt;p&gt;Vim can map a sequence of keys to an action. Leader is just another key in that sequence. For example,
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;map &amp;lt;leader&amp;gt;q :q&amp;lt;CR&amp;gt;&lt;/code&gt; will map the sequence &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;leader&amp;gt;&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;q&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:q &amp;lt;enter&amp;gt;&lt;/code&gt;. The default leader key is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\&lt;/code&gt;. You can change the value of leader with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:mapleader&lt;/code&gt;. I find &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;space&lt;/code&gt; to be the best key for leader. It is accessible with both fingers and it isn’t really doing anything else in the normal mode. So, go ahead and add this line in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vimrc&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-vim highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; mapleader &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;\&amp;lt;Space&amp;gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;install-fzfvim&quot;&gt;Install fzf.vim&lt;/h2&gt;
+&lt;p&gt;We saw how to install plugins using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim-plug&lt;/code&gt; in &lt;a href=&quot;/2020/11/07/vimming-in-2020/&quot;&gt;another post&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Add these 2 lines to your vimrc(Between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;plug#begin&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;plug#end&lt;/code&gt;).&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Plug 'junegunn/fzf', { 'do': { -&amp;gt; fzf#install() } }
+Plug 'junegunn/fzf.vim'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, let us setup some config and keybindings for useful commands.&lt;/p&gt;
+&lt;div class=&quot;language-vim highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;&quot; use ripgrep to search for files&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; $FZF_DEFAULT_COMMAND &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'rg -l &quot;&quot;'&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;C&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;Files&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;C&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;Buffers&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;Leader&lt;span class=&quot;p&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;Leader&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;Commands&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;Leader&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/ :execute 'Rg ' . input('Rg/&lt;/span&gt;'&lt;span class=&quot;p&quot;&gt;)&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;Leader&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;BLines&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;Leader&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;gf &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;GF?&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will create the following mappings&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Keybindings&lt;/th&gt;
+      &lt;th&gt;Action&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl + p&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Fuzzy find files in the current working directory&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl + b&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Fuzzy find open buffers&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;space space&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Fuzzy find from a list of all available commands&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;space /&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Search for some text within the working directory. Enter the text after pressing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;space /&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;space l&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Fuzzy search lines in the open file&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;space g f&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Fuzzy search for files that got added/changed after the last commit&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;You can find a list of commands &lt;a href=&quot;https://github.com/junegunn/fzf.vim#commands&quot;&gt;here&lt;/a&gt;. See if anything tickles your fancy.&lt;/p&gt;
+
+&lt;h2 id=&quot;searching-for-word-under-cursor&quot;&gt;Searching for word under cursor&lt;/h2&gt;
+&lt;p&gt;Something that I do pretty regularly is to search for the word under my cursor. This can be done by defining a vim function. I bind it to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;space G&lt;/code&gt;(That is an uppercase G).&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;command! -bang -nargs=* RgExact
+  \ call fzf#vim#grep(
+  \   'rg -F --column --line-number --no-heading --color=always --smart-case -- '.shellescape(&amp;lt;q-args&amp;gt;), 1,
+  \   fzf#vim#with_preview(), &amp;lt;bang&amp;gt;0)
+
+nmap &amp;lt;Leader&amp;gt;G :execute 'RgExact ' . expand('&amp;lt;cword&amp;gt;') &amp;lt;Cr&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;example&quot;&gt;Example&lt;/h2&gt;
+&lt;script id=&quot;asciicast-Q6G8YUsCbTETze0P07XFwmevF&quot; src=&quot;https://asciinema.org/a/Q6G8YUsCbTETze0P07XFwmevF.js&quot; async=&quot;&quot;&gt;&lt;/script&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Vimming in 2020</title>
