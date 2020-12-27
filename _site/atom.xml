@@ -4,13 +4,39 @@
  <title>Coffee and Contemplation</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2020-11-14T13:36:06+05:30</updated>
+ <updated>2020-12-27T19:52:26+05:30</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>coffee and contemplation</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>What I learned from doing dishes</title>
+   <link href="http://localhost:4000/2020/12/27/what-i-learned-from-doing-dishes/"/>
+   <updated>2020-12-27T00:00:00+05:30</updated>
+   <id>http://localhost:4000/2020/12/27/what-i-learned-from-doing-dishes</id>
+   <content type="html">&lt;p&gt;I woke up today and was welcomed by a mountain of dishes in the sink. My first reaction was - “Screw that - I’ll just go back to bed”. So, after a couple more hours of sleep, I went back to find that the mountain hadn’t magically disappeared.&lt;/p&gt;
+
+&lt;p&gt;Now I had to tackle this problem. This is the strategy I followed&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Move everything out of the sink back into the kitchen.&lt;/li&gt;
+  &lt;li&gt;Take 5 utensils into the sink.&lt;/li&gt;
+  &lt;li&gt;Wash them.&lt;/li&gt;
+  &lt;li&gt;If there are more dishes left, goto 2.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;That was it! The mountain of dishes were done.&lt;/p&gt;
+
+&lt;p&gt;This is how a typical Monday looks like too. You wake up - look at the mountin of tasks - try to do them all at once - fail miserably - wonder at the end of the week, what went wrong.&lt;/p&gt;
+
+&lt;p&gt;All you need to do is this - split the tasks into &lt;em&gt;“5-utensil-size”&lt;/em&gt; tasks. Tackling smaller tasks is easy and far, far less intimidating.&lt;/p&gt;
+
+&lt;p&gt;I’ve started doing that now, and not digitally. Grabbed a notebook and started adding tasks in there and splitting them. The inspiration for this came from the &lt;a href=&quot;https://bulletjournal.com/&quot;&gt;Bullet journal method&lt;/a&gt; designed by Ryder Carroll.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Fuzzy finding in vim - vim + fzf</title>

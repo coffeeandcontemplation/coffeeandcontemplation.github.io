@@ -122,6 +122,41 @@
   
   <div class="post">
     <h1 class="post-title">
+      <a href="http://localhost:4000/2020/12/27/what-i-learned-from-doing-dishes/">
+        What I learned from doing dishes
+      </a>
+    </h1>
+
+  <span class="post-date">
+    27 Dec 2020 |
+    
+        <a class="post-tag" href="http://localhost:4000/tag/#contemplation"> contemplation </a>
+    
+  </span>
+
+    <p>I woke up today and was welcomed by a mountain of dishes in the sink. My first reaction was - “Screw that - I’ll just go back to bed”. So, after a couple more hours of sleep, I went back to find that the mountain hadn’t magically disappeared.</p>
+
+<p>Now I had to tackle this problem. This is the strategy I followed</p>
+
+<ol>
+  <li>Move everything out of the sink back into the kitchen.</li>
+  <li>Take 5 utensils into the sink.</li>
+  <li>Wash them.</li>
+  <li>If there are more dishes left, goto 2.</li>
+</ol>
+
+<p>That was it! The mountain of dishes were done.</p>
+
+<p>This is how a typical Monday looks like too. You wake up - look at the mountin of tasks - try to do them all at once - fail miserably - wonder at the end of the week, what went wrong.</p>
+
+<p>All you need to do is this - split the tasks into <em>“5-utensil-size”</em> tasks. Tackling smaller tasks is easy and far, far less intimidating.</p>
+
+<p>I’ve started doing that now, and not digitally. Grabbed a notebook and started adding tasks in there and splitting them. The inspiration for this came from the <a href="https://bulletjournal.com/">Bullet journal method</a> designed by Ryder Carroll.</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="http://localhost:4000/2020/11/13/fuzzy-finding-in-vim/">
         Fuzzy finding in vim - vim + fzf
       </a>
@@ -602,76 +637,6 @@ Here, we are building a calculator which calls an <code class="language-plaintex
 </span><span class="o">&gt;</span> <span class="n">Function</span> <span class="n">add</span> <span class="n">called</span> <span class="k">with</span> <span class="n">arguments</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="o">&gt;</span> <span class="n">Function</span> <span class="n">add</span> <span class="n">returned</span><span class="p">:</span> <span class="mi">3</span>
 </code></pre></div></div>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://localhost:4000/2020/10/22/higher-order-functions-2/">
-        Higher order functions and where to find them - Partial Application
-      </a>
-    </h1>
-
-  <span class="post-date">
-    22 Oct 2020 |
-    
-        <a class="post-tag" href="http://localhost:4000/tag/#python"> python </a>
-    
-        <a class="post-tag" href="http://localhost:4000/tag/#functional"> functional </a>
-    
-  </span>
-
-    <p>In the <a href="/2020/10/21/higher-order-functions-1">previous post</a>, we discussed higher order functions. Ones that take functions as arguments and ones that return functions as arguments. Now let us look at some that do both.</p>
-
-<p>In languages like haskell, there is a feature called <strong>Currying</strong>. When a function which takes multiple arguments is called with less than the number of expected arguments, it returns another function with the arguments “partially applied”<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup>. For Eg:-</p>
-
-<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- Define a function</span>
-<span class="n">add</span> <span class="n">a</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-<span class="c1">-- Call the function.</span>
-<span class="c1">-- There are no braces for function calls in haskell</span>
-<span class="n">add</span> <span class="mi">1</span> <span class="mi">2</span>  <span class="c1">-- Returns 3</span>
-<span class="c1">-- Below even though add is a 2 argument function,</span>
-<span class="c1">-- we can pass a single argument and "partially apply" the argument</span>
-<span class="n">addTen</span> <span class="o">=</span> <span class="n">add</span> <span class="mi">10</span>
-<span class="c1">-- addTen is a function</span>
-<span class="n">addTen</span> <span class="mi">32</span>   <span class="c1">-- Returns 42</span>
-</code></pre></div></div>
-
-<p>Now, let us try and get this behavior in python. Mind you, we can’t get so nice a syntax with our python implementation. What can we expect?</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define our add function
-</span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-</code></pre></div></div>
-<p>To partially apply a single argument, let us define a function that can be used as follows:</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">addTen</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-</code></pre></div></div>
-<p><code class="language-plaintext highlighter-rouge">partial</code> should be a function that returns a closure which has access to the function and the argument passed to it.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">partial</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">arg1</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">fun</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">inner</span>
-
-<span class="n">addTen</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">addTen</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>    <span class="c1"># Returns 42
-</span></code></pre></div></div>
-<p>A better production ready version for <code class="language-plaintext highlighter-rouge">partial</code> is available in the <code class="language-plaintext highlighter-rouge">functools</code> library of python. You can access it by <code class="language-plaintext highlighter-rouge">from functools import partial</code></p>
-
-<p>Partial can be applied to functions which has more than 2 arguments as well.</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">add3</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span>
-<span class="n">addTen</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">add3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">addTen</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>  <span class="c1"># Returns 42
-</span></code></pre></div></div>
-<hr />
-
-<div class="footnotes" role="doc-endnotes">
-  <ol>
-    <li id="fn:1" role="doc-endnote">
-      <p>There are subtle differences between currying and partial application. They aren’t significant for this article. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
-  </ol>
-</div>
 
   </div>
   
