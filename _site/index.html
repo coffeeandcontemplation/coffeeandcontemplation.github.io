@@ -99,7 +99,7 @@
 
   <!--<div class="sidebar-item">-->
     <!--<p>-->
-      <!--&copy; 2020. All rights reserved.-->
+      <!--&copy; 2021. All rights reserved.-->
     <!--</p>-->
   <!--</div>-->
 </div>
@@ -119,6 +119,189 @@
 
       <div class="container content">
         <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://localhost:4000/2021/01/10/language-server-in-vim/">
+        Language Server Client in neovim
+      </a>
+    </h1>
+
+  <span class="post-date">
+    10 Jan 2021 |
+    
+        <a class="post-tag" href="http://localhost:4000/tag/#neovim"> neovim </a>
+    
+        <a class="post-tag" href="http://localhost:4000/tag/#plugin"> plugin </a>
+    
+        <a class="post-tag" href="http://localhost:4000/tag/#lsp"> lsp </a>
+    
+  </span>
+
+    <h2 id="what-is-language-server-protocol">What is language server protocol?</h2>
+
+<p>Development becomes a lot easier if all languages support features like autocomplete, linting, go-to-definition etc. within the editor of your choice. But this is a difficult task for editor devs. Each editor has to build support or integrate with tools that provide language support. Each of these tools behave in different ways making integration difficult. Language server protocol was defined by microsoft to put and end to this. LSP defines a standard protocol for tools(called language servers) to communicate with your editor.</p>
+
+<p><img src="https://code.visualstudio.com/assets/api/language-extensions/language-server-extension-guide/lsp-languages-editors.png" alt="Why lsp" title="Why lsp?" />
+<em>Image source: <a href="https://code.visualstudio.com/api/language-extensions/language-server-extension-guide">Visual Studio Code</a></em></p>
+
+<h2 id="what-is-a-language-server-client">What is a language server client?</h2>
+
+<p>A language server client is the part of your editor that interacts with a language server - Sometimes implemented as plugins, sometimes built-in.</p>
+
+<h2 id="what-language-clients-are-available-for-vim">What language clients are available for vim?</h2>
+
+<ol>
+  <li><a href="https://github.com/prabirshrestha/vim-lsp">vim-lsp</a></li>
+  <li><a href="https://github.com/autozimu/LanguageClient-neovim">LanguageClient-neovim</a></li>
+  <li><a href="https://github.com/neoclide/coc.nvim">coc.nvim</a></li>
+  <li><a href="https://github.com/dense-analysis/ale">ale</a></li>
+  <li>Built-in language server in <a href="https://neovim.io/doc/user/lsp.html">neovim</a></li>
+</ol>
+
+<p>We’ll see how to setup the built-in language server in neovim in this blog post.</p>
+
+<h2 id="first-setup-a-decent-looking-theme">First, setup a decent looking theme</h2>
+
+<p><a href="https://github.com/Th3Whit3Wolf/onebuddy">Onebuddy</a> is an atom one inspired theme. <a href="/2020/11/07/vimming-in-2020/">Install</a> the theme with <code class="language-plaintext highlighter-rouge">vim-plug</code>.
+Add this to your vimrc:</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Plug <span class="s1">'tjdevries/colorbuddy.vim'</span>
+Plug <span class="s1">'Th3Whit3Wolf/onebuddy'</span><span class="p">,</span> <span class="p">{</span> <span class="s1">'branch'</span><span class="p">:</span> <span class="s1">'main'</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Enable the theme by adding this to vimrc:</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">set</span> <span class="nb">termguicolors</span>
+<span class="k">colorscheme</span> onebuddy
+</code></pre></div></div>
+
+<h2 id="what-features-should-we-expect">What features should we expect?</h2>
+
+<ol>
+  <li>Show errors in line</li>
+  <li>Show warnings in line</li>
+  <li>Show errors/warnings in a list</li>
+  <li>Format file</li>
+  <li>Jump to definition</li>
+  <li>See documentation</li>
+  <li>Code actions - Actions like <em>“Extract to function”, “Import this module”</em> - Yes, you can get that in vim.</li>
+  <li>Autocomplete</li>
+</ol>
+
+<p>The first 7 are really easy to achieve. Let us handle autocomplete in a separate post.</p>
+
+<h2 id="how-to-setup-built-in-lsp-client-for-neovim">How to setup built-in lsp client for neovim?</h2>
+
+<p>neovim’s lsp client is built in lua. The configuration is also in lua. Usable configurations for common language servers are collected in <a href="https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md">neovim/nvim-lspconfig</a>.</p>
+
+<p>Install the plugin with:</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Plug <span class="s1">'neovim/nvim-lspconfig'</span>
+</code></pre></div></div>
+
+<p>Let us create a new file in <code class="language-plaintext highlighter-rouge">.vim</code> directory with all the lsp configurations. Name it <code class="language-plaintext highlighter-rouge">lsp_config.lua</code>. Now in your <code class="language-plaintext highlighter-rouge">vimrc</code>, add the following:</p>
+
+<pre><code class="language-vimrc">luafile ~/.vim/lsp_config.lua
+</code></pre>
+
+<p>In this file, add some configuration for common language servers</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lspconfig</span> <span class="o">=</span> <span class="nb">require</span><span class="s1">'lspconfig'</span>
+
+<span class="n">lspconfig</span><span class="p">.</span><span class="n">pyls</span><span class="p">.</span><span class="n">setup</span><span class="p">{}</span>
+<span class="n">lspconfig</span><span class="p">.</span><span class="n">tsserver</span><span class="p">.</span><span class="n">setup</span><span class="p">{}</span>
+<span class="n">lspconfig</span><span class="p">.</span><span class="n">rust_analyzer</span><span class="p">.</span><span class="n">setup</span><span class="p">{}</span>
+</code></pre></div></div>
+
+<p>That is it! You should start seeing diagnostics now. Ensure you have the right language servers installed.
+For example, for python language server, do</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 <span class="nb">install</span> <span class="s1">'python-language-server[all]'</span>
+</code></pre></div></div>
+
+<h2 id="add-some-signs-to-the-gutter">Add some signs to the gutter</h2>
+
+<p>It would be nice to see some symbols to the left of the code when there are errors.
+Add these lines to your vimrc.</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">sign</span> <span class="nb">define</span> LspDiagnosticsSignError text<span class="p">=</span>🔴
+<span class="k">sign</span> <span class="nb">define</span> LspDiagnosticsSignWarning text<span class="p">=</span>🟠
+<span class="k">sign</span> <span class="nb">define</span> LspDiagnosticsSignInformation text<span class="p">=</span>🔵
+<span class="k">sign</span> <span class="nb">define</span> LspDiagnosticsSignHint text<span class="p">=</span>🟢
+</code></pre></div></div>
+
+<h2 id="add-some-keybindings">Add some keybindings</h2>
+
+<p>We need some keybindings for actions like <strong>jump to definition</strong>. Add the following to your vimrc.</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="nb">gd</span>    <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span>definition<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> gi    <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span>implementation<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="k">gr</span>    <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span>references<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> gD    <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span>declaration<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> ge    <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>diagnostic<span class="p">.</span>set_loclist<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> K     <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span>hover<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">f</span>    <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span>formatting<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span>rn    <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span><span class="nb">rename</span><span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+
+nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">a</span> <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span>code_action<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+xmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">a</span> <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span>range_code_action<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+</code></pre></div></div>
+
+<p>This will create the following mappings</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Keybindings</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">gd</code></td>
+      <td>Go to definition</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">gi</code></td>
+      <td>Go to implementation</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">gr</code></td>
+      <td>See references</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">gD</code></td>
+      <td>Go to declaration</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ge</code></td>
+      <td>Show errors in loclist</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">gd</code></td>
+      <td>Go to definition</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">space f</code></td>
+      <td>FOrmat file</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">space r n</code></td>
+      <td>Rename variable under cursor</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">space a</code></td>
+      <td>Code actions - On normal mode and visual selections</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Your end result should look like this:
+<img src="/public/lsp_python.png" alt="lsp screenshot" title="Screenshot of lsp python" /></p>
+
+
+  </div>
   
   <div class="post">
     <h1 class="post-title">
@@ -570,73 +753,6 @@ Here, we are building a calculator which calls an <code class="language-plaintex
         <span class="k">assert</span> <span class="n">calc</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
 </code></pre></div></div>
 <p>We have a passing test case now.</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://localhost:4000/2020/10/23/higher-order-functions-3/">
-        Higher order functions and where to find them - Decorators
-      </a>
-    </h1>
-
-  <span class="post-date">
-    23 Oct 2020 |
-    
-        <a class="post-tag" href="http://localhost:4000/tag/#python"> python </a>
-    
-        <a class="post-tag" href="http://localhost:4000/tag/#decorators"> decorators </a>
-    
-        <a class="post-tag" href="http://localhost:4000/tag/#functional"> functional </a>
-    
-  </span>
-
-    <p>We saw <a href="/2020/10/21/higher-order-functions-1">what higher order functions are</a> and how they can be used in <a href="/2020/10/22/higher-order-functions-2">creating partially applied functions</a> in previous posts. Now let us see how we can use higher order functions to implement python decorators.</p>
-
-<p>Let us say you want to intercept your function call to log the arguments passed and the return value. ie.</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-
-<span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="c1"># When called with 2 and 3 as arguments, it should print
-</span><span class="o">&gt;</span> <span class="n">Function</span> <span class="n">add</span> <span class="n">called</span> <span class="k">with</span> <span class="n">arguments</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span>
-<span class="o">&gt;</span> <span class="n">Function</span> <span class="n">add</span> <span class="n">returned</span><span class="p">:</span> <span class="mi">5</span>
-</code></pre></div></div>
-<p>It is quite easy to do this. Let us start with defining a function <code class="language-plaintext highlighter-rouge">log</code>.</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">fun</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span>
-            <span class="s">f"Function </span><span class="si">{</span><span class="n">fun</span><span class="p">.</span><span class="n">__name__</span><span class="si">}</span><span class="s"> "</span>
-            <span class="s">f"called with arguments: </span><span class="si">{</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">*</span><span class="n">kwargs</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
-        <span class="n">ret_value</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">f"Function </span><span class="si">{</span><span class="n">fun</span><span class="p">.</span><span class="n">__name__</span><span class="si">}</span><span class="s"> returned: </span><span class="si">{</span><span class="n">ret_value</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">ret_value</span>
-    <span class="k">return</span> <span class="n">inner</span>
-
-<span class="n">add_with_logging</span> <span class="o">=</span> <span class="n">log</span><span class="p">(</span><span class="n">add</span><span class="p">)</span>
-<span class="n">add_with_logging</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># Prints the following
-</span><span class="o">&gt;</span> <span class="n">Function</span> <span class="n">add</span> <span class="n">called</span> <span class="k">with</span> <span class="n">arguments</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="o">&gt;</span> <span class="n">Function</span> <span class="n">add</span> <span class="n">returned</span><span class="p">:</span> <span class="mi">3</span>
-</code></pre></div></div>
-<p>But this isn’t good. You are creating a new function and have to replace all usages of <code class="language-plaintext highlighter-rouge">add</code> with <code class="language-plaintext highlighter-rouge">add_with_logging</code>. There is an easy fix.</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Redefine the name add to log(add)
-</span><span class="n">add</span> <span class="o">=</span> <span class="n">log</span><span class="p">(</span><span class="n">add</span><span class="p">)</span>
-<span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="c1"># Prints the following
-</span><span class="o">&gt;</span> <span class="n">Function</span> <span class="n">add</span> <span class="n">called</span> <span class="k">with</span> <span class="n">arguments</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="o">&gt;</span> <span class="n">Function</span> <span class="n">add</span> <span class="n">returned</span><span class="p">:</span> <span class="mi">3</span>
-</code></pre></div></div>
-<p>This is called a <strong>decorator pattern</strong> and is quite widely used in python. Python provides some <a href="https://en.wikipedia.org/wiki/Syntactic_sugar">syntactic sugar</a> for this usage. All you need to do is add <code class="language-plaintext highlighter-rouge">@log</code> before the function definition.</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">log</span>
-<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-<span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="c1"># Prints the following
-</span><span class="o">&gt;</span> <span class="n">Function</span> <span class="n">add</span> <span class="n">called</span> <span class="k">with</span> <span class="n">arguments</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="o">&gt;</span> <span class="n">Function</span> <span class="n">add</span> <span class="n">returned</span><span class="p">:</span> <span class="mi">3</span>
-</code></pre></div></div>
 
   </div>
   
