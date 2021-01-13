@@ -122,6 +122,62 @@
   
   <div class="post">
     <h1 class="post-title">
+      <a href="http://localhost:4000/2021/01/14/autocomplete-in-neovim/">
+        Autocomplete in neovim with built-in LSP client
+      </a>
+    </h1>
+
+  <span class="post-date">
+    14 Jan 2021 |
+    
+        <a class="post-tag" href="http://localhost:4000/tag/#neovim"> neovim </a>
+    
+        <a class="post-tag" href="http://localhost:4000/tag/#plugin"> plugin </a>
+    
+        <a class="post-tag" href="http://localhost:4000/tag/#lsp"> lsp </a>
+    
+  </span>
+
+    <p>In the <a href="/2021/01/10/language-server-in-vim/">last blog post</a>, we saw how to setup the built-in lsp client in neovim for diagnostics and such. Now we’ll see how to setup autocomplete.</p>
+
+<p>First, install <code class="language-plaintext highlighter-rouge">completion-nvim</code>. Add this to your <code class="language-plaintext highlighter-rouge">vimrc</code> and run <code class="language-plaintext highlighter-rouge">PlugInstall</code>.</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Plug <span class="s1">'nvim-lua/completion-nvim'</span>
+</code></pre></div></div>
+
+<p>Now, in the <code class="language-plaintext highlighter-rouge">lsp_config.lua</code> file, you need to make some changes. The file should look like this:</p>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lspconfig</span> <span class="o">=</span> <span class="nb">require</span><span class="s1">'lspconfig'</span>
+<span class="n">completion_callback</span> <span class="o">=</span> <span class="nb">require</span><span class="s1">'completion'</span><span class="p">.</span><span class="n">on_attach</span>
+
+<span class="n">lspconfig</span><span class="p">.</span><span class="n">pyls</span><span class="p">.</span><span class="n">setup</span><span class="p">{</span><span class="n">on_attach</span><span class="o">=</span><span class="n">completion_callback</span><span class="p">}</span>
+<span class="n">lspconfig</span><span class="p">.</span><span class="n">tsserver</span><span class="p">.</span><span class="n">setup</span><span class="p">{</span><span class="n">on_attach</span><span class="o">=</span><span class="n">completion_callback</span><span class="p">}</span>
+<span class="n">lspconfig</span><span class="p">.</span><span class="n">rust_analyzer</span><span class="p">.</span><span class="n">setup</span><span class="p">{</span><span class="n">on_attach</span><span class="o">=</span><span class="n">completion_callback</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>This should give you completion. Now, we need a trigger to activate completion. I like the <code class="language-plaintext highlighter-rouge">tab</code> key. The config for this is available in the repo.</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">" Use &lt;Tab&gt; and &lt;S-Tab&gt; to navigate through popup menu</span>
+inoremap <span class="p">&lt;</span>expr<span class="p">&gt;</span> <span class="p">&lt;</span>Tab<span class="p">&gt;</span>   <span class="nb">pumvisible</span><span class="p">()</span> ? <span class="s2">"\&lt;C-n&gt;"</span> <span class="p">:</span> <span class="s2">"\&lt;Tab&gt;"</span>
+inoremap <span class="p">&lt;</span>expr<span class="p">&gt;</span> <span class="p">&lt;</span>S<span class="p">-</span>Tab<span class="p">&gt;</span> <span class="nb">pumvisible</span><span class="p">()</span> ? <span class="s2">"\&lt;C-p&gt;"</span> <span class="p">:</span> <span class="s2">"\&lt;S-Tab&gt;"</span>
+
+<span class="c">" Set completeopt to have a better completion experience</span>
+<span class="k">set</span> <span class="nb">completeopt</span><span class="p">=</span>menuone<span class="p">,</span>noinsert<span class="p">,</span>noselect
+
+<span class="c">" Avoid showing message extra message when using completion</span>
+<span class="k">set</span> <span class="nb">shortmess</span><span class="p">+=</span><span class="k">c</span>
+
+<span class="k">let</span> <span class="nv">g:completion_enable_auto_popup</span> <span class="p">=</span> <span class="m">0</span>
+imap <span class="p">&lt;</span><span class="k">tab</span><span class="p">&gt;</span> <span class="p">&lt;</span>Plug<span class="p">&gt;(</span>completion_smart_tab<span class="p">)</span>
+imap <span class="p">&lt;</span>s<span class="p">-</span><span class="k">tab</span><span class="p">&gt;</span> <span class="p">&lt;</span>Plug<span class="p">&gt;(</span>completion_smart_s_tab<span class="p">)</span>
+</code></pre></div></div>
+
+<p>Now, you can use <code class="language-plaintext highlighter-rouge">tab</code> and <code class="language-plaintext highlighter-rouge">shift + tab</code> to navigate through suggestions.</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
       <a href="http://localhost:4000/2021/01/10/language-server-in-vim/">
         Language Server Client in neovim
       </a>
@@ -598,161 +654,6 @@ call plug#end()
   <li><code class="language-plaintext highlighter-rouge">PlugClean</code> - Removes unlisted plugins.</li>
 </ol>
 
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://localhost:4000/2020/10/31/python-context-manager/">
-        Context managers in python
-      </a>
-    </h1>
-
-  <span class="post-date">
-    31 Oct 2020 |
-    
-        <a class="post-tag" href="http://localhost:4000/tag/#python"> python </a>
-    
-        <a class="post-tag" href="http://localhost:4000/tag/#functional"> functional </a>
-    
-  </span>
-
-    <p>Say, you have to open and process a file in python. You can do that using a function like this</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">open_and_process</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-    <span class="n">process</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
-    <span class="nb">file</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># This is important
-</span></code></pre></div></div>
-<p>If an exception occurs in the <code class="language-plaintext highlighter-rouge">process</code> function, <code class="language-plaintext highlighter-rouge">file.close()</code> won’t be executed.</p>
-
-<p>This pattern is the same for other types of resources too:</p>
-<ol>
-  <li>Acquire resource</li>
-  <li>Use resource</li>
-  <li>Release resource</li>
-</ol>
-
-<p>If something fails during the <strong>use</strong> phase, the resource won’t be released cleanly.
-There are a couple of ways to solve this.</p>
-<ol>
-  <li>Use <code class="language-plaintext highlighter-rouge">try...finally</code>
-    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">open_and_process</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
- <span class="k">try</span><span class="p">:</span>
-     <span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-     <span class="n">process</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
- <span class="k">finally</span><span class="p">:</span>
-     <span class="nb">file</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
-</code></pre></div>    </div>
-  </li>
-  <li>Python Context Managers.</li>
-</ol>
-
-<p>You would have seen code in python that looks like this.</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">word_file</span><span class="p">:</span>
-    <span class="n">words</span> <span class="o">=</span> <span class="n">word_file</span><span class="p">.</span><span class="n">readlines</span><span class="p">()</span>
-</code></pre></div></div>
-
-<p>A <strong>Context Manager</strong> is a class which implements <code class="language-plaintext highlighter-rouge">__enter__</code> and <code class="language-plaintext highlighter-rouge">__exit__</code> functions</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">context</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">"initializing"</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">"entering block"</span><span class="p">)</span>
-        <span class="k">return</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_type</span><span class="p">,</span> <span class="n">_value</span><span class="p">,</span> <span class="n">_trace</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">"exiting block"</span><span class="p">)</span>
-
-
-<span class="k">with</span> <span class="n">context</span><span class="p">()</span> <span class="k">as</span> <span class="n">val</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"block"</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>     <span class="c1"># This is the return value of __enter__ function
-</span>
-<span class="c1"># Output
-</span><span class="o">&gt;</span> <span class="n">initializing</span>
-<span class="o">&gt;</span> <span class="n">entering</span> <span class="n">block</span>
-<span class="o">&gt;</span> <span class="n">block</span>
-<span class="o">&gt;</span> <span class="mi">10</span>
-<span class="o">&gt;</span> <span class="n">exiting</span> <span class="n">block</span>
-</code></pre></div></div>
-<p>When entering the block, the <code class="language-plaintext highlighter-rouge">__enter__</code> method is called. When exiting the block, the <code class="language-plaintext highlighter-rouge">__exit__</code> method is called. The cleanup(like closing the file) can be done in the <code class="language-plaintext highlighter-rouge">__exit__</code> method.</p>
-
-<p>Luckily, python provides a <a href="https://docs.python.org/3/library/contextlib.html">contextlib</a> class so that you won’t have to write a class with <code class="language-plaintext highlighter-rouge">__enter__</code> and <code class="language-plaintext highlighter-rouge">__exit__</code> methods. In the example below, code before <code class="language-plaintext highlighter-rouge">yield</code> will be executed before entering the block. Code after <code class="language-plaintext highlighter-rouge">yield</code> will be executed on exiting the block.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
-
-<span class="o">@</span><span class="n">contextmanager</span>
-<span class="k">def</span> <span class="nf">context</span><span class="p">():</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"entering"</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">yield</span> <span class="mi">10</span>
-    <span class="k">finally</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">"exiting"</span><span class="p">)</span>
-
-<span class="k">with</span> <span class="n">context</span><span class="p">()</span> <span class="k">as</span> <span class="n">var</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>  <span class="c1"># this is the yielded value
-</span>    <span class="k">print</span><span class="p">(</span><span class="s">"inside block"</span><span class="p">)</span>
-
-<span class="c1"># output
-</span><span class="o">&gt;</span> <span class="n">entering</span>
-<span class="o">&gt;</span> <span class="mi">10</span>
-<span class="o">&gt;</span> <span class="n">inside</span> <span class="n">block</span>
-<span class="o">&gt;</span> <span class="n">exiting</span>
-</code></pre></div></div>
-
-<p>An interesting usecase for this is in mocking classes in tests.
-Here, we are building a calculator which calls an <code class="language-plaintext highlighter-rouge">AdderService</code> to perform addition. It calls the <code class="language-plaintext highlighter-rouge">AdderService</code> using an <code class="language-plaintext highlighter-rouge">AdderServiceClient</code> class.</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">AdderServiceClient</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-        <span class="c1"># This is an external API call. Throwing an exception to
-</span>        <span class="c1"># indicate failure when called during tests
-</span>        <span class="k">raise</span> <span class="nb">Exception</span><span class="p">(</span><span class="s">"This calls an external service "</span>
-                        <span class="s">"and should not be used in tests"</span><span class="p">)</span>
-
-<span class="k">class</span> <span class="nc">Calculator</span><span class="p">():</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">adder</span><span class="p">):</span>
-        <span class="bp">self</span><span class="p">.</span><span class="n">adder</span> <span class="o">=</span> <span class="n">adder</span>
-
-    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">adder</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">test_calculator_adds</span><span class="p">():</span>
-    <span class="n">calc</span> <span class="o">=</span> <span class="n">Calculator</span><span class="p">(</span><span class="n">AdderServiceClient</span><span class="p">())</span>
-    <span class="k">assert</span> <span class="n">calc</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
-
-<span class="c1"># This test fails with
-</span><span class="o">&gt;</span> <span class="nb">Exception</span><span class="p">:</span> <span class="n">This</span> <span class="n">calls</span> <span class="n">an</span> <span class="n">external</span> <span class="n">service</span> <span class="ow">and</span> <span class="n">should</span> <span class="ow">not</span> <span class="n">be</span> <span class="n">used</span> <span class="ow">in</span> <span class="n">tests</span>
-</code></pre></div></div>
-
-<p>Now, bring in some contextmanager magic here.</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
-
-<span class="o">@</span><span class="n">contextmanager</span>
-<span class="k">def</span> <span class="nf">mocked_adder_service_client</span><span class="p">():</span>
-
-    <span class="c1"># Define a function that can add without
-</span>    <span class="c1"># calling an external service.
-</span>    <span class="c1"># The _ here is a placeholder for self
-</span>    <span class="k">def</span> <span class="nf">mocked_add</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-
-    <span class="c1"># Take a backup of the add in AdderServiceClient
-</span>    <span class="n">real_add</span> <span class="o">=</span> <span class="n">AdderServiceClient</span><span class="p">.</span><span class="n">add</span>
-    <span class="c1"># Replace the add in AdderServiceClient with our mock function
-</span>    <span class="n">AdderServiceClient</span><span class="p">.</span><span class="n">add</span> <span class="o">=</span> <span class="n">mocked_add</span>
-
-    <span class="k">yield</span>
-
-    <span class="c1"># Cleanup. Put back the real add
-</span>    <span class="n">AdderServiceClient</span><span class="p">.</span><span class="n">add</span> <span class="o">=</span> <span class="n">real_add</span>
-
-<span class="k">def</span> <span class="nf">test_calculator_adds</span><span class="p">():</span>
-    <span class="n">calc</span> <span class="o">=</span> <span class="n">Calculator</span><span class="p">(</span><span class="n">AdderServiceClient</span><span class="p">())</span>
-    <span class="k">with</span> <span class="n">mocked_adder_service_client</span><span class="p">():</span>
-        <span class="k">assert</span> <span class="n">calc</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
-</code></pre></div></div>
-<p>We have a passing test case now.</p>
 
   </div>
   

@@ -4,13 +4,56 @@
  <title>Coffee and Contemplation</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2021-01-12T17:20:32+05:30</updated>
+ <updated>2021-01-14T01:27:51+05:30</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>coffee and contemplation</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Autocomplete in neovim with built-in LSP client</title>
+   <link href="http://localhost:4000/2021/01/14/autocomplete-in-neovim/"/>
+   <updated>2021-01-14T00:00:00+05:30</updated>
+   <id>http://localhost:4000/2021/01/14/autocomplete-in-neovim</id>
+   <content type="html">&lt;p&gt;In the &lt;a href=&quot;/2021/01/10/language-server-in-vim/&quot;&gt;last blog post&lt;/a&gt;, we saw how to setup the built-in lsp client in neovim for diagnostics and such. Now we’ll see how to setup autocomplete.&lt;/p&gt;
+
+&lt;p&gt;First, install &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;completion-nvim&lt;/code&gt;. Add this to your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vimrc&lt;/code&gt; and run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PlugInstall&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-vim highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Plug &lt;span class=&quot;s1&quot;&gt;'nvim-lua/completion-nvim'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lsp_config.lua&lt;/code&gt; file, you need to make some changes. The file should look like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-lua highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;lspconfig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'lspconfig'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;completion_callback&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'completion'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;on_attach&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;lspconfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pyls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;on_attach&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;completion_callback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;lspconfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tsserver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;on_attach&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;completion_callback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;lspconfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rust_analyzer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;on_attach&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;completion_callback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This should give you completion. Now, we need a trigger to activate completion. I like the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tab&lt;/code&gt; key. The config for this is available in the repo.&lt;/p&gt;
+
+&lt;div class=&quot;language-vim highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;&quot; Use &amp;lt;Tab&amp;gt; and &amp;lt;S-Tab&amp;gt; to navigate through popup menu&lt;/span&gt;
+inoremap &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;expr&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;Tab&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;pumvisible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; ? &lt;span class=&quot;s2&quot;&gt;&quot;\&amp;lt;C-n&amp;gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;\&amp;lt;Tab&amp;gt;&quot;&lt;/span&gt;
+inoremap &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;expr&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;S&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;Tab&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;pumvisible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; ? &lt;span class=&quot;s2&quot;&gt;&quot;\&amp;lt;C-p&amp;gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;\&amp;lt;S-Tab&amp;gt;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;&quot; Set completeopt to have a better completion experience&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;completeopt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;menuone&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;noinsert&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;noselect
+
+&lt;span class=&quot;c&quot;&gt;&quot; Avoid showing message extra message when using completion&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;shortmess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;c&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;g:completion_enable_auto_popup&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+imap &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;tab&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;Plug&lt;span class=&quot;p&quot;&gt;&amp;gt;(&lt;/span&gt;completion_smart_tab&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+imap &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;s&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;tab&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;Plug&lt;span class=&quot;p&quot;&gt;&amp;gt;(&lt;/span&gt;completion_smart_s_tab&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, you can use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tab&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;shift + tab&lt;/code&gt; to navigate through suggestions.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Language Server Client in neovim</title>
