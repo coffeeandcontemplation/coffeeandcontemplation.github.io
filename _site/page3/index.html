@@ -9,12 +9,12 @@
 
   <title>
     
-      404: Page not found &middot; Coffee and Contemplation
+      Coffee and Contemplation &middot; A developer blog
     
   </title>
 
   
-  <link rel="canonical" href="http://localhost:4000/404.html">
+  <link rel="canonical" href="http://localhost:4000/page3/">
   
 
   <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
@@ -56,7 +56,7 @@
   </div>
 
   <nav class="sidebar-nav">
-    <a class="sidebar-nav-item" href="http://localhost:4000/">Home</a>
+    <a class="sidebar-nav-item active" href="http://localhost:4000/">Home</a>
 
     
 
@@ -122,8 +122,50 @@
       </div>
 
       <div class="container content">
-        <h1 id="404-page-not-found">404: Page not found</h1>
-<p>Sorry, we’ve misplaced that URL or it’s pointing to something that doesn’t exist. <a href="http://localhost:4000">Head back home</a> to try finding it again.</p>
+        <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://localhost:4000/2020/10/20/quitting-vim/">
+        How to quit vim
+      </a>
+    </h1>
+
+  <span class="post-date">
+    20 Oct 2020 |
+    
+        <a class="post-tag" href="http://localhost:4000/tag/#vim"> vim </a>
+    
+  </span>
+
+    <p>Vim has multiple modes. You normally insert text in the <code class="language-plaintext highlighter-rouge">Insert</code> mode. <code class="language-plaintext highlighter-rouge">Normal</code> mode is where you move around and give commands to vim.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Esc</code> will take you to normal mode(usually). You can enter a command starting with a <code class="language-plaintext highlighter-rouge">:</code>. Quit vim with the below command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;Esc&gt;:qa!
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">q</code> - quit</li>
+  <li><code class="language-plaintext highlighter-rouge">a</code> - all</li>
+  <li><code class="language-plaintext highlighter-rouge">!</code> - force do the operation.
+This will quit all the buffers including the unsaved ones.</li>
+</ul>
+
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <span class="pagination-item older">Older</span>
+  
+  
+    
+      <a class="pagination-item newer" href="http://localhost:4000/page2">Newer</a>
+    
+  
+</div>
 
       </div>
     </div>
