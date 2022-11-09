@@ -14,20 +14,20 @@
   </title>
 
   
-  <link rel="canonical" href="http://localhost:4000/">
+  <link rel="canonical" href="https://coffeeandcontemplation.dev/">
   
 
-  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
-  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
-  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
-  <link rel="stylesheet" href="http://localhost:4000/public/css/tag.css">
+  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/poole.css">
+  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/syntax.css">
+  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/tag.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" >
 
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
-  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://coffeeandcontemplation.dev/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://coffeeandcontemplation.dev/public/favicon.ico">
 
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://coffeeandcontemplation.dev/atom.xml">
 
   
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -56,7 +56,7 @@
   </div>
 
   <nav class="sidebar-nav">
-    <a class="sidebar-nav-item active" href="http://localhost:4000/">Home</a>
+    <a class="sidebar-nav-item active" href="https://coffeeandcontemplation.dev/">Home</a>
 
     
 
@@ -72,7 +72,7 @@
     
       
         
-          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
+          <a class="sidebar-nav-item" href="https://coffeeandcontemplation.dev/about/">About</a>
         
       
     
@@ -88,7 +88,7 @@
     
       
         
-          <a class="sidebar-nav-item" href="http://localhost:4000/tag/">Tags</a>
+          <a class="sidebar-nav-item" href="https://coffeeandcontemplation.dev/tag/">Tags</a>
         
       
     
@@ -126,7 +126,66 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/2022/11/06/temperature-monitoring-with-rp-pico/">
+      <a href="https://coffeeandcontemplation.dev/2022/11/09/plotting-temp-timeseries/">
+        Plotting a timeseries graph with gnuplot
+      </a>
+    </h1>
+
+  <span class="post-date">
+    09 Nov 2022 |
+    
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#hacks"> hacks </a>
+    
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#til"> TIL </a>
+    
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#gnuplot"> gnuplot </a>
+    
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#raspberry"> raspberry </a>
+    
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#pi"> pi </a>
+    
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#pico"> pico </a>
+    
+  </span>
+
+    <p>So, there was this <a href="/2022/11/06/temperature-monitoring-with-rp-pico/">raspberry pi contraption</a> to log temperature to a file. The next step is to plot this in a graph. We get a single column file of recorded temperatures from the raspberry pi pico.</p>
+
+<p>It is pretty easy to plot a graph from a two column file using gnuplot. If the filename is <code class="language-plaintext highlighter-rouge">temp_log</code>, all you need is:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>plot 'temp_log' with lines
+</code></pre></div></div>
+
+<p>I was too lazy to find how to plot a single column file. The easy fix is to add another column with numbers. And that can be done easily with vim. You’d need to do the following keystrokes:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ctrl-v shift-g I 0 &lt;space&gt; &lt;esc&gt; - This will add a column of zeroes to the beginning
+
+gv - This will reselect the column of zeroes
+
+g ctrl-a - This will change the zeroes to an increasing sequence of numbers
+</code></pre></div></div>
+
+<p><a href="https://asciinema.org/a/IbCKMcPu0RY6p2RslQbBjd3wp"><img src="https://asciinema.org/a/IbCKMcPu0RY6p2RslQbBjd3wp.svg" alt="asciicast" /></a></p>
+
+<p>Running <code class="language-plaintext highlighter-rouge">gnuplot -persist plot.plt</code> gets you the graph</p>
+
+<p><img src="/public/temp_graph.png" alt="" title="temperature graph" /></p>
+
+<h3 id="shower-thought">Shower thought</h3>
+<ul>
+  <li>Boards like these don’t have a battery and can’t keep real clock time. I have never thought of that before. It would have been easy if we could log the time along with the temperature.</li>
+</ul>
+
+<h3 id="next-steps">Next steps</h3>
+<ul>
+  <li>Blink an LED after writing to the file.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">to_us_since_boot</code> from <a href="https://raspberrypi.github.io/pico-sdk-doxygen/group__timestamp.html">the SDK</a> while logging temperature.</li>
+</ul>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="https://coffeeandcontemplation.dev/2022/11/06/temperature-monitoring-with-rp-pico/">
         Temperature monitoring with raspberry pi
       </a>
     </h1>
@@ -134,11 +193,11 @@
   <span class="post-date">
     06 Nov 2022 |
     
-        <a class="post-tag" href="http://localhost:4000/tag/#contemplation"> contemplation </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#contemplation"> contemplation </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#hacks"> hacks </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#hacks"> hacks </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#til"> TIL </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#til"> TIL </a>
     
   </span>
 
@@ -195,7 +254,7 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/2021/01/14/autocomplete-in-neovim/">
+      <a href="https://coffeeandcontemplation.dev/2021/01/14/autocomplete-in-neovim/">
         Autocomplete in neovim with built-in LSP client
       </a>
     </h1>
@@ -203,11 +262,11 @@
   <span class="post-date">
     14 Jan 2021 |
     
-        <a class="post-tag" href="http://localhost:4000/tag/#neovim"> neovim </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#neovim"> neovim </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#plugin"> plugin </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#plugin"> plugin </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#lsp"> lsp </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#lsp"> lsp </a>
     
   </span>
 
@@ -251,7 +310,7 @@ imap <span class="p">&lt;</span>s<span class="p">-</span><span class="k">tab</sp
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/2021/01/10/language-server-in-vim/">
+      <a href="https://coffeeandcontemplation.dev/2021/01/10/language-server-in-vim/">
         Language Server Client in neovim
       </a>
     </h1>
@@ -259,11 +318,11 @@ imap <span class="p">&lt;</span>s<span class="p">-</span><span class="k">tab</sp
   <span class="post-date">
     10 Jan 2021 |
     
-        <a class="post-tag" href="http://localhost:4000/tag/#neovim"> neovim </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#neovim"> neovim </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#plugin"> plugin </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#plugin"> plugin </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#lsp"> lsp </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#lsp"> lsp </a>
     
   </span>
 
@@ -434,7 +493,7 @@ xmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/2020/12/27/what-i-learned-from-doing-dishes/">
+      <a href="https://coffeeandcontemplation.dev/2020/12/27/what-i-learned-from-doing-dishes/">
         What I learned from doing dishes
       </a>
     </h1>
@@ -442,7 +501,7 @@ xmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt
   <span class="post-date">
     27 Dec 2020 |
     
-        <a class="post-tag" href="http://localhost:4000/tag/#contemplation"> contemplation </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#contemplation"> contemplation </a>
     
   </span>
 
@@ -467,129 +526,11 @@ xmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt
 
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://localhost:4000/2020/11/13/fuzzy-finding-in-vim/">
-        Fuzzy finding in vim - vim + fzf
-      </a>
-    </h1>
-
-  <span class="post-date">
-    13 Nov 2020 |
-    
-        <a class="post-tag" href="http://localhost:4000/tag/#vim"> vim </a>
-    
-        <a class="post-tag" href="http://localhost:4000/tag/#neovim"> neovim </a>
-    
-        <a class="post-tag" href="http://localhost:4000/tag/#plugin"> plugin </a>
-    
-  </span>
-
-    <p>FZF is the center-piece of my vim configuration. It is another excellent piece of software by <a href="https://github.com/junegunn">Junegunn Choi</a>.</p>
-<blockquote>
-  <p><code class="language-plaintext highlighter-rouge">fzf</code> is a command line fuzzy finder.</p>
-</blockquote>
-
-<p>Now, that doesn’t sound like much. But the way it can integrate with your other tools will blow your mind. The repository for FZF is located <a href="https://github.com/junegunn/fzf">here</a> and has extensive documentation on how to use it. Follow <a href="https://github.com/junegunn/fzf#installation">these instructions</a> to install it.</p>
-
-<p>To see how it works, run this command:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vim <span class="si">$(</span>find <span class="nb">.</span> | fzf<span class="si">)</span>
-</code></pre></div></div>
-<p><code class="language-plaintext highlighter-rouge">find .</code> will list all the files in the directory recursively. You pipe that output into <code class="language-plaintext highlighter-rouge">fzf</code>.  Fuzzy search for the file of your choice and press enter. <code class="language-plaintext highlighter-rouge">fzf</code> will output that filename and that is passed as an argument to <code class="language-plaintext highlighter-rouge">vim</code>. Pretty neat, huh? <code class="language-plaintext highlighter-rouge">fzf</code> also has a multiselect mode which can be activated with <code class="language-plaintext highlighter-rouge">fzf -m</code>. You can select multiple entries by pressing <code class="language-plaintext highlighter-rouge">TAB</code>.</p>
-
-<p><code class="language-plaintext highlighter-rouge">fzf</code> has a <a href="https://github.com/junegunn/fzf.vim">plugin</a> interface for using it in vim. Before installing and jumping into it, we need to lay some groundwork.</p>
-
-<h2 id="ripgrep">RipGrep</h2>
-<p><a href="https://github.com/BurntSushi/ripgrep">RipGrep</a> is a faster replacement for grep written in rust. Output of some ripgrep commands will be piped into fzf to get our desired setup.
-Now, go <a href="https://github.com/BurntSushi/ripgrep#installation">install ripgrep</a>. The binary is called <code class="language-plaintext highlighter-rouge">rg</code>.</p>
-
-<h2 id="vim-leader-key">Vim leader key</h2>
-<p>Vim can map a sequence of keys to an action. Leader is just another key in that sequence. For example,
-<code class="language-plaintext highlighter-rouge">map &lt;leader&gt;q :q&lt;CR&gt;</code> will map the sequence <code class="language-plaintext highlighter-rouge">&lt;leader&gt;</code> + <code class="language-plaintext highlighter-rouge">q</code> to <code class="language-plaintext highlighter-rouge">:q &lt;enter&gt;</code>. The default leader key is <code class="language-plaintext highlighter-rouge">\</code>. You can change the value of leader with <code class="language-plaintext highlighter-rouge">:mapleader</code>. I find <code class="language-plaintext highlighter-rouge">space</code> to be the best key for leader. It is accessible with both fingers and it isn’t really doing anything else in the normal mode. So, go ahead and add this line in your <code class="language-plaintext highlighter-rouge">vimrc</code>.</p>
-
-<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> mapleader <span class="p">=</span> <span class="s2">"\&lt;Space&gt;"</span>
-</code></pre></div></div>
-
-<h2 id="install-fzfvim">Install fzf.vim</h2>
-<p>We saw how to install plugins using <code class="language-plaintext highlighter-rouge">vim-plug</code> in <a href="/2020/11/07/vimming-in-2020/">another post</a>.</p>
-
-<p>Add these 2 lines to your vimrc(Between <code class="language-plaintext highlighter-rouge">plug#begin</code> and <code class="language-plaintext highlighter-rouge">plug#end</code>).</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Plug 'junegunn/fzf', { 'do': { -&gt; fzf#install() } }
-Plug 'junegunn/fzf.vim'
-</code></pre></div></div>
-
-<p>Now, let us setup some config and keybindings for useful commands.</p>
-<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">" use ripgrep to search for files</span>
-<span class="k">let</span> $FZF_DEFAULT_COMMAND <span class="p">=</span> <span class="s1">'rg -l ""'</span>
-
-<span class="nb">map</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">p</span><span class="p">&gt;</span> <span class="p">:</span>Files<span class="p">&lt;</span>CR<span class="p">&gt;</span>
-<span class="nb">map</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">b</span><span class="p">&gt;</span> <span class="p">:</span>Buffers<span class="p">&lt;</span>CR<span class="p">&gt;</span>
-<span class="nb">map</span> <span class="p">&lt;</span>Leader<span class="p">&gt;&lt;</span>Leader<span class="p">&gt;</span> <span class="p">:</span>Commands<span class="p">&lt;</span>CR<span class="p">&gt;</span>
-<span class="nb">map</span> <span class="p">&lt;</span>Leader<span class="p">&gt;</span><span class="sr">/ :execute 'Rg ' . input('Rg/</span>'<span class="p">)&lt;</span>CR<span class="p">&gt;</span>
-<span class="nb">map</span> <span class="p">&lt;</span>Leader<span class="p">&gt;</span><span class="k">l</span> <span class="p">:</span>BLines<span class="p">&lt;</span>CR<span class="p">&gt;</span>
-<span class="nb">map</span> <span class="p">&lt;</span>Leader<span class="p">&gt;</span>gf <span class="p">:</span>GF?<span class="p">&lt;</span>CR<span class="p">&gt;</span>
-</code></pre></div></div>
-
-<p>This will create the following mappings</p>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left">Keybindings</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Ctrl + p</code></td>
-      <td>Fuzzy find files in the current working directory</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Ctrl + b</code></td>
-      <td>Fuzzy find open buffers</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">space space</code></td>
-      <td>Fuzzy find from a list of all available commands</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">space /</code></td>
-      <td>Search for some text within the working directory. Enter the text after pressing <code class="language-plaintext highlighter-rouge">space /</code></td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">space l</code></td>
-      <td>Fuzzy search lines in the open file</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">space g f</code></td>
-      <td>Fuzzy search for files that got added/changed after the last commit</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>You can find a list of commands <a href="https://github.com/junegunn/fzf.vim#commands">here</a>. See if anything tickles your fancy.</p>
-
-<h2 id="searching-for-word-under-cursor">Searching for word under cursor</h2>
-<p>Something that I do pretty regularly is to search for the word under my cursor. This can be done by defining a vim function. I bind it to <code class="language-plaintext highlighter-rouge">space G</code>(That is an uppercase G).</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command! -bang -nargs=* RgExact
-  \ call fzf#vim#grep(
-  \   'rg -F --column --line-number --no-heading --color=always --smart-case -- '.shellescape(&lt;q-args&gt;), 1,
-  \   fzf#vim#with_preview(), &lt;bang&gt;0)
-
-nmap &lt;Leader&gt;G :execute 'RgExact ' . expand('&lt;cword&gt;') &lt;Cr&gt;
-</code></pre></div></div>
-
-<h2 id="example">Example</h2>
-<script id="asciicast-Q6G8YUsCbTETze0P07XFwmevF" src="https://asciinema.org/a/Q6G8YUsCbTETze0P07XFwmevF.js" async=""></script>
-
-
-  </div>
-  
 </div>
 
 <div class="pagination">
   
-    <a class="pagination-item older" href="http://localhost:4000/page2">Older</a>
+    <a class="pagination-item older" href="https://coffeeandcontemplation.dev/page2">Older</a>
   
   
     <span class="pagination-item newer">Newer</span>

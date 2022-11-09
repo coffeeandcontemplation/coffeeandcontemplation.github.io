@@ -14,20 +14,20 @@
   </title>
 
   
-  <link rel="canonical" href="http://localhost:4000/page2/">
+  <link rel="canonical" href="https://coffeeandcontemplation.dev/page2/">
   
 
-  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
-  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
-  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
-  <link rel="stylesheet" href="http://localhost:4000/public/css/tag.css">
+  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/poole.css">
+  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/syntax.css">
+  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/tag.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" >
 
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
-  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://coffeeandcontemplation.dev/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://coffeeandcontemplation.dev/public/favicon.ico">
 
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://coffeeandcontemplation.dev/atom.xml">
 
   
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -56,7 +56,7 @@
   </div>
 
   <nav class="sidebar-nav">
-    <a class="sidebar-nav-item active" href="http://localhost:4000/">Home</a>
+    <a class="sidebar-nav-item active" href="https://coffeeandcontemplation.dev/">Home</a>
 
     
 
@@ -72,7 +72,7 @@
     
       
         
-          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
+          <a class="sidebar-nav-item" href="https://coffeeandcontemplation.dev/about/">About</a>
         
       
     
@@ -88,7 +88,7 @@
     
       
         
-          <a class="sidebar-nav-item" href="http://localhost:4000/tag/">Tags</a>
+          <a class="sidebar-nav-item" href="https://coffeeandcontemplation.dev/tag/">Tags</a>
         
       
     
@@ -126,7 +126,125 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/2020/11/07/vimming-in-2020/">
+      <a href="https://coffeeandcontemplation.dev/2020/11/13/fuzzy-finding-in-vim/">
+        Fuzzy finding in vim - vim + fzf
+      </a>
+    </h1>
+
+  <span class="post-date">
+    13 Nov 2020 |
+    
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#vim"> vim </a>
+    
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#neovim"> neovim </a>
+    
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#plugin"> plugin </a>
+    
+  </span>
+
+    <p>FZF is the center-piece of my vim configuration. It is another excellent piece of software by <a href="https://github.com/junegunn">Junegunn Choi</a>.</p>
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">fzf</code> is a command line fuzzy finder.</p>
+</blockquote>
+
+<p>Now, that doesn’t sound like much. But the way it can integrate with your other tools will blow your mind. The repository for FZF is located <a href="https://github.com/junegunn/fzf">here</a> and has extensive documentation on how to use it. Follow <a href="https://github.com/junegunn/fzf#installation">these instructions</a> to install it.</p>
+
+<p>To see how it works, run this command:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vim <span class="si">$(</span>find <span class="nb">.</span> | fzf<span class="si">)</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">find .</code> will list all the files in the directory recursively. You pipe that output into <code class="language-plaintext highlighter-rouge">fzf</code>.  Fuzzy search for the file of your choice and press enter. <code class="language-plaintext highlighter-rouge">fzf</code> will output that filename and that is passed as an argument to <code class="language-plaintext highlighter-rouge">vim</code>. Pretty neat, huh? <code class="language-plaintext highlighter-rouge">fzf</code> also has a multiselect mode which can be activated with <code class="language-plaintext highlighter-rouge">fzf -m</code>. You can select multiple entries by pressing <code class="language-plaintext highlighter-rouge">TAB</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">fzf</code> has a <a href="https://github.com/junegunn/fzf.vim">plugin</a> interface for using it in vim. Before installing and jumping into it, we need to lay some groundwork.</p>
+
+<h2 id="ripgrep">RipGrep</h2>
+<p><a href="https://github.com/BurntSushi/ripgrep">RipGrep</a> is a faster replacement for grep written in rust. Output of some ripgrep commands will be piped into fzf to get our desired setup.
+Now, go <a href="https://github.com/BurntSushi/ripgrep#installation">install ripgrep</a>. The binary is called <code class="language-plaintext highlighter-rouge">rg</code>.</p>
+
+<h2 id="vim-leader-key">Vim leader key</h2>
+<p>Vim can map a sequence of keys to an action. Leader is just another key in that sequence. For example,
+<code class="language-plaintext highlighter-rouge">map &lt;leader&gt;q :q&lt;CR&gt;</code> will map the sequence <code class="language-plaintext highlighter-rouge">&lt;leader&gt;</code> + <code class="language-plaintext highlighter-rouge">q</code> to <code class="language-plaintext highlighter-rouge">:q &lt;enter&gt;</code>. The default leader key is <code class="language-plaintext highlighter-rouge">\</code>. You can change the value of leader with <code class="language-plaintext highlighter-rouge">:mapleader</code>. I find <code class="language-plaintext highlighter-rouge">space</code> to be the best key for leader. It is accessible with both fingers and it isn’t really doing anything else in the normal mode. So, go ahead and add this line in your <code class="language-plaintext highlighter-rouge">vimrc</code>.</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> mapleader <span class="p">=</span> <span class="s2">"\&lt;Space&gt;"</span>
+</code></pre></div></div>
+
+<h2 id="install-fzfvim">Install fzf.vim</h2>
+<p>We saw how to install plugins using <code class="language-plaintext highlighter-rouge">vim-plug</code> in <a href="/2020/11/07/vimming-in-2020/">another post</a>.</p>
+
+<p>Add these 2 lines to your vimrc(Between <code class="language-plaintext highlighter-rouge">plug#begin</code> and <code class="language-plaintext highlighter-rouge">plug#end</code>).</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Plug 'junegunn/fzf', { 'do': { -&gt; fzf#install() } }
+Plug 'junegunn/fzf.vim'
+</code></pre></div></div>
+
+<p>Now, let us setup some config and keybindings for useful commands.</p>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">" use ripgrep to search for files</span>
+<span class="k">let</span> $FZF_DEFAULT_COMMAND <span class="p">=</span> <span class="s1">'rg -l ""'</span>
+
+<span class="nb">map</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">p</span><span class="p">&gt;</span> <span class="p">:</span>Files<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">map</span> <span class="p">&lt;</span>C<span class="p">-</span><span class="k">b</span><span class="p">&gt;</span> <span class="p">:</span>Buffers<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">map</span> <span class="p">&lt;</span>Leader<span class="p">&gt;&lt;</span>Leader<span class="p">&gt;</span> <span class="p">:</span>Commands<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">map</span> <span class="p">&lt;</span>Leader<span class="p">&gt;</span><span class="sr">/ :execute 'Rg ' . input('Rg/</span>'<span class="p">)&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">map</span> <span class="p">&lt;</span>Leader<span class="p">&gt;</span><span class="k">l</span> <span class="p">:</span>BLines<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">map</span> <span class="p">&lt;</span>Leader<span class="p">&gt;</span>gf <span class="p">:</span>GF?<span class="p">&lt;</span>CR<span class="p">&gt;</span>
+</code></pre></div></div>
+
+<p>This will create the following mappings</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Keybindings</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Ctrl + p</code></td>
+      <td>Fuzzy find files in the current working directory</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Ctrl + b</code></td>
+      <td>Fuzzy find open buffers</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">space space</code></td>
+      <td>Fuzzy find from a list of all available commands</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">space /</code></td>
+      <td>Search for some text within the working directory. Enter the text after pressing <code class="language-plaintext highlighter-rouge">space /</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">space l</code></td>
+      <td>Fuzzy search lines in the open file</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">space g f</code></td>
+      <td>Fuzzy search for files that got added/changed after the last commit</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>You can find a list of commands <a href="https://github.com/junegunn/fzf.vim#commands">here</a>. See if anything tickles your fancy.</p>
+
+<h2 id="searching-for-word-under-cursor">Searching for word under cursor</h2>
+<p>Something that I do pretty regularly is to search for the word under my cursor. This can be done by defining a vim function. I bind it to <code class="language-plaintext highlighter-rouge">space G</code>(That is an uppercase G).</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command! -bang -nargs=* RgExact
+  \ call fzf#vim#grep(
+  \   'rg -F --column --line-number --no-heading --color=always --smart-case -- '.shellescape(&lt;q-args&gt;), 1,
+  \   fzf#vim#with_preview(), &lt;bang&gt;0)
+
+nmap &lt;Leader&gt;G :execute 'RgExact ' . expand('&lt;cword&gt;') &lt;Cr&gt;
+</code></pre></div></div>
+
+<h2 id="example">Example</h2>
+<script id="asciicast-Q6G8YUsCbTETze0P07XFwmevF" src="https://asciinema.org/a/Q6G8YUsCbTETze0P07XFwmevF.js" async=""></script>
+
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="https://coffeeandcontemplation.dev/2020/11/07/vimming-in-2020/">
         Vimming in 2020
       </a>
     </h1>
@@ -134,11 +252,11 @@
   <span class="post-date">
     07 Nov 2020 |
     
-        <a class="post-tag" href="http://localhost:4000/tag/#vim"> vim </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#vim"> vim </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#neovim"> neovim </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#neovim"> neovim </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#plugin"> plugin </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#plugin"> plugin </a>
     
   </span>
 
@@ -271,7 +389,7 @@ call plug#end()
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/2020/10/31/python-context-manager/">
+      <a href="https://coffeeandcontemplation.dev/2020/10/31/python-context-manager/">
         Context managers in python
       </a>
     </h1>
@@ -279,9 +397,9 @@ call plug#end()
   <span class="post-date">
     31 Oct 2020 |
     
-        <a class="post-tag" href="http://localhost:4000/tag/#python"> python </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#python"> python </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#functional"> functional </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#functional"> functional </a>
     
   </span>
 
@@ -426,7 +544,7 @@ Here, we are building a calculator which calls an <code class="language-plaintex
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/2020/10/23/higher-order-functions-3/">
+      <a href="https://coffeeandcontemplation.dev/2020/10/23/higher-order-functions-3/">
         Higher order functions and where to find them - Decorators
       </a>
     </h1>
@@ -434,11 +552,11 @@ Here, we are building a calculator which calls an <code class="language-plaintex
   <span class="post-date">
     23 Oct 2020 |
     
-        <a class="post-tag" href="http://localhost:4000/tag/#python"> python </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#python"> python </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#decorators"> decorators </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#decorators"> decorators </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#functional"> functional </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#functional"> functional </a>
     
   </span>
 
@@ -493,7 +611,7 @@ Here, we are building a calculator which calls an <code class="language-plaintex
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/2020/10/22/higher-order-functions-2/">
+      <a href="https://coffeeandcontemplation.dev/2020/10/22/higher-order-functions-2/">
         Higher order functions and where to find them - Partial Application
       </a>
     </h1>
@@ -501,9 +619,9 @@ Here, we are building a calculator which calls an <code class="language-plaintex
   <span class="post-date">
     22 Oct 2020 |
     
-        <a class="post-tag" href="http://localhost:4000/tag/#python"> python </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#python"> python </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#functional"> functional </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#functional"> functional </a>
     
   </span>
 
@@ -561,105 +679,15 @@ Here, we are building a calculator which calls an <code class="language-plaintex
 
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://localhost:4000/2020/10/21/higher-order-functions-1/">
-        Higher order functions and where to find them
-      </a>
-    </h1>
-
-  <span class="post-date">
-    21 Oct 2020 |
-    
-        <a class="post-tag" href="http://localhost:4000/tag/#python"> python </a>
-    
-        <a class="post-tag" href="http://localhost:4000/tag/#functional"> functional </a>
-    
-  </span>
-
-    <p>My first encounter with a higher order function was when I ran <code class="language-plaintext highlighter-rouge">man qsort</code> and noticed its type.</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">qsort</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">base</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">nmemb</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span>
-            <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">compar</span><span class="p">)(</span><span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="p">));</span>
-</code></pre></div></div>
-
-<p>For someone who had only seen primitive types like <code class="language-plaintext highlighter-rouge">int</code> and <code class="language-plaintext highlighter-rouge">long</code> and <code class="language-plaintext highlighter-rouge">char</code>, <code class="language-plaintext highlighter-rouge">int (*compar)(const void *, const void *)</code> was quite the surprise.
-I later found out that it was the type for a function which took two arguments and returned an <code class="language-plaintext highlighter-rouge">int</code>. Complicated looking syntax aside, this is quite interesting. Passing a function allows you to create a generic <code class="language-plaintext highlighter-rouge">qsort</code> function which can be use to sort anything with a custom sorting logic.</p>
-
-<blockquote>
-  <p>A higher order function is a function that takes other functions as arguments or return functions.</p>
-</blockquote>
-
-<p>When I picked up python a few years later, higher order functions were everywhere. And pretty easy to use.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Let us define a function that prints "Hello world"
-</span><span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"Hello world"</span><span class="p">)</span>
-
-<span class="c1"># call is a higher order function which just calls a function passed to it without arguments
-</span><span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">fun</span><span class="p">):</span>
-    <span class="n">fun</span><span class="p">()</span>
-
-<span class="c1"># Look ma! I passed a function
-</span><span class="n">call</span><span class="p">(</span><span class="n">hello</span><span class="p">)</span>  <span class="c1"># prints Hello world
-</span></code></pre></div></div>
-
-<p>Now, what if you want to make a function which can call functions which takes arguments. This is were python’s <code class="language-plaintext highlighter-rouge">*args</code> and <code class="language-plaintext highlighter-rouge">**kwargs</code> come into picture. Let us redefine our <code class="language-plaintext highlighter-rouge">call</code> function.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># add takes two numbers and return the sum
-</span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span>
-
-<span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">fun</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="c1"># Call add with positional arguments
-</span><span class="n">call</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># returns 3
-</span>
-<span class="c1"># Call add with named arguments
-</span><span class="n">call</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># returns 3
-</span></code></pre></div></div>
-
-<p>Functions in python can return other functions too</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">make_hello</span><span class="p">():</span>
-    <span class="k">def</span> <span class="nf">say_hello</span><span class="p">():</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">"Hello world"</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">say_hello</span>
-
-<span class="c1"># Call make_hello and assign the return function to a variable.
-# Then use it like any normal function
-</span><span class="n">hello</span> <span class="o">=</span> <span class="n">make_hello</span><span class="p">()</span>
-<span class="n">hello</span><span class="p">()</span>
-</code></pre></div></div>
-<p>Now, let us do something fun with this</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">make_adder</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">adder</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">m</span> <span class="o">+</span> <span class="n">n</span>
-    <span class="k">return</span> <span class="n">adder</span>
-
-<span class="n">add_one</span> <span class="o">=</span> <span class="n">make_adder</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">add_one</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># returns 11
-</span>
-<span class="n">add_42</span> <span class="o">=</span> <span class="n">make_adder</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">add_42</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># returns 52
-</span></code></pre></div></div>
-<p>Here, we return a function <code class="language-plaintext highlighter-rouge">adder</code> from inside <code class="language-plaintext highlighter-rouge">make_adder</code>. Notice how the inner function has access to the variable <code class="language-plaintext highlighter-rouge">n</code> even after the execution of <code class="language-plaintext highlighter-rouge">make_adder</code> is complete. This inner function along with its scope is called a <strong>closure</strong>.</p>
-
-<p>Languages like <code class="language-plaintext highlighter-rouge">python</code>, <code class="language-plaintext highlighter-rouge">javascript</code>, <code class="language-plaintext highlighter-rouge">dart</code> etc supports closures.</p>
-
-  </div>
-  
 </div>
 
 <div class="pagination">
   
-    <a class="pagination-item older" href="http://localhost:4000/page3">Older</a>
+    <a class="pagination-item older" href="https://coffeeandcontemplation.dev/page3">Older</a>
   
   
     
-      <a class="pagination-item newer" href="http://localhost:4000/">Newer</a>
+      <a class="pagination-item newer" href="https://coffeeandcontemplation.dev/">Newer</a>
     
   
 </div>
