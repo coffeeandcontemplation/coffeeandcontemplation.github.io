@@ -140,6 +140,7 @@
   <p><a href="/2022/11/06/temperature-monitoring-with-rp-pico/">Part1</a><br />
 <a href="/2022/11/09/plotting-temp-timeseries/">Part2</a></p>
 
+<h2 id="using-the-on-board-led-to-monitor-sensor-reads">Using the on-board LED to monitor sensor reads</h2>
 <p>The raspberry pi pico based temperature logger “hung” at times. It didn’t write anything to the file at all. But, it wasn’t obvious that it had stopped working. Initially, I had plans to turn on the on-board LED when writing to a file. But, more experienced programmers suggested that <code class="language-plaintext highlighter-rouge">sensor_temp.read_u16()</code> is more likely to be the blocking call. So turning on the LED before reading the sensor and turning it off after would give a clear indication. The LED will remain on if the call is blocked.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">led</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">Pin</span><span class="p">.</span><span class="n">OUT</span><span class="p">)</span>
@@ -152,6 +153,7 @@
     <span class="k">return</span> <span class="n">temperature</span>
 </code></pre></div></div>
 
+<h2 id="logging-time-along-with-temperature">Logging time along with temperature</h2>
 <p>It looks like the pico has a <a href="https://docs.micropython.org/en/latest/library/machine.RTC.html?highlight=rtc#machine.RTC.datetime">real time clock</a> and can be accessed with <code class="language-plaintext highlighter-rouge">machine.RTC()</code>. When running the code using Thonny, it initializes the RTC with the current time. But when running outside of thonny, the RTC should get set to midnight of Jan 1, 2015. We’ll write the time along with the temperature to get a sense of when(/if) the pico fails to write to the file.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rtc</span><span class="o">=</span><span class="n">machine</span><span class="p">.</span><span class="n">RTC</span><span class="p">()</span>
