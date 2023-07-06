@@ -14,20 +14,20 @@
   </title>
 
   
-  <link rel="canonical" href="http://localhost:4000/page3/">
+  <link rel="canonical" href="https://coffeeandcontemplation.dev/page3/">
   
 
-  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
-  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
-  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
-  <link rel="stylesheet" href="http://localhost:4000/public/css/tag.css">
+  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/poole.css">
+  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/syntax.css">
+  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/tag.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" >
 
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
-  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://coffeeandcontemplation.dev/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://coffeeandcontemplation.dev/public/favicon.ico">
 
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://coffeeandcontemplation.dev/atom.xml">
 
   
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -56,7 +56,7 @@
   </div>
 
   <nav class="sidebar-nav">
-    <a class="sidebar-nav-item active" href="http://localhost:4000/">Home</a>
+    <a class="sidebar-nav-item active" href="https://coffeeandcontemplation.dev/">Home</a>
 
     
 
@@ -72,7 +72,7 @@
     
       
         
-          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
+          <a class="sidebar-nav-item" href="https://coffeeandcontemplation.dev/about/">About</a>
         
       
     
@@ -88,7 +88,7 @@
     
       
         
-          <a class="sidebar-nav-item" href="http://localhost:4000/tag/">Tags</a>
+          <a class="sidebar-nav-item" href="https://coffeeandcontemplation.dev/tag/">Tags</a>
         
       
     
@@ -103,7 +103,7 @@
 
   <!--<div class="sidebar-item">-->
     <!--<p>-->
-      <!--&copy; 2022. All rights reserved.-->
+      <!--&copy; 2023. All rights reserved.-->
     <!--</p>-->
   <!--</div>-->
 </div>
@@ -126,7 +126,7 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/2020/10/22/higher-order-functions-2/">
+      <a href="https://coffeeandcontemplation.dev/2020/10/22/higher-order-functions-2/">
         Higher order functions and where to find them - Partial Application
       </a>
     </h1>
@@ -134,69 +134,69 @@
   <span class="post-date">
     22 Oct 2020 |
     
-        <a class="post-tag" href="http://localhost:4000/tag/#python"> python </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#python"> python </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#functional"> functional </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#functional"> functional </a>
     
   </span>
 
-    In the [previous post](/2020/10/21/higher-order-functions-1), we discussed higher order functions. Ones that take functions as arguments and ones that return functions as arguments. Now let us look at some that do both.
+    <p>In the <a href="/2020/10/21/higher-order-functions-1">previous post</a>, we discussed higher order functions. Ones that take functions as arguments and ones that return functions as arguments. Now let us look at some that do both.</p>
 
-In languages like haskell, there is a feature called __Currying__. When a function which takes multiple arguments is called with less than the number of expected arguments, it returns another function with the arguments "partially applied"[^1]. For Eg:-
+<p>In languages like haskell, there is a feature called <strong>Currying</strong>. When a function which takes multiple arguments is called with less than the number of expected arguments, it returns another function with the arguments “partially applied”<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>. For Eg:-</p>
 
-```haskell
--- Define a function
-add a b = a + b
--- Call the function.
--- There are no braces for function calls in haskell
-add 1 2  -- Returns 3
--- Below even though add is a 2 argument function,
--- we can pass a single argument and "partially apply" the argument
-addTen = add 10
--- addTen is a function
-addTen 32   -- Returns 42
-```
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- Define a function</span>
+<span class="n">add</span> <span class="n">a</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="c1">-- Call the function.</span>
+<span class="c1">-- There are no braces for function calls in haskell</span>
+<span class="n">add</span> <span class="mi">1</span> <span class="mi">2</span>  <span class="c1">-- Returns 3</span>
+<span class="c1">-- Below even though add is a 2 argument function,</span>
+<span class="c1">-- we can pass a single argument and "partially apply" the argument</span>
+<span class="n">addTen</span> <span class="o">=</span> <span class="n">add</span> <span class="mi">10</span>
+<span class="c1">-- addTen is a function</span>
+<span class="n">addTen</span> <span class="mi">32</span>   <span class="c1">-- Returns 42</span>
+</code></pre></div></div>
 
-Now, let us try and get this behavior in python. Mind you, we can't get so nice a syntax with our python implementation. What can we expect?
-```python
-# define our add function
-def add(a, b):
-    return a + b
-```
-To partially apply a single argument, let us define a function that can be used as follows:
-```python
-addTen = partial(add, 10)
-```
-`partial` should be a function that returns a closure which has access to the function and the argument passed to it.
+<p>Now, let us try and get this behavior in python. Mind you, we can’t get so nice a syntax with our python implementation. What can we expect?</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define our add function
+</span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</code></pre></div></div>
+<p>To partially apply a single argument, let us define a function that can be used as follows:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">addTen</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">partial</code> should be a function that returns a closure which has access to the function and the argument passed to it.</p>
 
-```python
-def partial(fun, arg1):
-    def inner(*args):
-        return fun(arg1, *args)
-    return inner
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">partial</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">arg1</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">fun</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">inner</span>
 
-addTen = partial(add, 10)
-addTen(32)    # Returns 42
-```
-A better production ready version for `partial` is available in the `functools` library of python. You can access it by `from functools import partial`
+<span class="n">addTen</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">addTen</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>    <span class="c1"># Returns 42
+</span></code></pre></div></div>
+<p>A better production ready version for <code class="language-plaintext highlighter-rouge">partial</code> is available in the <code class="language-plaintext highlighter-rouge">functools</code> library of python. You can access it by <code class="language-plaintext highlighter-rouge">from functools import partial</code></p>
 
-Partial can be applied to functions which has more than 2 arguments as well.
-```python
-def add3(a, b, c):
-    return a + b + c
-addTen = partial(partial(add3, 4), 6)
-addTen(32)  # Returns 42
-```
------
+<p>Partial can be applied to functions which has more than 2 arguments as well.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">add3</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span>
+<span class="n">addTen</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">add3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">addTen</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>  <span class="c1"># Returns 42
+</span></code></pre></div></div>
+<hr />
 
-
-[^1]: There are subtle differences between currying and partial application. They aren't significant for this article.
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>There are subtle differences between currying and partial application. They aren’t significant for this article. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/2020/10/21/higher-order-functions-1/">
+      <a href="https://coffeeandcontemplation.dev/2020/10/21/higher-order-functions-1/">
         Higher order functions and where to find them
       </a>
     </h1>
@@ -204,92 +204,89 @@ addTen(32)  # Returns 42
   <span class="post-date">
     21 Oct 2020 |
     
-        <a class="post-tag" href="http://localhost:4000/tag/#python"> python </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#python"> python </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#functional"> functional </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#functional"> functional </a>
     
   </span>
 
-    My first encounter with a higher order function was when I ran `man qsort` and noticed its type.
+    <p>My first encounter with a higher order function was when I ran <code class="language-plaintext highlighter-rouge">man qsort</code> and noticed its type.</p>
 
-```c
-void qsort(void *base, size_t nmemb, size_t size,
-            int (*compar)(const void *, const void *));
-```
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">qsort</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">base</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">nmemb</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span>
+            <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">compar</span><span class="p">)(</span><span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="p">));</span>
+</code></pre></div></div>
 
-For someone who had only seen primitive types like `int` and `long` and `char`, `int (*compar)(const void *, const void *)` was quite the surprise.
-I later found out that it was the type for a function which took two arguments and returned an `int`. Complicated looking syntax aside, this is quite interesting. Passing a function allows you to create a generic `qsort` function which can be use to sort anything with a custom sorting logic.
+<p>For someone who had only seen primitive types like <code class="language-plaintext highlighter-rouge">int</code> and <code class="language-plaintext highlighter-rouge">long</code> and <code class="language-plaintext highlighter-rouge">char</code>, <code class="language-plaintext highlighter-rouge">int (*compar)(const void *, const void *)</code> was quite the surprise.
+I later found out that it was the type for a function which took two arguments and returned an <code class="language-plaintext highlighter-rouge">int</code>. Complicated looking syntax aside, this is quite interesting. Passing a function allows you to create a generic <code class="language-plaintext highlighter-rouge">qsort</code> function which can be use to sort anything with a custom sorting logic.</p>
 
-> A higher order function is a function that takes other functions as arguments or return functions.
+<blockquote>
+  <p>A higher order function is a function that takes other functions as arguments or return functions.</p>
+</blockquote>
 
-When I picked up python a few years later, higher order functions were everywhere. And pretty easy to use.
+<p>When I picked up python a few years later, higher order functions were everywhere. And pretty easy to use.</p>
 
-```python
-# Let us define a function that prints "Hello world"
-def hello():
-    print("Hello world")
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Let us define a function that prints "Hello world"
+</span><span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Hello world"</span><span class="p">)</span>
 
-# call is a higher order function which just calls a function passed to it without arguments
-def call(fun):
-    fun()
+<span class="c1"># call is a higher order function which just calls a function passed to it without arguments
+</span><span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">fun</span><span class="p">):</span>
+    <span class="n">fun</span><span class="p">()</span>
 
-# Look ma! I passed a function
-call(hello)  # prints Hello world
-```
+<span class="c1"># Look ma! I passed a function
+</span><span class="n">call</span><span class="p">(</span><span class="n">hello</span><span class="p">)</span>  <span class="c1"># prints Hello world
+</span></code></pre></div></div>
 
-Now, what if you want to make a function which can call functions which takes arguments. This is were python's `*args` and `**kwargs` come into picture. Let us redefine our `call` function.
+<p>Now, what if you want to make a function which can call functions which takes arguments. This is were python’s <code class="language-plaintext highlighter-rouge">*args</code> and <code class="language-plaintext highlighter-rouge">**kwargs</code> come into picture. Let us redefine our <code class="language-plaintext highlighter-rouge">call</code> function.</p>
 
-```python
-# add takes two numbers and return the sum
-def add(a, b):
-    return a+b
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># add takes two numbers and return the sum
+</span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span>
 
-def call(fun, *args, **kwargs):
-    return fun(*args, **kwargs)
+<span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">fun</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-# Call add with positional arguments
-call(add, 1, 2)  # returns 3
+<span class="c1"># Call add with positional arguments
+</span><span class="n">call</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># returns 3
+</span>
+<span class="c1"># Call add with named arguments
+</span><span class="n">call</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># returns 3
+</span></code></pre></div></div>
 
-# Call add with named arguments
-call(add, a=1, b=2)  # returns 3
-```
+<p>Functions in python can return other functions too</p>
 
-Functions in python can return other functions too
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">make_hello</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">say_hello</span><span class="p">():</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Hello world"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">say_hello</span>
 
-```python
-def make_hello():
-    def say_hello():
-        print("Hello world")
-    return say_hello
-
-# Call make_hello and assign the return function to a variable.
+<span class="c1"># Call make_hello and assign the return function to a variable.
 # Then use it like any normal function
-hello = make_hello()
-hello()
-```
-Now, let us do something fun with this
+</span><span class="n">hello</span> <span class="o">=</span> <span class="n">make_hello</span><span class="p">()</span>
+<span class="n">hello</span><span class="p">()</span>
+</code></pre></div></div>
+<p>Now, let us do something fun with this</p>
 
-```python
-def make_adder(n):
-    def adder(m):
-        return m + n
-    return adder
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">make_adder</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">adder</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">m</span> <span class="o">+</span> <span class="n">n</span>
+    <span class="k">return</span> <span class="n">adder</span>
 
-add_one = make_adder(1)
-add_one(10) # returns 11
+<span class="n">add_one</span> <span class="o">=</span> <span class="n">make_adder</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">add_one</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># returns 11
+</span>
+<span class="n">add_42</span> <span class="o">=</span> <span class="n">make_adder</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">add_42</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># returns 52
+</span></code></pre></div></div>
+<p>Here, we return a function <code class="language-plaintext highlighter-rouge">adder</code> from inside <code class="language-plaintext highlighter-rouge">make_adder</code>. Notice how the inner function has access to the variable <code class="language-plaintext highlighter-rouge">n</code> even after the execution of <code class="language-plaintext highlighter-rouge">make_adder</code> is complete. This inner function along with its scope is called a <strong>closure</strong>.</p>
 
-add_42 = make_adder(42)
-add_42(10) # returns 52
-```
-Here, we return a function `adder` from inside `make_adder`. Notice how the inner function has access to the variable `n` even after the execution of `make_adder` is complete. This inner function along with its scope is called a __closure__.
-
-Languages like `python`, `javascript`, `dart` etc supports closures.
+<p>Languages like <code class="language-plaintext highlighter-rouge">python</code>, <code class="language-plaintext highlighter-rouge">javascript</code>, <code class="language-plaintext highlighter-rouge">dart</code> etc supports closures.</p>
 
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/2020/10/20/quitting-vim/">
+      <a href="https://coffeeandcontemplation.dev/2020/10/20/quitting-vim/">
         How to quit vim
       </a>
     </h1>
@@ -297,23 +294,23 @@ Languages like `python`, `javascript`, `dart` etc supports closures.
   <span class="post-date">
     20 Oct 2020 |
     
-        <a class="post-tag" href="http://localhost:4000/tag/#vim"> vim </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#vim"> vim </a>
     
   </span>
 
-    Vim has multiple modes. You normally insert text in the `Insert` mode. `Normal` mode is where you move around and give commands to vim.
+    <p>Vim has multiple modes. You normally insert text in the <code class="language-plaintext highlighter-rouge">Insert</code> mode. <code class="language-plaintext highlighter-rouge">Normal</code> mode is where you move around and give commands to vim.</p>
 
-`Esc` will take you to normal mode(usually). You can enter a command starting with a `:`. Quit vim with the below command:
+<p><code class="language-plaintext highlighter-rouge">Esc</code> will take you to normal mode(usually). You can enter a command starting with a <code class="language-plaintext highlighter-rouge">:</code>. Quit vim with the below command:</p>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;Esc&gt;:qa!
+</code></pre></div></div>
 
-```
-<Esc>:qa!
-```
-
-- `q` - quit
-- `a` - all
-- `!` - force do the operation.
-This will quit all the buffers including the unsaved ones.
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">q</code> - quit</li>
+  <li><code class="language-plaintext highlighter-rouge">a</code> - all</li>
+  <li><code class="language-plaintext highlighter-rouge">!</code> - force do the operation.
+This will quit all the buffers including the unsaved ones.</li>
+</ul>
 
   </div>
   
@@ -325,7 +322,7 @@ This will quit all the buffers including the unsaved ones.
   
   
     
-      <a class="pagination-item newer" href="http://localhost:4000/page2">Newer</a>
+      <a class="pagination-item newer" href="https://coffeeandcontemplation.dev/page2">Newer</a>
     
   
 </div>

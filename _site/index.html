@@ -14,20 +14,20 @@
   </title>
 
   
-  <link rel="canonical" href="http://localhost:4000/">
+  <link rel="canonical" href="https://coffeeandcontemplation.dev/">
   
 
-  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
-  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
-  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
-  <link rel="stylesheet" href="http://localhost:4000/public/css/tag.css">
+  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/poole.css">
+  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/syntax.css">
+  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://coffeeandcontemplation.dev/public/css/tag.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" >
 
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
-  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://coffeeandcontemplation.dev/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="https://coffeeandcontemplation.dev/public/favicon.ico">
 
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://coffeeandcontemplation.dev/atom.xml">
 
   
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -56,7 +56,7 @@
   </div>
 
   <nav class="sidebar-nav">
-    <a class="sidebar-nav-item active" href="http://localhost:4000/">Home</a>
+    <a class="sidebar-nav-item active" href="https://coffeeandcontemplation.dev/">Home</a>
 
     
 
@@ -72,7 +72,7 @@
     
       
         
-          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
+          <a class="sidebar-nav-item" href="https://coffeeandcontemplation.dev/about/">About</a>
         
       
     
@@ -88,7 +88,7 @@
     
       
         
-          <a class="sidebar-nav-item" href="http://localhost:4000/tag/">Tags</a>
+          <a class="sidebar-nav-item" href="https://coffeeandcontemplation.dev/tag/">Tags</a>
         
       
     
@@ -103,7 +103,7 @@
 
   <!--<div class="sidebar-item">-->
     <!--<p>-->
-      <!--&copy; 2022. All rights reserved.-->
+      <!--&copy; 2023. All rights reserved.-->
     <!--</p>-->
   <!--</div>-->
 </div>
@@ -126,7 +126,7 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/2022/11/14/temp-logger-improvements-for-pi/">
+      <a href="https://coffeeandcontemplation.dev/2022/11/14/temp-logger-improvements-for-pi/">
         Temperature logger improvements
       </a>
     </h1>
@@ -134,47 +134,46 @@
   <span class="post-date">
     14 Nov 2022 |
     
-        <a class="post-tag" href="http://localhost:4000/tag/#hacks"> hacks </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#hacks"> hacks </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#raspberry"> raspberry </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#raspberry"> raspberry </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#pi"> pi </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#pi"> pi </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#pico"> pico </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#pico"> pico </a>
     
   </span>
 
-    [Part1](/2022/11/06/temperature-monitoring-with-rp-pico/)
-[Part2](/2022/11/06/temperature-monitoring-with-rp-pico/)
+    <p><a href="/2022/11/06/temperature-monitoring-with-rp-pico/">Part1</a><br />
+<a href="/2022/11/09/plotting-temp-timeseries/">Part2</a></p>
 
-The raspberry pi pico based temperature logger "hung" at times. It didn't write anything to the file at all. But, it wasn't obvious that it stopped working. Initially, I had plans to blink the onboard LED when writing to a file. But more experienced programmers suggested that `sensor_temp.read_u16()` is more likely to be the blocking call. So turning on the LED before reading the sensor and turning it off after would give a clear indication. The LED will remain on if the call is blocked.
+<h2 id="using-the-on-board-led-to-monitor-sensor-reads">Using the on-board LED to monitor sensor reads</h2>
+<p>The raspberry pi pico based temperature logger “hung” at times. It didn’t write anything to the file at all. But, it wasn’t obvious that it had stopped working. Initially, I had plans to turn on the on-board LED when writing to a file. But, more experienced programmers suggested that <code class="language-plaintext highlighter-rouge">sensor_temp.read_u16()</code> is more likely to be the blocking call. So turning on the LED before reading the sensor and turning it off after would give a clear indication. The LED will remain on if the call is blocked.</p>
 
-```python
-led = Pin(25, Pin.OUT)
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">led</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">Pin</span><span class="p">.</span><span class="n">OUT</span><span class="p">)</span>
 
-def get_temperature():
-    led.on()
-    reading = sensor_temp.read_u16() * conversion_factor 
-    temperature = 27 - (reading - 0.706)/0.001721
-    led.off()
-    return temperature
-```
+<span class="k">def</span> <span class="nf">get_temperature</span><span class="p">():</span>
+    <span class="n">led</span><span class="p">.</span><span class="n">on</span><span class="p">()</span>
+    <span class="n">reading</span> <span class="o">=</span> <span class="n">sensor_temp</span><span class="p">.</span><span class="n">read_u16</span><span class="p">()</span> <span class="o">*</span> <span class="n">conversion_factor</span> 
+    <span class="n">temperature</span> <span class="o">=</span> <span class="mi">27</span> <span class="o">-</span> <span class="p">(</span><span class="n">reading</span> <span class="o">-</span> <span class="mf">0.706</span><span class="p">)</span><span class="o">/</span><span class="mf">0.001721</span>
+    <span class="n">led</span><span class="p">.</span><span class="n">off</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">temperature</span>
+</code></pre></div></div>
 
-It looks like the pico has a [real time clock](https://docs.micropython.org/en/latest/library/machine.RTC.html?highlight=rtc#machine.RTC.datetime) and can be accessed with `machine.RTC()`. When running the code using Thonny, initializes the RTC with the current time. But when running outside of thonny, the RTC should get set to midnight of Jan 1, 2015. I'll write this time along with the temperature to get a sense of when(/if) the pico fails to write to the file.
+<h2 id="logging-time-along-with-temperature">Logging time along with temperature</h2>
+<p>It looks like the pico has a <a href="https://docs.micropython.org/en/latest/library/machine.RTC.html?highlight=rtc#machine.RTC.datetime">real time clock</a> and can be accessed with <code class="language-plaintext highlighter-rouge">machine.RTC()</code>. When running the code using Thonny, it initializes the RTC with the current time. But when running outside of thonny, the RTC should get set to midnight of Jan 1, 2015. We’ll write the time along with the temperature to get a sense of when(/if) the pico fails to write to the file.</p>
 
-
-```python
-rtc=machine.RTC()
-now = rtc.datetime()
-file.write("{hh:02d}:{mm:02d}:{ss:02d}, {temperature:.2f}\n"
-    .format(hh=now[4], mm=now[5], ss=now[6], temperature=temperature))
-```
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rtc</span><span class="o">=</span><span class="n">machine</span><span class="p">.</span><span class="n">RTC</span><span class="p">()</span>
+<span class="n">now</span> <span class="o">=</span> <span class="n">rtc</span><span class="p">.</span><span class="n">datetime</span><span class="p">()</span>
+<span class="nb">file</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">"{hh:02d}:{mm:02d}:{ss:02d}, {temperature:.2f}</span><span class="se">\n</span><span class="s">"</span>
+    <span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">hh</span><span class="o">=</span><span class="n">now</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">mm</span><span class="o">=</span><span class="n">now</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">ss</span><span class="o">=</span><span class="n">now</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">temperature</span><span class="o">=</span><span class="n">temperature</span><span class="p">))</span>
+</code></pre></div></div>
 
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/2022/11/09/plotting-temp-timeseries/">
+      <a href="https://coffeeandcontemplation.dev/2022/11/09/plotting-temp-timeseries/">
         Plotting a timeseries graph with gnuplot
       </a>
     </h1>
@@ -182,58 +181,58 @@ file.write("{hh:02d}:{mm:02d}:{ss:02d}, {temperature:.2f}\n"
   <span class="post-date">
     09 Nov 2022 |
     
-        <a class="post-tag" href="http://localhost:4000/tag/#hacks"> hacks </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#hacks"> hacks </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#til"> TIL </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#til"> TIL </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#gnuplot"> gnuplot </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#gnuplot"> gnuplot </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#raspberry"> raspberry </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#raspberry"> raspberry </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#pi"> pi </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#pi"> pi </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#pico"> pico </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#pico"> pico </a>
     
   </span>
 
-    So, there was this [raspberry pi contraption](/2022/11/06/temperature-monitoring-with-rp-pico/) to log temperature to a file. The next step is to plot this in a graph. We get a single column file of recorded temperatures from the raspberry pi pico.
+    <p>So, there was this <a href="/2022/11/06/temperature-monitoring-with-rp-pico/">raspberry pi contraption</a> to log temperature to a file. The next step is to plot this in a graph. We get a single column file of recorded temperatures from the raspberry pi pico.</p>
 
-It is pretty easy to plot a graph from a two column file using gnuplot. If the filename is `temp_log`, all you need is:
+<p>It is pretty easy to plot a graph from a two column file using gnuplot. If the filename is <code class="language-plaintext highlighter-rouge">temp_log</code>, all you need is:</p>
 
-```
-plot 'temp_log' with lines
-```
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>plot 'temp_log' with lines
+</code></pre></div></div>
 
-I was too lazy to find how to plot a single column file. The easy fix is to add another column with numbers. And that can be done easily with vim. You'd need to do the following keystrokes:
+<p>I was too lazy to find how to plot a single column file. The easy fix is to add another column with numbers. And that can be done easily with vim. You’d need to do the following keystrokes:</p>
 
-```
-ctrl-v shift-g I 0 <space> <esc> - This will add a column of zeroes to the beginning
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ctrl-v shift-g I 0 &lt;space&gt; &lt;esc&gt; - This will add a column of zeroes to the beginning
 
 gv - This will reselect the column of zeroes
 
 g ctrl-a - This will change the zeroes to an increasing sequence of numbers
-```
+</code></pre></div></div>
 
-[![asciicast](https://asciinema.org/a/IbCKMcPu0RY6p2RslQbBjd3wp.svg)](https://asciinema.org/a/IbCKMcPu0RY6p2RslQbBjd3wp)
+<p><a href="https://asciinema.org/a/IbCKMcPu0RY6p2RslQbBjd3wp"><img src="https://asciinema.org/a/IbCKMcPu0RY6p2RslQbBjd3wp.svg" alt="asciicast" /></a></p>
 
+<p>Running <code class="language-plaintext highlighter-rouge">gnuplot -persist plot.plt</code> gets you the graph</p>
 
-Running `gnuplot -persist plot.plt` gets you the graph
+<p><img src="/public/temp_graph.png" alt="" title="temperature graph" /></p>
 
-![](/public/temp_graph.png "temperature graph")
+<h3 id="shower-thought">Shower thought</h3>
+<ul>
+  <li>Boards like these don’t have a battery and can’t keep real clock time. I have never thought of that before. It would have been easy if we could log the time along with the temperature.</li>
+</ul>
 
-
-### Shower thought
-- Boards like these don't have a battery and can't keep real clock time. I have never thought of that before. It would have been easy if we could log the time along with the temperature.
-
-### Next steps
-- Blink an LED after writing to the file.
-- Use `to_us_since_boot` from [the SDK](https://raspberrypi.github.io/pico-sdk-doxygen/group__timestamp.html) while logging temperature.
+<h3 id="next-steps">Next steps</h3>
+<ul>
+  <li>Blink an LED after writing to the file.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">to_us_since_boot</code> from <a href="https://raspberrypi.github.io/pico-sdk-doxygen/group__timestamp.html">the SDK</a> while logging temperature.</li>
+</ul>
 
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/2022/11/06/temperature-monitoring-with-rp-pico/">
+      <a href="https://coffeeandcontemplation.dev/2022/11/06/temperature-monitoring-with-rp-pico/">
         Temperature monitoring with raspberry pi
       </a>
     </h1>
@@ -241,67 +240,68 @@ Running `gnuplot -persist plot.plt` gets you the graph
   <span class="post-date">
     06 Nov 2022 |
     
-        <a class="post-tag" href="http://localhost:4000/tag/#contemplation"> contemplation </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#contemplation"> contemplation </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#hacks"> hacks </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#hacks"> hacks </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#til"> TIL </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#til"> TIL </a>
     
   </span>
 
-    We bought a new Air conditioner for the house. It doesn't feel like the AC is able to regulate the temperature to what we set. But, humans are often wrong about these kind of things. A simple thermometer would have done the trick - but we need time-series temperature data to verify the AC function.
+    <p>We bought a new Air conditioner for the house. It doesn’t feel like the AC is able to regulate the temperature to what we set. But, humans are often wrong about these kind of things. A simple thermometer would have done the trick - but we need time-series temperature data to verify the AC function.</p>
 
-Enter - the [Raspberry pi pico](https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html). It has a built-in ambient temperature sensor and supports micropython. It also has 2MB of storage. So, logging the temperature to a file should be easy.
+<p>Enter - the <a href="https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html">Raspberry pi pico</a>. It has a built-in ambient temperature sensor and supports micropython. It also has 2MB of storage. So, logging the temperature to a file should be easy.</p>
 
-*This is the "finished" project:*
-![](/public/pico.jpg "finished project")
+<p><em>This is the “finished” project:</em>
+<img src="/public/pico.jpg" alt="" title="finished project" /></p>
 
-The OLED screen displays the latest temperature reading. Interfacing with the display was very easy. Tom's hardware has a [very good guide](https://www.tomshardware.com/how-to/oled-display-raspberry-pi-pico) explaining this. [Reading the temperature](https://how2electronics.com/read-temperature-sensor-value-from-raspberry-pi-pico/) was trivial too.
+<p>The OLED screen displays the latest temperature reading. Interfacing with the display was very easy. Tom’s hardware has a <a href="https://www.tomshardware.com/how-to/oled-display-raspberry-pi-pico">very good guide</a> explaining this. <a href="https://how2electronics.com/read-temperature-sensor-value-from-raspberry-pi-pico/">Reading the temperature</a> was trivial too.</p>
 
-The dirty code I put together looked like this
+<p>The dirty code I put together looked like this</p>
 
-```python
-import machine
-import utime
-from machine import Pin, I2C
-from ssd1306 import SSD1306_I2C
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">machine</span>
+<span class="kn">import</span> <span class="nn">utime</span>
+<span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">I2C</span>
+<span class="kn">from</span> <span class="nn">ssd1306</span> <span class="kn">import</span> <span class="n">SSD1306_I2C</span>
 
-i2c=I2C(0,sda=Pin(0), scl=Pin(1), freq=400000)
-oled = SSD1306_I2C(128, 64, i2c)
+<span class="n">i2c</span><span class="o">=</span><span class="n">I2C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">sda</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">scl</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">freq</span><span class="o">=</span><span class="mi">400000</span><span class="p">)</span>
+<span class="n">oled</span> <span class="o">=</span> <span class="n">SSD1306_I2C</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">i2c</span><span class="p">)</span>
  
-sensor_temp = machine.ADC(4)
-conversion_factor = 3.3 / (65535)
+<span class="n">sensor_temp</span> <span class="o">=</span> <span class="n">machine</span><span class="p">.</span><span class="n">ADC</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">conversion_factor</span> <span class="o">=</span> <span class="mf">3.3</span> <span class="o">/</span> <span class="p">(</span><span class="mi">65535</span><span class="p">)</span>
 
-file = open("temp_log.csv","a")
+<span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"temp_log.csv"</span><span class="p">,</span><span class="s">"a"</span><span class="p">)</span>
 
-def get_temperature():
-    reading = sensor_temp.read_u16() * conversion_factor 
-    temperature = 27 - (reading - 0.706)/0.001721
-    return temperature
+<span class="k">def</span> <span class="nf">get_temperature</span><span class="p">():</span>
+    <span class="n">reading</span> <span class="o">=</span> <span class="n">sensor_temp</span><span class="p">.</span><span class="n">read_u16</span><span class="p">()</span> <span class="o">*</span> <span class="n">conversion_factor</span> 
+    <span class="n">temperature</span> <span class="o">=</span> <span class="mi">27</span> <span class="o">-</span> <span class="p">(</span><span class="n">reading</span> <span class="o">-</span> <span class="mf">0.706</span><span class="p">)</span><span class="o">/</span><span class="mf">0.001721</span>
+    <span class="k">return</span> <span class="n">temperature</span>
 
-while True:
-    temperature = get_temperature()
-    print(temperature)
-    oled.fill(0)
-    oled.text("Temp: %.2f" % temperature, 10, 10)
-    oled.show()
-    file.write("%.2f\n" % temperature)
-    file.flush()
-    utime.sleep(20)
-```
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">temperature</span> <span class="o">=</span> <span class="n">get_temperature</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">temperature</span><span class="p">)</span>
+    <span class="n">oled</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">oled</span><span class="p">.</span><span class="n">text</span><span class="p">(</span><span class="s">"Temp: %.2f"</span> <span class="o">%</span> <span class="n">temperature</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">oled</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="nb">file</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">"%.2f</span><span class="se">\n</span><span class="s">"</span> <span class="o">%</span> <span class="n">temperature</span><span class="p">)</span>
+    <span class="nb">file</span><span class="p">.</span><span class="n">flush</span><span class="p">()</span>
+    <span class="n">utime</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</code></pre></div></div>
 
-The code worked most of the time. But, there were instances when the temperature reading just wouldn't change. Also, nothing was written to the file. Some debugging is required to find and fix the issue.
+<p>The code worked most of the time. But, there were instances when the temperature reading just wouldn’t change. Also, nothing was written to the file. Some debugging is required to find and fix the issue.</p>
 
-### Random learnings
-- If you name the file as `main.py`, it will run when the pico is powered on.
-- `"%0.2f"` will convert a float to a string and round off to 2 decimal places.
-- A power bank is good enough to power the pico away from other power sources.
+<h3 id="random-learnings">Random learnings</h3>
+<ul>
+  <li>If you name the file as <code class="language-plaintext highlighter-rouge">main.py</code>, it will run when the pico is powered on.</li>
+  <li><code class="language-plaintext highlighter-rouge">"%0.2f"</code> will convert a float to a string and round off to 2 decimal places.</li>
+  <li>A power bank is good enough to power the pico away from other power sources.</li>
+</ul>
 
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/2021/01/14/autocomplete-in-neovim/">
+      <a href="https://coffeeandcontemplation.dev/2021/01/14/autocomplete-in-neovim/">
         Autocomplete in neovim with built-in LSP client
       </a>
     </h1>
@@ -309,58 +309,55 @@ The code worked most of the time. But, there were instances when the temperature
   <span class="post-date">
     14 Jan 2021 |
     
-        <a class="post-tag" href="http://localhost:4000/tag/#neovim"> neovim </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#neovim"> neovim </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#plugin"> plugin </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#plugin"> plugin </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#lsp"> lsp </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#lsp"> lsp </a>
     
   </span>
 
-    In the [last blog post](/2021/01/10/language-server-in-vim/), we saw how to setup the built-in lsp client in neovim for diagnostics and such. Now we'll see how to setup autocomplete.
+    <p>In the <a href="/2021/01/10/language-server-in-vim/">last blog post</a>, we saw how to setup the built-in lsp client in neovim for diagnostics and such. Now we’ll see how to setup autocomplete.</p>
 
-First, install `completion-nvim`. Add this to your `vimrc` and run `PlugInstall`.
+<p>First, install <code class="language-plaintext highlighter-rouge">completion-nvim</code>. Add this to your <code class="language-plaintext highlighter-rouge">vimrc</code> and run <code class="language-plaintext highlighter-rouge">PlugInstall</code>.</p>
 
-```vim
-Plug 'nvim-lua/completion-nvim'
-```
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Plug <span class="s1">'nvim-lua/completion-nvim'</span>
+</code></pre></div></div>
 
-Now, in the `lsp_config.lua` file, you need to make some changes. The file should look like this:
+<p>Now, in the <code class="language-plaintext highlighter-rouge">lsp_config.lua</code> file, you need to make some changes. The file should look like this:</p>
 
-```lua
-lspconfig = require'lspconfig'
-completion_callback = require'completion'.on_attach
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lspconfig</span> <span class="o">=</span> <span class="nb">require</span><span class="s1">'lspconfig'</span>
+<span class="n">completion_callback</span> <span class="o">=</span> <span class="nb">require</span><span class="s1">'completion'</span><span class="p">.</span><span class="n">on_attach</span>
 
-lspconfig.pyls.setup{on_attach=completion_callback}
-lspconfig.tsserver.setup{on_attach=completion_callback}
-lspconfig.rust_analyzer.setup{on_attach=completion_callback}
-```
+<span class="n">lspconfig</span><span class="p">.</span><span class="n">pyls</span><span class="p">.</span><span class="n">setup</span><span class="p">{</span><span class="n">on_attach</span><span class="o">=</span><span class="n">completion_callback</span><span class="p">}</span>
+<span class="n">lspconfig</span><span class="p">.</span><span class="n">tsserver</span><span class="p">.</span><span class="n">setup</span><span class="p">{</span><span class="n">on_attach</span><span class="o">=</span><span class="n">completion_callback</span><span class="p">}</span>
+<span class="n">lspconfig</span><span class="p">.</span><span class="n">rust_analyzer</span><span class="p">.</span><span class="n">setup</span><span class="p">{</span><span class="n">on_attach</span><span class="o">=</span><span class="n">completion_callback</span><span class="p">}</span>
+</code></pre></div></div>
 
-This should give you completion. Now, we need a trigger to activate completion. I like the `tab` key. The config for this is available in the repo.
+<p>This should give you completion. Now, we need a trigger to activate completion. I like the <code class="language-plaintext highlighter-rouge">tab</code> key. The config for this is available in the repo.</p>
 
-```vim
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">" Use &lt;Tab&gt; and &lt;S-Tab&gt; to navigate through popup menu</span>
+inoremap <span class="p">&lt;</span>expr<span class="p">&gt;</span> <span class="p">&lt;</span>Tab<span class="p">&gt;</span>   <span class="nb">pumvisible</span><span class="p">()</span> ? <span class="s2">"\&lt;C-n&gt;"</span> <span class="p">:</span> <span class="s2">"\&lt;Tab&gt;"</span>
+inoremap <span class="p">&lt;</span>expr<span class="p">&gt;</span> <span class="p">&lt;</span>S<span class="p">-</span>Tab<span class="p">&gt;</span> <span class="nb">pumvisible</span><span class="p">()</span> ? <span class="s2">"\&lt;C-p&gt;"</span> <span class="p">:</span> <span class="s2">"\&lt;S-Tab&gt;"</span>
 
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
+<span class="c">" Set completeopt to have a better completion experience</span>
+<span class="k">set</span> <span class="nb">completeopt</span><span class="p">=</span>menuone<span class="p">,</span>noinsert<span class="p">,</span>noselect
 
-" Avoid showing message extra message when using completion
-set shortmess+=c
+<span class="c">" Avoid showing message extra message when using completion</span>
+<span class="k">set</span> <span class="nb">shortmess</span><span class="p">+=</span><span class="k">c</span>
 
-let g:completion_enable_auto_popup = 0
-imap <tab> <Plug>(completion_smart_tab)
-imap <s-tab> <Plug>(completion_smart_s_tab)
-```
+<span class="k">let</span> <span class="nv">g:completion_enable_auto_popup</span> <span class="p">=</span> <span class="m">0</span>
+imap <span class="p">&lt;</span><span class="k">tab</span><span class="p">&gt;</span> <span class="p">&lt;</span>Plug<span class="p">&gt;(</span>completion_smart_tab<span class="p">)</span>
+imap <span class="p">&lt;</span>s<span class="p">-</span><span class="k">tab</span><span class="p">&gt;</span> <span class="p">&lt;</span>Plug<span class="p">&gt;(</span>completion_smart_s_tab<span class="p">)</span>
+</code></pre></div></div>
 
-Now, you can use `tab` and `shift + tab` to navigate through suggestions.
+<p>Now, you can use <code class="language-plaintext highlighter-rouge">tab</code> and <code class="language-plaintext highlighter-rouge">shift + tab</code> to navigate through suggestions.</p>
 
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/2021/01/10/language-server-in-vim/">
+      <a href="https://coffeeandcontemplation.dev/2021/01/10/language-server-in-vim/">
         Language Server Client in neovim
       </a>
     </h1>
@@ -368,144 +365,175 @@ Now, you can use `tab` and `shift + tab` to navigate through suggestions.
   <span class="post-date">
     10 Jan 2021 |
     
-        <a class="post-tag" href="http://localhost:4000/tag/#neovim"> neovim </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#neovim"> neovim </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#plugin"> plugin </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#plugin"> plugin </a>
     
-        <a class="post-tag" href="http://localhost:4000/tag/#lsp"> lsp </a>
+        <a class="post-tag" href="https://coffeeandcontemplation.dev/tag/#lsp"> lsp </a>
     
   </span>
 
-    ## What is language server protocol?
+    <h2 id="what-is-language-server-protocol">What is language server protocol?</h2>
 
-Development becomes a lot easier if all languages support features like autocomplete, linting, go-to-definition etc. within the editor of your choice. But this is a difficult task for editor devs. Each editor has to build support or integrate with tools that provide language support. Each of these tools behave in different ways making integration difficult. Language server protocol was defined by microsoft to put and end to this. LSP defines a standard protocol for tools(called language servers) to communicate with your editor.
+<p>Development becomes a lot easier if all languages support features like autocomplete, linting, go-to-definition etc. within the editor of your choice. But this is a difficult task for editor devs. Each editor has to build support or integrate with tools that provide language support. Each of these tools behave in different ways making integration difficult. Language server protocol was defined by microsoft to put and end to this. LSP defines a standard protocol for tools(called language servers) to communicate with your editor.</p>
 
-![Why lsp](https://code.visualstudio.com/assets/api/language-extensions/language-server-extension-guide/lsp-languages-editors.png "Why lsp?")
-*Image source: [Visual Studio Code](https://code.visualstudio.com/api/language-extensions/language-server-extension-guide)*
+<p><img src="https://code.visualstudio.com/assets/api/language-extensions/language-server-extension-guide/lsp-languages-editors.png" alt="Why lsp" title="Why lsp?" />
+<em>Image source: <a href="https://code.visualstudio.com/api/language-extensions/language-server-extension-guide">Visual Studio Code</a></em></p>
 
-## What is a language server client?
+<h2 id="what-is-a-language-server-client">What is a language server client?</h2>
 
-A language server client is the part of your editor that interacts with a language server - Sometimes implemented as plugins, sometimes built-in.
+<p>A language server client is the part of your editor that interacts with a language server - Sometimes implemented as plugins, sometimes built-in.</p>
 
-## What language clients are available for vim?
+<h2 id="what-language-clients-are-available-for-vim">What language clients are available for vim?</h2>
 
-1. [vim-lsp](https://github.com/prabirshrestha/vim-lsp)
-1. [LanguageClient-neovim](https://github.com/autozimu/LanguageClient-neovim)
-1. [coc.nvim](https://github.com/neoclide/coc.nvim)
-1. [ale](https://github.com/dense-analysis/ale)
-1. Built-in language server in [neovim](https://neovim.io/doc/user/lsp.html)
+<ol>
+  <li><a href="https://github.com/prabirshrestha/vim-lsp">vim-lsp</a></li>
+  <li><a href="https://github.com/autozimu/LanguageClient-neovim">LanguageClient-neovim</a></li>
+  <li><a href="https://github.com/neoclide/coc.nvim">coc.nvim</a></li>
+  <li><a href="https://github.com/dense-analysis/ale">ale</a></li>
+  <li>Built-in language server in <a href="https://neovim.io/doc/user/lsp.html">neovim</a></li>
+</ol>
 
-We'll see how to setup the built-in language server in neovim in this blog post.
+<p>We’ll see how to setup the built-in language server in neovim in this blog post.</p>
 
-## First, setup a decent looking theme
+<h2 id="first-setup-a-decent-looking-theme">First, setup a decent looking theme</h2>
 
-[Onebuddy](https://github.com/Th3Whit3Wolf/onebuddy) is an atom one inspired theme. [Install](/2020/11/07/vimming-in-2020/) the theme with `vim-plug`.
-Add this to your vimrc:
+<p><a href="https://github.com/Th3Whit3Wolf/onebuddy">Onebuddy</a> is an atom one inspired theme. <a href="/2020/11/07/vimming-in-2020/">Install</a> the theme with <code class="language-plaintext highlighter-rouge">vim-plug</code>.
+Add this to your vimrc:</p>
 
-```vim
-Plug 'tjdevries/colorbuddy.vim'
-Plug 'Th3Whit3Wolf/onebuddy', { 'branch': 'main' }
-```
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Plug <span class="s1">'tjdevries/colorbuddy.vim'</span>
+Plug <span class="s1">'Th3Whit3Wolf/onebuddy'</span><span class="p">,</span> <span class="p">{</span> <span class="s1">'branch'</span><span class="p">:</span> <span class="s1">'main'</span> <span class="p">}</span>
+</code></pre></div></div>
 
-Enable the theme by adding this to vimrc:
+<p>Enable the theme by adding this to vimrc:</p>
 
-```vim
-set termguicolors
-colorscheme onebuddy
-```
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">set</span> <span class="nb">termguicolors</span>
+<span class="k">colorscheme</span> onebuddy
+</code></pre></div></div>
 
-## What features should we expect?
+<h2 id="what-features-should-we-expect">What features should we expect?</h2>
 
-1. Show errors in line
-1. Show warnings in line
-1. Show errors/warnings in a list
-1. Format file
-1. Jump to definition
-1. See documentation
-1. Code actions - Actions like *"Extract to function", "Import this module"* - Yes, you can get that in vim.
-1. Autocomplete
+<ol>
+  <li>Show errors in line</li>
+  <li>Show warnings in line</li>
+  <li>Show errors/warnings in a list</li>
+  <li>Format file</li>
+  <li>Jump to definition</li>
+  <li>See documentation</li>
+  <li>Code actions - Actions like <em>“Extract to function”, “Import this module”</em> - Yes, you can get that in vim.</li>
+  <li>Autocomplete</li>
+</ol>
 
-The first 7 are really easy to achieve. Let us handle autocomplete in a separate post.
+<p>The first 7 are really easy to achieve. Let us handle autocomplete in a separate post.</p>
 
-## How to setup built-in lsp client for neovim?
+<h2 id="how-to-setup-built-in-lsp-client-for-neovim">How to setup built-in lsp client for neovim?</h2>
 
-neovim's lsp client is built in lua. The configuration is also in lua. Usable configurations for common language servers are collected in [neovim/nvim-lspconfig](https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md).
+<p>neovim’s lsp client is built in lua. The configuration is also in lua. Usable configurations for common language servers are collected in <a href="https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md">neovim/nvim-lspconfig</a>.</p>
 
-Install the plugin with:
+<p>Install the plugin with:</p>
 
-```vim
-Plug 'neovim/nvim-lspconfig'
-```
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Plug <span class="s1">'neovim/nvim-lspconfig'</span>
+</code></pre></div></div>
 
-Let us create a new file in `.vim` directory with all the lsp configurations. Name it `lsp_config.lua`. Now in your `vimrc`, add the following:
+<p>Let us create a new file in <code class="language-plaintext highlighter-rouge">.vim</code> directory with all the lsp configurations. Name it <code class="language-plaintext highlighter-rouge">lsp_config.lua</code>. Now in your <code class="language-plaintext highlighter-rouge">vimrc</code>, add the following:</p>
 
-```vimrc
-luafile ~/.vim/lsp_config.lua
-```
+<pre><code class="language-vimrc">luafile ~/.vim/lsp_config.lua
+</code></pre>
 
-In this file, add some configuration for common language servers
+<p>In this file, add some configuration for common language servers</p>
 
-```lua
-lspconfig = require'lspconfig'
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lspconfig</span> <span class="o">=</span> <span class="nb">require</span><span class="s1">'lspconfig'</span>
 
-lspconfig.pyls.setup{}
-lspconfig.tsserver.setup{}
-lspconfig.rust_analyzer.setup{}
-```
+<span class="n">lspconfig</span><span class="p">.</span><span class="n">pyls</span><span class="p">.</span><span class="n">setup</span><span class="p">{}</span>
+<span class="n">lspconfig</span><span class="p">.</span><span class="n">tsserver</span><span class="p">.</span><span class="n">setup</span><span class="p">{}</span>
+<span class="n">lspconfig</span><span class="p">.</span><span class="n">rust_analyzer</span><span class="p">.</span><span class="n">setup</span><span class="p">{}</span>
+</code></pre></div></div>
 
-That is it! You should start seeing diagnostics now. Ensure you have the right language servers installed.
-For example, for python language server, do
+<p>That is it! You should start seeing diagnostics now. Ensure you have the right language servers installed.
+For example, for python language server, do</p>
 
-```bash
-pip3 install 'python-language-server[all]'
-```
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 <span class="nb">install</span> <span class="s1">'python-language-server[all]'</span>
+</code></pre></div></div>
 
-## Add some signs to the gutter
+<h2 id="add-some-signs-to-the-gutter">Add some signs to the gutter</h2>
 
-It would be nice to see some symbols to the left of the code when there are errors.
-Add these lines to your vimrc.
+<p>It would be nice to see some symbols to the left of the code when there are errors.
+Add these lines to your vimrc.</p>
 
-```vim
-sign define LspDiagnosticsSignError text=🔴
-sign define LspDiagnosticsSignWarning text=🟠
-sign define LspDiagnosticsSignInformation text=🔵
-sign define LspDiagnosticsSignHint text=🟢
-```
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">sign</span> <span class="nb">define</span> LspDiagnosticsSignError text<span class="p">=</span>🔴
+<span class="k">sign</span> <span class="nb">define</span> LspDiagnosticsSignWarning text<span class="p">=</span>🟠
+<span class="k">sign</span> <span class="nb">define</span> LspDiagnosticsSignInformation text<span class="p">=</span>🔵
+<span class="k">sign</span> <span class="nb">define</span> LspDiagnosticsSignHint text<span class="p">=</span>🟢
+</code></pre></div></div>
 
-## Add some keybindings
+<h2 id="add-some-keybindings">Add some keybindings</h2>
 
-We need some keybindings for actions like **jump to definition**. Add the following to your vimrc.
+<p>We need some keybindings for actions like <strong>jump to definition</strong>. Add the following to your vimrc.</p>
 
-```vim
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> ge    <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <leader>f    <cmd>lua vim.lsp.buf.formatting()<CR>
-nnoremap <silent> <leader>rn    <cmd>lua vim.lsp.buf.rename()<CR>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="nb">gd</span>    <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span>definition<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> gi    <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span>implementation<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="k">gr</span>    <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span>references<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> gD    <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span>declaration<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> ge    <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>diagnostic<span class="p">.</span>set_loclist<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> K     <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span>hover<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">f</span>    <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span>formatting<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span>rn    <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span><span class="nb">rename</span><span class="p">()&lt;</span>CR<span class="p">&gt;</span>
 
-nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.code_action()<CR>
-xmap <silent> <leader>a <cmd>lua vim.lsp.buf.range_code_action()<CR>
-```
+nnoremap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">a</span> <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span>code_action<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+xmap <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">a</span> <span class="p">&lt;</span>cmd<span class="p">&gt;</span><span class="k">lua</span> <span class="k">vim</span><span class="p">.</span><span class="nb">lsp</span><span class="p">.</span>buf<span class="p">.</span>range_code_action<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
+</code></pre></div></div>
 
-This will create the following mappings
+<p>This will create the following mappings</p>
 
-| Keybindings  | Action                                              |
-| :----------- | -----------                                         |
-| `gd`         | Go to definition                                    |
-| `gi`         | Go to implementation                                |
-| `gr`         | See references                                      |
-| `gD`         | Go to declaration                                   |
-| `ge`         | Show errors in loclist                              |
-| `gd`         | Go to definition                                    |
-| `space f`    | FOrmat file                                         |
-| `space r n`  | Rename variable under cursor                        |
-| `space a`    | Code actions - On normal mode and visual selections |
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Keybindings</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">gd</code></td>
+      <td>Go to definition</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">gi</code></td>
+      <td>Go to implementation</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">gr</code></td>
+      <td>See references</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">gD</code></td>
+      <td>Go to declaration</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ge</code></td>
+      <td>Show errors in loclist</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">gd</code></td>
+      <td>Go to definition</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">space f</code></td>
+      <td>FOrmat file</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">space r n</code></td>
+      <td>Rename variable under cursor</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">space a</code></td>
+      <td>Code actions - On normal mode and visual selections</td>
+    </tr>
+  </tbody>
+</table>
 
-Your end result should look like this:
-![lsp screenshot](/public/lsp_python.png "Screenshot of lsp python")
+<p>Your end result should look like this:
+<img src="/public/lsp_python.png" alt="lsp screenshot" title="Screenshot of lsp python" /></p>
 
 
   </div>
@@ -514,7 +542,7 @@ Your end result should look like this:
 
 <div class="pagination">
   
-    <a class="pagination-item older" href="http://localhost:4000/page2">Older</a>
+    <a class="pagination-item older" href="https://coffeeandcontemplation.dev/page2">Older</a>
   
   
     <span class="pagination-item newer">Newer</span>
