@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Coffee and Contemplation</title>
- <link href="https://coffeeandcontemplation.dev/atom.xml" rel="self"/>
- <link href="https://coffeeandcontemplation.dev/"/>
- <updated>2023-07-06T22:21:44+05:30</updated>
- <id>https://coffeeandcontemplation.dev</id>
+ <link href="http://localhost:4000/atom.xml" rel="self"/>
+ <link href="http://localhost:4000/"/>
+ <updated>2024-01-15T18:33:24+05:30</updated>
+ <id>http://localhost:4000</id>
  <author>
    <name>coffee and contemplation</name>
    <email></email>
@@ -13,10 +13,25 @@
 
  
  <entry>
+   <title>Moving to NixOs</title>
+   <link href="http://localhost:4000/2024/01/15/moving-to-nixos/"/>
+   <updated>2024-01-15T00:00:00+05:30</updated>
+   <id>http://localhost:4000/2024/01/15/moving-to-nixos</id>
+   <content type="html">&lt;p&gt;The idea of a declartive reproducible operating system is really enticing. &lt;a href=&quot;https://nixos.org&quot;&gt;NixOs&lt;/a&gt; has been popping up in my reddit feeds recently. I had an option to install Nix as a package manager on my existing linux installation. But I decided to jump in the deep end. So, this post is being written on NixOS.&lt;/p&gt;
+
+&lt;p&gt;There is abundant documentation on Nix. Even after ignoring all of that, I was able to setup a working installation with most of my setup from the old Arch installation. Xmonad works. Firefox, telegram, zsh and neovim works too.&lt;/p&gt;
+
+&lt;p&gt;Setting up development environments is a bit tricky. It looks like there are different methods to set up isolated dev environments - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nix shell&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nix flakes&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;devenv&lt;/code&gt; etc. I got a flake based setup for python working. For android studio based android development, I had to install it globally. Flutter - there is no luck so far.&lt;/p&gt;
+
+&lt;p&gt;The next step is to learn the nix language and how the package management works.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
    <title>Temperature logger improvements</title>
-   <link href="https://coffeeandcontemplation.dev/2022/11/14/temp-logger-improvements-for-pi/"/>
+   <link href="http://localhost:4000/2022/11/14/temp-logger-improvements-for-pi/"/>
    <updated>2022-11-14T00:00:00+05:30</updated>
-   <id>https://coffeeandcontemplation.dev/2022/11/14/temp-logger-improvements-for-pi</id>
+   <id>http://localhost:4000/2022/11/14/temp-logger-improvements-for-pi</id>
    <content type="html">&lt;p&gt;&lt;a href=&quot;/2022/11/06/temperature-monitoring-with-rp-pico/&quot;&gt;Part1&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;/2022/11/09/plotting-temp-timeseries/&quot;&gt;Part2&lt;/a&gt;&lt;/p&gt;
 
@@ -46,9 +61,9 @@
  
  <entry>
    <title>Plotting a timeseries graph with gnuplot</title>
-   <link href="https://coffeeandcontemplation.dev/2022/11/09/plotting-temp-timeseries/"/>
+   <link href="http://localhost:4000/2022/11/09/plotting-temp-timeseries/"/>
    <updated>2022-11-09T00:00:00+05:30</updated>
-   <id>https://coffeeandcontemplation.dev/2022/11/09/plotting-temp-timeseries</id>
+   <id>http://localhost:4000/2022/11/09/plotting-temp-timeseries</id>
    <content type="html">&lt;p&gt;So, there was this &lt;a href=&quot;/2022/11/06/temperature-monitoring-with-rp-pico/&quot;&gt;raspberry pi contraption&lt;/a&gt; to log temperature to a file. The next step is to plot this in a graph. We get a single column file of recorded temperatures from the raspberry pi pico.&lt;/p&gt;
 
 &lt;p&gt;It is pretty easy to plot a graph from a two column file using gnuplot. If the filename is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;temp_log&lt;/code&gt;, all you need is:&lt;/p&gt;
@@ -86,9 +101,9 @@ g ctrl-a - This will change the zeroes to an increasing sequence of numbers
  
  <entry>
    <title>Temperature monitoring with raspberry pi</title>
-   <link href="https://coffeeandcontemplation.dev/2022/11/06/temperature-monitoring-with-rp-pico/"/>
+   <link href="http://localhost:4000/2022/11/06/temperature-monitoring-with-rp-pico/"/>
    <updated>2022-11-06T00:00:00+05:30</updated>
-   <id>https://coffeeandcontemplation.dev/2022/11/06/temperature-monitoring-with-rp-pico</id>
+   <id>http://localhost:4000/2022/11/06/temperature-monitoring-with-rp-pico</id>
    <content type="html">&lt;p&gt;We bought a new Air conditioner for the house. It doesn’t feel like the AC is able to regulate the temperature to what we set. But, humans are often wrong about these kind of things. A simple thermometer would have done the trick - but we need time-series temperature data to verify the AC function.&lt;/p&gt;
 
 &lt;p&gt;Enter - the &lt;a href=&quot;https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html&quot;&gt;Raspberry pi pico&lt;/a&gt;. It has a built-in ambient temperature sensor and supports micropython. It also has 2MB of storage. So, logging the temperature to a file should be easy.&lt;/p&gt;
@@ -142,9 +157,9 @@ g ctrl-a - This will change the zeroes to an increasing sequence of numbers
  
  <entry>
    <title>Autocomplete in neovim with built-in LSP client</title>
-   <link href="https://coffeeandcontemplation.dev/2021/01/14/autocomplete-in-neovim/"/>
+   <link href="http://localhost:4000/2021/01/14/autocomplete-in-neovim/"/>
    <updated>2021-01-14T00:00:00+05:30</updated>
-   <id>https://coffeeandcontemplation.dev/2021/01/14/autocomplete-in-neovim</id>
+   <id>http://localhost:4000/2021/01/14/autocomplete-in-neovim</id>
    <content type="html">&lt;p&gt;In the &lt;a href=&quot;/2021/01/10/language-server-in-vim/&quot;&gt;last blog post&lt;/a&gt;, we saw how to setup the built-in lsp client in neovim for diagnostics and such. Now we’ll see how to setup autocomplete.&lt;/p&gt;
 
 &lt;p&gt;First, install &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;completion-nvim&lt;/code&gt;. Add this to your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vimrc&lt;/code&gt; and run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PlugInstall&lt;/code&gt;.&lt;/p&gt;
@@ -185,9 +200,9 @@ imap &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;s&lt;span class=&quot;
  
  <entry>
    <title>Language Server Client in neovim</title>
-   <link href="https://coffeeandcontemplation.dev/2021/01/10/language-server-in-vim/"/>
+   <link href="http://localhost:4000/2021/01/10/language-server-in-vim/"/>
    <updated>2021-01-10T00:00:00+05:30</updated>
-   <id>https://coffeeandcontemplation.dev/2021/01/10/language-server-in-vim</id>
+   <id>http://localhost:4000/2021/01/10/language-server-in-vim</id>
    <content type="html">&lt;h2 id=&quot;what-is-language-server-protocol&quot;&gt;What is language server protocol?&lt;/h2&gt;
 
 &lt;p&gt;Development becomes a lot easier if all languages support features like autocomplete, linting, go-to-definition etc. within the editor of your choice. But this is a difficult task for editor devs. Each editor has to build support or integrate with tools that provide language support. Each of these tools behave in different ways making integration difficult. Language server protocol was defined by microsoft to put and end to this. LSP defines a standard protocol for tools(called language servers) to communicate with your editor.&lt;/p&gt;
@@ -355,9 +370,9 @@ xmap &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;k
  
  <entry>
    <title>What I learned from doing dishes</title>
-   <link href="https://coffeeandcontemplation.dev/2020/12/27/what-i-learned-from-doing-dishes/"/>
+   <link href="http://localhost:4000/2020/12/27/what-i-learned-from-doing-dishes/"/>
    <updated>2020-12-27T00:00:00+05:30</updated>
-   <id>https://coffeeandcontemplation.dev/2020/12/27/what-i-learned-from-doing-dishes</id>
+   <id>http://localhost:4000/2020/12/27/what-i-learned-from-doing-dishes</id>
    <content type="html">&lt;p&gt;I woke up today and was welcomed by a mountain of dishes in the sink. My first reaction was - “Screw that - I’ll just go back to bed”. So, after a couple more hours of sleep, I went back to find that the mountain hadn’t magically disappeared.&lt;/p&gt;
 
 &lt;p&gt;Now I had to tackle this problem. This is the strategy I followed&lt;/p&gt;
@@ -381,9 +396,9 @@ xmap &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;k
  
  <entry>
    <title>Fuzzy finding in vim - vim + fzf</title>
-   <link href="https://coffeeandcontemplation.dev/2020/11/13/fuzzy-finding-in-vim/"/>
+   <link href="http://localhost:4000/2020/11/13/fuzzy-finding-in-vim/"/>
    <updated>2020-11-13T00:00:00+05:30</updated>
-   <id>https://coffeeandcontemplation.dev/2020/11/13/fuzzy-finding-in-vim</id>
+   <id>http://localhost:4000/2020/11/13/fuzzy-finding-in-vim</id>
    <content type="html">&lt;p&gt;FZF is the center-piece of my vim configuration. It is another excellent piece of software by &lt;a href=&quot;https://github.com/junegunn&quot;&gt;Junegunn Choi&lt;/a&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
   &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fzf&lt;/code&gt; is a command line fuzzy finder.&lt;/p&gt;
@@ -486,9 +501,9 @@ nmap &amp;lt;Leader&amp;gt;G :execute &apos;RgExact &apos; . expand(&apos;&amp;l
  
  <entry>
    <title>Vimming in 2020</title>
-   <link href="https://coffeeandcontemplation.dev/2020/11/07/vimming-in-2020/"/>
+   <link href="http://localhost:4000/2020/11/07/vimming-in-2020/"/>
    <updated>2020-11-07T00:00:00+05:30</updated>
-   <id>https://coffeeandcontemplation.dev/2020/11/07/vimming-in-2020</id>
+   <id>http://localhost:4000/2020/11/07/vimming-in-2020</id>
    <content type="html">&lt;blockquote&gt;
   &lt;p&gt;If you use vim, you can use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;h,j,k,l&lt;/code&gt; keys to navigate instead of the arrow keys. You won’t have to move your hands away from the home row, and you’ll end up saving a lot of time.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -618,9 +633,9 @@ call plug#end()
  
  <entry>
    <title>Context managers in python</title>
-   <link href="https://coffeeandcontemplation.dev/2020/10/31/python-context-manager/"/>
+   <link href="http://localhost:4000/2020/10/31/python-context-manager/"/>
    <updated>2020-10-31T00:00:00+05:30</updated>
-   <id>https://coffeeandcontemplation.dev/2020/10/31/python-context-manager</id>
+   <id>http://localhost:4000/2020/10/31/python-context-manager</id>
    <content type="html">&lt;p&gt;Say, you have to open and process a file in python. You can do that using a function like this&lt;/p&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;open_and_process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -762,9 +777,9 @@ Here, we are building a calculator which calls an &lt;code class=&quot;language-
  
  <entry>
    <title>Higher order functions and where to find them - Decorators</title>
-   <link href="https://coffeeandcontemplation.dev/2020/10/23/higher-order-functions-3/"/>
+   <link href="http://localhost:4000/2020/10/23/higher-order-functions-3/"/>
    <updated>2020-10-23T00:00:00+05:30</updated>
-   <id>https://coffeeandcontemplation.dev/2020/10/23/higher-order-functions-3</id>
+   <id>http://localhost:4000/2020/10/23/higher-order-functions-3</id>
    <content type="html">&lt;p&gt;We saw &lt;a href=&quot;/2020/10/21/higher-order-functions-1&quot;&gt;what higher order functions are&lt;/a&gt; and how they can be used in &lt;a href=&quot;/2020/10/22/higher-order-functions-2&quot;&gt;creating partially applied functions&lt;/a&gt; in previous posts. Now let us see how we can use higher order functions to implement python decorators.&lt;/p&gt;
 
 &lt;p&gt;Let us say you want to intercept your function call to log the arguments passed and the return value. ie.&lt;/p&gt;
@@ -816,9 +831,9 @@ Here, we are building a calculator which calls an &lt;code class=&quot;language-
  
  <entry>
    <title>Higher order functions and where to find them - Partial Application</title>
-   <link href="https://coffeeandcontemplation.dev/2020/10/22/higher-order-functions-2/"/>
+   <link href="http://localhost:4000/2020/10/22/higher-order-functions-2/"/>
    <updated>2020-10-22T00:00:00+05:30</updated>
-   <id>https://coffeeandcontemplation.dev/2020/10/22/higher-order-functions-2</id>
+   <id>http://localhost:4000/2020/10/22/higher-order-functions-2</id>
    <content type="html">&lt;p&gt;In the &lt;a href=&quot;/2020/10/21/higher-order-functions-1&quot;&gt;previous post&lt;/a&gt;, we discussed higher order functions. Ones that take functions as arguments and ones that return functions as arguments. Now let us look at some that do both.&lt;/p&gt;
 
 &lt;p&gt;In languages like haskell, there is a feature called &lt;strong&gt;Currying&lt;/strong&gt;. When a function which takes multiple arguments is called with less than the number of expected arguments, it returns another function with the arguments “partially applied”&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. For Eg:-&lt;/p&gt;
@@ -875,9 +890,9 @@ Here, we are building a calculator which calls an &lt;code class=&quot;language-
  
  <entry>
    <title>Higher order functions and where to find them</title>
-   <link href="https://coffeeandcontemplation.dev/2020/10/21/higher-order-functions-1/"/>
+   <link href="http://localhost:4000/2020/10/21/higher-order-functions-1/"/>
    <updated>2020-10-21T00:00:00+05:30</updated>
-   <id>https://coffeeandcontemplation.dev/2020/10/21/higher-order-functions-1</id>
+   <id>http://localhost:4000/2020/10/21/higher-order-functions-1</id>
    <content type="html">&lt;p&gt;My first encounter with a higher order function was when I ran &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;man qsort&lt;/code&gt; and noticed its type.&lt;/p&gt;
 
 &lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;qsort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;base&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;size_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nmemb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;size_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
@@ -954,9 +969,9 @@ I later found out that it was the type for a function which took two arguments a
  
  <entry>
    <title>How to quit vim</title>
-   <link href="https://coffeeandcontemplation.dev/2020/10/20/quitting-vim/"/>
+   <link href="http://localhost:4000/2020/10/20/quitting-vim/"/>
    <updated>2020-10-20T00:00:00+05:30</updated>
-   <id>https://coffeeandcontemplation.dev/2020/10/20/quitting-vim</id>
+   <id>http://localhost:4000/2020/10/20/quitting-vim</id>
    <content type="html">&lt;p&gt;Vim has multiple modes. You normally insert text in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Insert&lt;/code&gt; mode. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Normal&lt;/code&gt; mode is where you move around and give commands to vim.&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Esc&lt;/code&gt; will take you to normal mode(usually). You can enter a command starting with a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:&lt;/code&gt;. Quit vim with the below command:&lt;/p&gt;
