@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en-us"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title itemprop="name">Higher order functions and where to find them | Coffee and Contemplation</title>
+<meta property="og:title" content="Higher order functions and where to find them | Coffee and Contemplation" />
+<meta name="twitter:title" content="Higher order functions and where to find them | Coffee and Contemplation" />
+<meta itemprop="name" content="Higher order functions and where to find them | Coffee and Contemplation" />
+<meta name="application-name" content="Higher order functions and where to find them | Coffee and Contemplation" />
+<meta property="og:site_name" content="" />
+
+<meta name="description" content="">
+<meta itemprop="description" content="" />
+<meta property="og:description" content="" />
+<meta name="twitter:description" content="" />
+
+<meta property="og:locale" content="en-us" />
+<meta name="language" content="en-us" />
+
+  <link rel="alternate" hreflang="en" href="http://localhost:1313/post/2020-10-21-higher-order-functions-1/" title="" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.160.1">
+
+    
+    <meta property="og:url" content="http://localhost:1313/post/2020-10-21-higher-order-functions-1/">
+  <meta property="og:site_name" content="Coffee and Contemplation">
+  <meta property="og:title" content="Higher order functions and where to find them">
+  <meta property="og:description" content="My first encounter with a higher order function was when I ran man qsort and noticed its type.
+void qsort(void *base, size_t nmemb, size_t size, int (*compar)(const void *, const void *)); For someone who had only seen primitive types like int and long and char, int (*compar)(const void *, const void *) was quite the surprise. I later found out that it was the type for a function which took two arguments and returned an int. Complicated looking syntax aside, this is quite interesting. Passing a function allows you to create a generic qsort function which can be use to sort anything with a custom sorting logic.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2020-10-21T00:00:00+00:00">
+    <meta property="article:modified_time" content="2020-10-21T00:00:00+00:00">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="Functional">
+
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Higher order functions and where to find them">
+  <meta name="twitter:description" content="My first encounter with a higher order function was when I ran man qsort and noticed its type.
+void qsort(void *base, size_t nmemb, size_t size, int (*compar)(const void *, const void *)); For someone who had only seen primitive types like int and long and char, int (*compar)(const void *, const void *) was quite the surprise. I later found out that it was the type for a function which took two arguments and returned an int. Complicated looking syntax aside, this is quite interesting. Passing a function allows you to create a generic qsort function which can be use to sort anything with a custom sorting logic.">
+
+
+    
+
+    <link rel="canonical" href="http://localhost:1313/post/2020-10-21-higher-order-functions-1/">
+    <link href="/style.min.e390ba7da26222f4dc42a349955d76dbbe44e5ce2535a43de5a70633a0a9ec3c.css" rel="stylesheet">
+    <link href="/code-highlight.min.706d31975fec544a864cb7f0d847a73ea55ca1df91bf495fd12a177138d807cf.css" rel="stylesheet">
+
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+<link rel="manifest" href="http://localhost:1313/site.webmanifest">
+
+<meta name="msapplication-config" content="/browserconfig.xml">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="theme-color" content="#434648">
+    <meta name="color-scheme" content="light dark">
+
+    
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
+
+    
+    
+</head>
+<body data-theme = "" class="notransition">
+
+<script src="/js/theme.js"></script>
+
+<div class="navbar" role="navigation">
+    <nav class="menu" aria-label="Main Navigation">
+        <a href="http://localhost:1313/" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" 
+viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
+stroke-linejoin="round" class="feather feather-home">
+<title>Home</title>
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+        </a>
+        <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+        <label for="menu-trigger">
+            <span class="menu-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none" viewBox="0 0 14 14"><title>Menu</title><path stroke-linecap="round" stroke-linejoin="round" d="M10.595 7L3.40726 7"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 3.51488L3.49301 3.51488"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 10.4851H3.49301"></path><path stroke-linecap="round" stroke-linejoin="round" d="M0.5 12.5V1.5C0.5 0.947715 0.947715 0.5 1.5 0.5H12.5C13.0523 0.5 13.5 0.947715 13.5 1.5V12.5C13.5 13.0523 13.0523 13.5 12.5 13.5H1.5C0.947715 13.5 0.5 13.0523 0.5 12.5Z"></path></svg>
+            </span>
+        </label>
+
+        <div class="trigger">
+            <ul class="trigger-container">
+                
+                
+                <li class="menu-separator">
+                    <span>|</span>
+                </li>
+                
+                
+            </ul>
+            <a id="mode" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-sunny" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>LIGHT</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-moon" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>DARK</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="wrapper post">
+    <main class="page-content" aria-label="Content">
+        <article>
+            <header class="header">
+                <h1 class="header-title">Higher order functions and where to find them</h1>
+                
+                
+                
+                <div class="post-meta">
+                    <time datetime="2020-10-21T00:00:00&#43;00:00" itemprop="datePublished"> Oct 21, 2020 </time>
+                </div>
+                
+            </header>
+            
+            <div class="page-content">
+                <p>My first encounter with a higher order function was when I ran <code>man qsort</code> and noticed its type.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">qsort</span>(<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>base, <span style="color:#66d9ef">size_t</span> nmemb, <span style="color:#66d9ef">size_t</span> size,
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> (<span style="color:#f92672">*</span>compar)(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>));
+</span></span></code></pre></div><p>For someone who had only seen primitive types like <code>int</code> and <code>long</code> and <code>char</code>, <code>int (*compar)(const void *, const void *)</code> was quite the surprise.
+I later found out that it was the type for a function which took two arguments and returned an <code>int</code>. Complicated looking syntax aside, this is quite interesting. Passing a function allows you to create a generic <code>qsort</code> function which can be use to sort anything with a custom sorting logic.</p>
+<blockquote>
+<p>A higher order function is a function that takes other functions as arguments or return functions.</p>
+</blockquote>
+<p>When I picked up python a few years later, higher order functions were everywhere. And pretty easy to use.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Let us define a function that prints &#34;Hello world&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hello</span>():
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Hello world&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># call is a higher order function which just calls a function passed to it without arguments</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">call</span>(fun):
+</span></span><span style="display:flex;"><span>    fun()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Look ma! I passed a function</span>
+</span></span><span style="display:flex;"><span>call(hello)  <span style="color:#75715e"># prints Hello world</span>
+</span></span></code></pre></div><p>Now, what if you want to make a function which can call functions which takes arguments. This is were python&rsquo;s <code>*args</code> and <code>**kwargs</code> come into picture. Let us redefine our <code>call</code> function.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># add takes two numbers and return the sum</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add</span>(a, b):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a<span style="color:#f92672">+</span>b
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">call</span>(fun, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> fun(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Call add with positional arguments</span>
+</span></span><span style="display:flex;"><span>call(add, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)  <span style="color:#75715e"># returns 3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Call add with named arguments</span>
+</span></span><span style="display:flex;"><span>call(add, a<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, b<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)  <span style="color:#75715e"># returns 3</span>
+</span></span></code></pre></div><p>Functions in python can return other functions too</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">make_hello</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">say_hello</span>():
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Hello world&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> say_hello
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Call make_hello and assign the return function to a variable.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Then use it like any normal function</span>
+</span></span><span style="display:flex;"><span>hello <span style="color:#f92672">=</span> make_hello()
+</span></span><span style="display:flex;"><span>hello()
+</span></span></code></pre></div><p>Now, let us do something fun with this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">make_adder</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">adder</span>(m):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> m <span style="color:#f92672">+</span> n
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> adder
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>add_one <span style="color:#f92672">=</span> make_adder(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>add_one(<span style="color:#ae81ff">10</span>) <span style="color:#75715e"># returns 11</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>add_42 <span style="color:#f92672">=</span> make_adder(<span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>add_42(<span style="color:#ae81ff">10</span>) <span style="color:#75715e"># returns 52</span>
+</span></span></code></pre></div><p>Here, we return a function <code>adder</code> from inside <code>make_adder</code>. Notice how the inner function has access to the variable <code>n</code> even after the execution of <code>make_adder</code> is complete. This inner function along with its scope is called a <strong>closure</strong>.</p>
+<p>Languages like <code>python</code>, <code>javascript</code>, <code>dart</code> etc supports closures.</p>
+
+            </div>
+        </article></main>
+</div>
+<footer class="footer">
+    <span class="footer_item"> </span>
+    &nbsp;
+
+    <div class="footer_social-icons">
+</div>
+    <small class="footer_copyright">
+        © 2026 dev.
+        Powered by <a href="https://github.com/hugo-sid/hugo-blog-awesome" target="_blank" rel="noopener">Hugo blog awesome</a>.
+    </small>
+</footer>
+
+
+
+
+
+
+
+    
+    <script async src="http://localhost:1313/js/main.js" ></script>
+
+    
+
+</body>
+</html>

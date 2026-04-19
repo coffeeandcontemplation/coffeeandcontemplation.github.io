@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TIL on Coffee and Contemplation</title>
+    <link>http://localhost:1313/tags/TIL/</link>
+    <description>Recent content in TIL on Coffee and Contemplation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>dev@gmail.com (dev)</managingEditor>
+    <webMaster>dev@gmail.com (dev)</webMaster>
+    <lastBuildDate>Wed, 09 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/TIL/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Plotting a timeseries graph with gnuplot</title>
+      <link>http://localhost:1313/post/2022-11-09-plotting-temp-timeseries/</link>
+      <pubDate>Wed, 09 Nov 2022 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/post/2022-11-09-plotting-temp-timeseries/</guid>
+      
+      <description>&lt;p&gt;So, there was this &lt;a href=&#34;http://localhost:1313/2022/11/06/temperature-monitoring-with-rp-pico/&#34;&gt;raspberry pi contraption&lt;/a&gt; to log temperature to a file. The next step is to plot this in a graph. We get a single column file of recorded temperatures from the raspberry pi pico.&lt;/p&gt;
+&lt;p&gt;It is pretty easy to plot a graph from a two column file using gnuplot. If the filename is &lt;code&gt;temp_log&lt;/code&gt;, all you need is:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;plot &amp;#39;temp_log&amp;#39; with lines
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I was too lazy to find how to plot a single column file. The easy fix is to add another column with numbers. And that can be done easily with vim. You&amp;rsquo;d need to do the following keystrokes:&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Temperature monitoring with raspberry pi</title>
+      <link>http://localhost:1313/post/2022-11-06-temperature-monitoring-with-rp-pico/</link>
+      <pubDate>Sun, 06 Nov 2022 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/post/2022-11-06-temperature-monitoring-with-rp-pico/</guid>
+      
+      <description>&lt;p&gt;We bought a new Air conditioner for the house. It doesn&amp;rsquo;t feel like the AC is able to regulate the temperature to what we set. But, humans are often wrong about these kind of things. A simple thermometer would have done the trick - but we need time-series temperature data to verify the AC function.&lt;/p&gt;
+&lt;p&gt;Enter - the &lt;a href=&#34;https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html&#34;&gt;Raspberry pi pico&lt;/a&gt;. It has a built-in ambient temperature sensor and supports micropython. It also has 2MB of storage. So, logging the temperature to a file should be easy.&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>

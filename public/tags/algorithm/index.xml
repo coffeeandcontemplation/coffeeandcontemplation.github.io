@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Algorithm on Coffee and Contemplation</title>
+    <link>http://localhost:1313/tags/algorithm/</link>
+    <description>Recent content in Algorithm on Coffee and Contemplation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>dev@gmail.com (dev)</managingEditor>
+    <webMaster>dev@gmail.com (dev)</webMaster>
+    <lastBuildDate>Wed, 16 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dijkstra&#39;s algorithm</title>
+      <link>http://localhost:1313/draft/2022-11-16-dijkstras-algorithm/</link>
+      <pubDate>Wed, 16 Nov 2022 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/draft/2022-11-16-dijkstras-algorithm/</guid>
+      
+      <description>&lt;p&gt;Dijkstra&amp;rsquo;s algorithm is a greedy algorithm to solve the single-source shortest path problem on a weighted directed graph in which edge weights are non-negative.
+The single-source shortest path problem is to find the shortest paths to every node in a graph from a single node.&lt;/p&gt;
+&lt;p&gt;We can see what makes this greedy in the course of this article.&lt;/p&gt;
+&lt;p&gt;The below diagram shows the input to and the output from dijkstra&amp;rsquo;s algorithm. The edges are weighted and directed. The shortest paths to each node is shown in red in the second diagram&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vim on Coffee and Contemplation</title>
+    <link>http://localhost:1313/tags/vim/</link>
+    <description>Recent content in Vim on Coffee and Contemplation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>dev@gmail.com (dev)</managingEditor>
+    <webMaster>dev@gmail.com (dev)</webMaster>
+    <lastBuildDate>Fri, 13 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fuzzy finding in vim - vim &#43; fzf</title>
+      <link>http://localhost:1313/post/2020-11-13-fuzzy-finding-in-vim/</link>
+      <pubDate>Fri, 13 Nov 2020 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/post/2020-11-13-fuzzy-finding-in-vim/</guid>
+      
+      <description>&lt;p&gt;FZF is the center-piece of my vim configuration. It is another excellent piece of software by &lt;a href=&#34;https://github.com/junegunn&#34;&gt;Junegunn Choi&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;fzf&lt;/code&gt; is a command line fuzzy finder.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now, that doesn&amp;rsquo;t sound like much. But the way it can integrate with your other tools will blow your mind. The repository for FZF is located &lt;a href=&#34;https://github.com/junegunn/fzf&#34;&gt;here&lt;/a&gt; and has extensive documentation on how to use it. Follow &lt;a href=&#34;https://github.com/junegunn/fzf#installation&#34;&gt;these instructions&lt;/a&gt; to install it.&lt;/p&gt;
+&lt;p&gt;To see how it works, run this command:&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Vimming in 2020</title>
+      <link>http://localhost:1313/post/2020-11-07-vimming-in-2020/</link>
+      <pubDate>Sat, 07 Nov 2020 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/post/2020-11-07-vimming-in-2020/</guid>
+      
+      <description>&lt;blockquote&gt;
+&lt;p&gt;If you use vim, you can use &lt;code&gt;h,j,k,l&lt;/code&gt; keys to navigate instead of the arrow keys. You won&amp;rsquo;t have to move your hands away from the home row, and you&amp;rsquo;ll end up saving a lot of time.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;One of my seniors in college told me this about vim. It sounded so incredibly ridiculous at that time, that I decided to give it a shot.&lt;/p&gt;
+&lt;p&gt;For the first couple of years, my &lt;code&gt;.vimrc&lt;/code&gt; looked like this.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>How to quit vim</title>
+      <link>http://localhost:1313/post/2020-10-20-quitting-vim/</link>
+      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/post/2020-10-20-quitting-vim/</guid>
+      
+      <description>&lt;p&gt;Vim has multiple modes. You normally insert text in the &lt;code&gt;Insert&lt;/code&gt; mode. &lt;code&gt;Normal&lt;/code&gt; mode is where you move around and give commands to vim.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Esc&lt;/code&gt; will take you to normal mode(usually). You can enter a command starting with a &lt;code&gt;:&lt;/code&gt;. Quit vim with the below command:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;Esc&amp;gt;:qa!
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;q&lt;/code&gt; - quit&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;a&lt;/code&gt; - all&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;!&lt;/code&gt; - force do the operation.
+This will quit all the buffers including the unsaved ones.&lt;/li&gt;
+&lt;/ul&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>

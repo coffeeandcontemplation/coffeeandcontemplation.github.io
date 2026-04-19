@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Contemplation on Coffee and Contemplation</title>
+    <link>http://localhost:1313/tags/contemplation/</link>
+    <description>Recent content in Contemplation on Coffee and Contemplation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>dev@gmail.com (dev)</managingEditor>
+    <webMaster>dev@gmail.com (dev)</webMaster>
+    <lastBuildDate>Sun, 06 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/contemplation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Temperature monitoring with raspberry pi</title>
+      <link>http://localhost:1313/post/2022-11-06-temperature-monitoring-with-rp-pico/</link>
+      <pubDate>Sun, 06 Nov 2022 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/post/2022-11-06-temperature-monitoring-with-rp-pico/</guid>
+      
+      <description>&lt;p&gt;We bought a new Air conditioner for the house. It doesn&amp;rsquo;t feel like the AC is able to regulate the temperature to what we set. But, humans are often wrong about these kind of things. A simple thermometer would have done the trick - but we need time-series temperature data to verify the AC function.&lt;/p&gt;
+&lt;p&gt;Enter - the &lt;a href=&#34;https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html&#34;&gt;Raspberry pi pico&lt;/a&gt;. It has a built-in ambient temperature sensor and supports micropython. It also has 2MB of storage. So, logging the temperature to a file should be easy.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>What I learned from doing dishes</title>
+      <link>http://localhost:1313/post/2020-12-27-what-i-learned-from-doing-dishes/</link>
+      <pubDate>Sun, 27 Dec 2020 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/post/2020-12-27-what-i-learned-from-doing-dishes/</guid>
+      
+      <description>&lt;p&gt;I woke up today and was welcomed by a mountain of dishes in the sink. My first reaction was - &amp;ldquo;Screw that - I&amp;rsquo;ll just go back to bed&amp;rdquo;. So, after a couple more hours of sleep, I went back to find that the mountain hadn&amp;rsquo;t magically disappeared.&lt;/p&gt;
+&lt;p&gt;Now I had to tackle this problem. This is the strategy I followed&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Move everything out of the sink back into the kitchen.&lt;/li&gt;
+&lt;li&gt;Take 5 utensils into the sink.&lt;/li&gt;
+&lt;li&gt;Wash them.&lt;/li&gt;
+&lt;li&gt;If there are more dishes left, goto 2.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;That was it! The mountain of dishes were done.&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>

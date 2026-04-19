@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gnuplot on Coffee and Contemplation</title>
+    <link>http://localhost:1313/tags/gnuplot/</link>
+    <description>Recent content in Gnuplot on Coffee and Contemplation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>dev@gmail.com (dev)</managingEditor>
+    <webMaster>dev@gmail.com (dev)</webMaster>
+    <lastBuildDate>Wed, 09 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/gnuplot/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Plotting a timeseries graph with gnuplot</title>
+      <link>http://localhost:1313/post/2022-11-09-plotting-temp-timeseries/</link>
+      <pubDate>Wed, 09 Nov 2022 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/post/2022-11-09-plotting-temp-timeseries/</guid>
+      
+      <description>&lt;p&gt;So, there was this &lt;a href=&#34;http://localhost:1313/2022/11/06/temperature-monitoring-with-rp-pico/&#34;&gt;raspberry pi contraption&lt;/a&gt; to log temperature to a file. The next step is to plot this in a graph. We get a single column file of recorded temperatures from the raspberry pi pico.&lt;/p&gt;
+&lt;p&gt;It is pretty easy to plot a graph from a two column file using gnuplot. If the filename is &lt;code&gt;temp_log&lt;/code&gt;, all you need is:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;plot &amp;#39;temp_log&amp;#39; with lines
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I was too lazy to find how to plot a single column file. The easy fix is to add another column with numbers. And that can be done easily with vim. You&amp;rsquo;d need to do the following keystrokes:&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>

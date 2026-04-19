@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Functional on Coffee and Contemplation</title>
+    <link>http://localhost:1313/tags/functional/</link>
+    <description>Recent content in Functional on Coffee and Contemplation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>dev@gmail.com (dev)</managingEditor>
+    <webMaster>dev@gmail.com (dev)</webMaster>
+    <lastBuildDate>Sat, 31 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/functional/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Context managers in python</title>
+      <link>http://localhost:1313/post/2020-10-31-python-context-manager/</link>
+      <pubDate>Sat, 31 Oct 2020 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/post/2020-10-31-python-context-manager/</guid>
+      
+      <description>&lt;p&gt;Say, you have to open and process a file in python. You can do that using a function like this&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;open_and_process&lt;/span&gt;(filename):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    file &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; open(filename)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    process(file)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    file&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()  &lt;span style=&#34;color:#75715e&#34;&gt;# This is important&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If an exception occurs in the &lt;code&gt;process&lt;/code&gt; function, &lt;code&gt;file.close()&lt;/code&gt; won&amp;rsquo;t be executed.&lt;/p&gt;
+&lt;p&gt;This pattern is the same for other types of resources too:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Acquire resource&lt;/li&gt;
+&lt;li&gt;Use resource&lt;/li&gt;
+&lt;li&gt;Release resource&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If something fails during the &lt;strong&gt;use&lt;/strong&gt; phase, the resource won&amp;rsquo;t be released cleanly.
+There are a couple of ways to solve this.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Higher order functions and where to find them - Decorators</title>
+      <link>http://localhost:1313/post/2020-10-23-higher-order-functions-3/</link>
+      <pubDate>Fri, 23 Oct 2020 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/post/2020-10-23-higher-order-functions-3/</guid>
+      
+      <description>&lt;p&gt;We saw &lt;a href=&#34;http://localhost:1313/2020/10/21/higher-order-functions-1&#34;&gt;what higher order functions are&lt;/a&gt; and how they can be used in &lt;a href=&#34;http://localhost:1313/2020/10/22/higher-order-functions-2&#34;&gt;creating partially applied functions&lt;/a&gt; in previous posts. Now let us see how we can use higher order functions to implement python decorators.&lt;/p&gt;
+&lt;p&gt;Let us say you want to intercept your function call to log the arguments passed and the return value. ie.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;add&lt;/span&gt;(a, b):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;add(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# When called with 2 and 3 as arguments, it should print&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; Function add called &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; arguments: &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; Function add returned: &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It is quite easy to do this. Let us start with defining a function &lt;code&gt;log&lt;/code&gt;.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Higher order functions and where to find them - Partial Application</title>
+      <link>http://localhost:1313/post/2020-10-22-higher-order-functions-2/</link>
+      <pubDate>Thu, 22 Oct 2020 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/post/2020-10-22-higher-order-functions-2/</guid>
+      
+      <description>&lt;p&gt;In the &lt;a href=&#34;http://localhost:1313/2020/10/21/higher-order-functions-1&#34;&gt;previous post&lt;/a&gt;, we discussed higher order functions. Ones that take functions as arguments and ones that return functions as arguments. Now let us look at some that do both.&lt;/p&gt;
+&lt;p&gt;In languages like haskell, there is a feature called &lt;strong&gt;Currying&lt;/strong&gt;. When a function which takes multiple arguments is called with less than the number of expected arguments, it returns another function with the arguments &amp;ldquo;partially applied&amp;rdquo;&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. For Eg:-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-haskell&#34; data-lang=&#34;haskell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;-- Define a function&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;add&lt;/span&gt; a b &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; b
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;-- Call the function.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;-- There are no braces for function calls in haskell&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;add&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;-- Returns 3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;-- Below even though add is a 2 argument function,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;-- we can pass a single argument and &amp;#34;partially apply&amp;#34; the argument&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;addTen&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; add &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;-- addTen is a function&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;addTen&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt;   &lt;span style=&#34;color:#75715e&#34;&gt;-- Returns 42&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now, let us try and get this behavior in python. Mind you, we can&amp;rsquo;t get so nice a syntax with our python implementation. What can we expect?&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Higher order functions and where to find them</title>
+      <link>http://localhost:1313/post/2020-10-21-higher-order-functions-1/</link>
+      <pubDate>Wed, 21 Oct 2020 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/post/2020-10-21-higher-order-functions-1/</guid>
+      
+      <description>&lt;p&gt;My first encounter with a higher order function was when I ran &lt;code&gt;man qsort&lt;/code&gt; and noticed its type.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;qsort&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;base, &lt;span style=&#34;color:#66d9ef&#34;&gt;size_t&lt;/span&gt; nmemb, &lt;span style=&#34;color:#66d9ef&#34;&gt;size_t&lt;/span&gt; size,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;compar)(&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For someone who had only seen primitive types like &lt;code&gt;int&lt;/code&gt; and &lt;code&gt;long&lt;/code&gt; and &lt;code&gt;char&lt;/code&gt;, &lt;code&gt;int (*compar)(const void *, const void *)&lt;/code&gt; was quite the surprise.
+I later found out that it was the type for a function which took two arguments and returned an &lt;code&gt;int&lt;/code&gt;. Complicated looking syntax aside, this is quite interesting. Passing a function allows you to create a generic &lt;code&gt;qsort&lt;/code&gt; function which can be use to sort anything with a custom sorting logic.&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>

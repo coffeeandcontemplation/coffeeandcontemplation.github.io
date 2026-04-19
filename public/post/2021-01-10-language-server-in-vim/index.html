@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en-us"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title itemprop="name">Language Server Client in neovim | Coffee and Contemplation</title>
+<meta property="og:title" content="Language Server Client in neovim | Coffee and Contemplation" />
+<meta name="twitter:title" content="Language Server Client in neovim | Coffee and Contemplation" />
+<meta itemprop="name" content="Language Server Client in neovim | Coffee and Contemplation" />
+<meta name="application-name" content="Language Server Client in neovim | Coffee and Contemplation" />
+<meta property="og:site_name" content="" />
+
+<meta name="description" content="">
+<meta itemprop="description" content="" />
+<meta property="og:description" content="" />
+<meta name="twitter:description" content="" />
+
+<meta property="og:locale" content="en-us" />
+<meta name="language" content="en-us" />
+
+  <link rel="alternate" hreflang="en" href="http://localhost:1313/post/2021-01-10-language-server-in-vim/" title="" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.160.1">
+
+    
+    <meta property="og:url" content="http://localhost:1313/post/2021-01-10-language-server-in-vim/">
+  <meta property="og:site_name" content="Coffee and Contemplation">
+  <meta property="og:title" content="Language Server Client in neovim">
+  <meta property="og:description" content="What is language server protocol? Development becomes a lot easier if all languages support features like autocomplete, linting, go-to-definition etc. within the editor of your choice. But this is a difficult task for editor devs. Each editor has to build support or integrate with tools that provide language support. Each of these tools behave in different ways making integration difficult. Language server protocol was defined by microsoft to put and end to this. LSP defines a standard protocol for tools(called language servers) to communicate with your editor.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2021-01-10T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-01-10T00:00:00+00:00">
+    <meta property="article:tag" content="Neovim">
+    <meta property="article:tag" content="Plugin">
+    <meta property="article:tag" content="Lsp">
+
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Language Server Client in neovim">
+  <meta name="twitter:description" content="What is language server protocol? Development becomes a lot easier if all languages support features like autocomplete, linting, go-to-definition etc. within the editor of your choice. But this is a difficult task for editor devs. Each editor has to build support or integrate with tools that provide language support. Each of these tools behave in different ways making integration difficult. Language server protocol was defined by microsoft to put and end to this. LSP defines a standard protocol for tools(called language servers) to communicate with your editor.">
+
+
+    
+
+    <link rel="canonical" href="http://localhost:1313/post/2021-01-10-language-server-in-vim/">
+    <link href="/style.min.e390ba7da26222f4dc42a349955d76dbbe44e5ce2535a43de5a70633a0a9ec3c.css" rel="stylesheet">
+    <link href="/code-highlight.min.706d31975fec544a864cb7f0d847a73ea55ca1df91bf495fd12a177138d807cf.css" rel="stylesheet">
+
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+
+
+
+<link rel="manifest" href="http://localhost:1313/site.webmanifest">
+
+<meta name="msapplication-config" content="/browserconfig.xml">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="theme-color" content="#434648">
+    <meta name="color-scheme" content="light dark">
+
+    
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
+
+    
+    
+</head>
+<body data-theme = "" class="notransition">
+
+<script src="/js/theme.js"></script>
+
+<div class="navbar" role="navigation">
+    <nav class="menu" aria-label="Main Navigation">
+        <a href="http://localhost:1313/" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" 
+viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
+stroke-linejoin="round" class="feather feather-home">
+<title>Home</title>
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+        </a>
+        <input type="checkbox" id="menu-trigger" class="menu-trigger" />
+        <label for="menu-trigger">
+            <span class="menu-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" stroke="currentColor" fill="none" viewBox="0 0 14 14"><title>Menu</title><path stroke-linecap="round" stroke-linejoin="round" d="M10.595 7L3.40726 7"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 3.51488L3.49301 3.51488"></path><path stroke-linecap="round" stroke-linejoin="round" d="M10.5096 10.4851H3.49301"></path><path stroke-linecap="round" stroke-linejoin="round" d="M0.5 12.5V1.5C0.5 0.947715 0.947715 0.5 1.5 0.5H12.5C13.0523 0.5 13.5 0.947715 13.5 1.5V12.5C13.5 13.0523 13.0523 13.5 12.5 13.5H1.5C0.947715 13.5 0.5 13.0523 0.5 12.5Z"></path></svg>
+            </span>
+        </label>
+
+        <div class="trigger">
+            <ul class="trigger-container">
+                
+                
+                <li class="menu-separator">
+                    <span>|</span>
+                </li>
+                
+                
+            </ul>
+            <a id="mode" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-sunny" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>LIGHT</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="mode-moon" width="21" height="21" viewBox="0 0 14 14" stroke-width="1">
+<title>DARK</title><g><circle cx="7" cy="7" r="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></circle><line x1="7" y1="0.5" x2="7" y2="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="2.4" x2="3.82" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="0.5" y1="7" x2="2.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="2.4" y1="11.6" x2="3.82" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="7" y1="13.5" x2="7" y2="11.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="11.6" x2="10.18" y2="10.18" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="13.5" y1="7" x2="11.5" y2="7" fill="none" stroke-linecap="round" stroke-linejoin="round"></line><line x1="11.6" y1="2.4" x2="10.18" y2="3.82" fill="none" stroke-linecap="round" stroke-linejoin="round"></line></g></svg>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<div class="wrapper post">
+    <main class="page-content" aria-label="Content">
+        <article>
+            <header class="header">
+                <h1 class="header-title">Language Server Client in neovim</h1>
+                
+                
+                
+                <div class="post-meta">
+                    <time datetime="2021-01-10T00:00:00&#43;00:00" itemprop="datePublished"> Jan 10, 2021 </time>
+                </div>
+                
+            </header>
+            
+            <div class="page-content">
+                <h2 id="what-is-language-server-protocol">What is language server protocol?</h2>
+<p>Development becomes a lot easier if all languages support features like autocomplete, linting, go-to-definition etc. within the editor of your choice. But this is a difficult task for editor devs. Each editor has to build support or integrate with tools that provide language support. Each of these tools behave in different ways making integration difficult. Language server protocol was defined by microsoft to put and end to this. LSP defines a standard protocol for tools(called language servers) to communicate with your editor.</p>
+<p><img src="https://code.visualstudio.com/assets/api/language-extensions/language-server-extension-guide/lsp-languages-editors.png" alt="Why lsp" title="Why lsp?">
+<em>Image source: <a href="https://code.visualstudio.com/api/language-extensions/language-server-extension-guide">Visual Studio Code</a></em></p>
+<h2 id="what-is-a-language-server-client">What is a language server client?</h2>
+<p>A language server client is the part of your editor that interacts with a language server - Sometimes implemented as plugins, sometimes built-in.</p>
+<h2 id="what-language-clients-are-available-for-vim">What language clients are available for vim?</h2>
+<ol>
+<li><a href="https://github.com/prabirshrestha/vim-lsp">vim-lsp</a></li>
+<li><a href="https://github.com/autozimu/LanguageClient-neovim">LanguageClient-neovim</a></li>
+<li><a href="https://github.com/neoclide/coc.nvim">coc.nvim</a></li>
+<li><a href="https://github.com/dense-analysis/ale">ale</a></li>
+<li>Built-in language server in <a href="https://neovim.io/doc/user/lsp.html">neovim</a></li>
+</ol>
+<p>We&rsquo;ll see how to setup the built-in language server in neovim in this blog post.</p>
+<h2 id="first-setup-a-decent-looking-theme">First, setup a decent looking theme</h2>
+<p><a href="https://github.com/Th3Whit3Wolf/onebuddy">Onebuddy</a> is an atom one inspired theme. <a href="/2020/11/07/vimming-in-2020/">Install</a> the theme with <code>vim-plug</code>.
+Add this to your vimrc:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;tjdevries/colorbuddy.vim&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;Th3Whit3Wolf/onebuddy&#39;</span>, { <span style="color:#e6db74">&#39;branch&#39;</span>: <span style="color:#e6db74">&#39;main&#39;</span> }
+</span></span></code></pre></div><p>Enable the theme by adding this to vimrc:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span><span style="color:#66d9ef">set</span> <span style="color:#a6e22e">termguicolors</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">colorscheme</span> <span style="color:#a6e22e">onebuddy</span>
+</span></span></code></pre></div><h2 id="what-features-should-we-expect">What features should we expect?</h2>
+<ol>
+<li>Show errors in line</li>
+<li>Show warnings in line</li>
+<li>Show errors/warnings in a list</li>
+<li>Format file</li>
+<li>Jump to definition</li>
+<li>See documentation</li>
+<li>Code actions - Actions like <em>&ldquo;Extract to function&rdquo;, &ldquo;Import this module&rdquo;</em> - Yes, you can get that in vim.</li>
+<li>Autocomplete</li>
+</ol>
+<p>The first 7 are really easy to achieve. Let us handle autocomplete in a separate post.</p>
+<h2 id="how-to-setup-built-in-lsp-client-for-neovim">How to setup built-in lsp client for neovim?</h2>
+<p>neovim&rsquo;s lsp client is built in lua. The configuration is also in lua. Usable configurations for common language servers are collected in <a href="https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md">neovim/nvim-lspconfig</a>.</p>
+<p>Install the plugin with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span><span style="color:#a6e22e">Plug</span> <span style="color:#e6db74">&#39;neovim/nvim-lspconfig&#39;</span>
+</span></span></code></pre></div><p>Let us create a new file in <code>.vim</code> directory with all the lsp configurations. Name it <code>lsp_config.lua</code>. Now in your <code>vimrc</code>, add the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-vimrc" data-lang="vimrc"><span style="display:flex;"><span><span style="color:#a6e22e">luafile</span> ~<span style="color:#e6db74">/.vim/</span><span style="color:#a6e22e">lsp_config</span>.<span style="color:#a6e22e">lua</span>
+</span></span></code></pre></div><p>In this file, add some configuration for common language servers</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span>lspconfig <span style="color:#f92672">=</span> require<span style="color:#e6db74">&#39;lspconfig&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>lspconfig.pyls.setup{}
+</span></span><span style="display:flex;"><span>lspconfig.tsserver.setup{}
+</span></span><span style="display:flex;"><span>lspconfig.rust_analyzer.setup{}
+</span></span></code></pre></div><p>That is it! You should start seeing diagnostics now. Ensure you have the right language servers installed.
+For example, for python language server, do</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip3 install <span style="color:#e6db74">&#39;python-language-server[all]&#39;</span>
+</span></span></code></pre></div><h2 id="add-some-signs-to-the-gutter">Add some signs to the gutter</h2>
+<p>It would be nice to see some symbols to the left of the code when there are errors.
+Add these lines to your vimrc.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span><span style="color:#a6e22e">sign</span> <span style="color:#a6e22e">define</span> <span style="color:#a6e22e">LspDiagnosticsSignError</span> <span style="color:#a6e22e">text</span>=🔴
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sign</span> <span style="color:#a6e22e">define</span> <span style="color:#a6e22e">LspDiagnosticsSignWarning</span> <span style="color:#a6e22e">text</span>=🟠
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sign</span> <span style="color:#a6e22e">define</span> <span style="color:#a6e22e">LspDiagnosticsSignInformation</span> <span style="color:#a6e22e">text</span>=🔵
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sign</span> <span style="color:#a6e22e">define</span> <span style="color:#a6e22e">LspDiagnosticsSignHint</span> <span style="color:#a6e22e">text</span>=🟢
+</span></span></code></pre></div><h2 id="add-some-keybindings">Add some keybindings</h2>
+<p>We need some keybindings for actions like <strong>jump to definition</strong>. Add the following to your vimrc.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">silent</span>&gt; <span style="color:#a6e22e">gd</span>    &lt;<span style="color:#a6e22e">cmd</span>&gt;<span style="color:#a6e22e">lua</span> <span style="color:#a6e22e">vim</span>.<span style="color:#a6e22e">lsp</span>.<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">definition</span>()&lt;<span style="color:#a6e22e">CR</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">silent</span>&gt; <span style="color:#a6e22e">gi</span>    &lt;<span style="color:#a6e22e">cmd</span>&gt;<span style="color:#a6e22e">lua</span> <span style="color:#a6e22e">vim</span>.<span style="color:#a6e22e">lsp</span>.<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">implementation</span>()&lt;<span style="color:#a6e22e">CR</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">silent</span>&gt; <span style="color:#a6e22e">gr</span>    &lt;<span style="color:#a6e22e">cmd</span>&gt;<span style="color:#a6e22e">lua</span> <span style="color:#a6e22e">vim</span>.<span style="color:#a6e22e">lsp</span>.<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">references</span>()&lt;<span style="color:#a6e22e">CR</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">silent</span>&gt; <span style="color:#a6e22e">gD</span>    &lt;<span style="color:#a6e22e">cmd</span>&gt;<span style="color:#a6e22e">lua</span> <span style="color:#a6e22e">vim</span>.<span style="color:#a6e22e">lsp</span>.<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">declaration</span>()&lt;<span style="color:#a6e22e">CR</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">silent</span>&gt; <span style="color:#a6e22e">ge</span>    &lt;<span style="color:#a6e22e">cmd</span>&gt;<span style="color:#a6e22e">lua</span> <span style="color:#a6e22e">vim</span>.<span style="color:#a6e22e">lsp</span>.<span style="color:#a6e22e">diagnostic</span>.<span style="color:#a6e22e">set_loclist</span>()&lt;<span style="color:#a6e22e">CR</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">silent</span>&gt; <span style="color:#a6e22e">K</span>     &lt;<span style="color:#a6e22e">cmd</span>&gt;<span style="color:#a6e22e">lua</span> <span style="color:#a6e22e">vim</span>.<span style="color:#a6e22e">lsp</span>.<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">hover</span>()&lt;<span style="color:#a6e22e">CR</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">silent</span>&gt; &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">f</span>    &lt;<span style="color:#a6e22e">cmd</span>&gt;<span style="color:#a6e22e">lua</span> <span style="color:#a6e22e">vim</span>.<span style="color:#a6e22e">lsp</span>.<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">formatting</span>()&lt;<span style="color:#a6e22e">CR</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">silent</span>&gt; &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">rn</span>    &lt;<span style="color:#a6e22e">cmd</span>&gt;<span style="color:#a6e22e">lua</span> <span style="color:#a6e22e">vim</span>.<span style="color:#a6e22e">lsp</span>.<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">rename</span>()&lt;<span style="color:#a6e22e">CR</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">nnoremap</span> &lt;<span style="color:#a6e22e">silent</span>&gt; &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">a</span> &lt;<span style="color:#a6e22e">cmd</span>&gt;<span style="color:#a6e22e">lua</span> <span style="color:#a6e22e">vim</span>.<span style="color:#a6e22e">lsp</span>.<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">code_action</span>()&lt;<span style="color:#a6e22e">CR</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">xmap</span> &lt;<span style="color:#a6e22e">silent</span>&gt; &lt;<span style="color:#a6e22e">leader</span>&gt;<span style="color:#a6e22e">a</span> &lt;<span style="color:#a6e22e">cmd</span>&gt;<span style="color:#a6e22e">lua</span> <span style="color:#a6e22e">vim</span>.<span style="color:#a6e22e">lsp</span>.<span style="color:#a6e22e">buf</span>.<span style="color:#a6e22e">range_code_action</span>()&lt;<span style="color:#a6e22e">CR</span>&gt;
+</span></span></code></pre></div><p>This will create the following mappings</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Keybindings</th>
+          <th>Action</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>gd</code></td>
+          <td>Go to definition</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>gi</code></td>
+          <td>Go to implementation</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>gr</code></td>
+          <td>See references</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>gD</code></td>
+          <td>Go to declaration</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>ge</code></td>
+          <td>Show errors in loclist</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>gd</code></td>
+          <td>Go to definition</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>space f</code></td>
+          <td>FOrmat file</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>space r n</code></td>
+          <td>Rename variable under cursor</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>space a</code></td>
+          <td>Code actions - On normal mode and visual selections</td>
+      </tr>
+  </tbody>
+</table>
+<p>Your end result should look like this:
+<img src="/public/lsp_python.png" alt="lsp screenshot" title="Screenshot of lsp python"></p>
+
+            </div>
+        </article></main>
+</div>
+<footer class="footer">
+    <span class="footer_item"> </span>
+    &nbsp;
+
+    <div class="footer_social-icons">
+</div>
+    <small class="footer_copyright">
+        © 2026 dev.
+        Powered by <a href="https://github.com/hugo-sid/hugo-blog-awesome" target="_blank" rel="noopener">Hugo blog awesome</a>.
+    </small>
+</footer>
+
+
+
+
+
+
+
+    
+    <script async src="http://localhost:1313/js/main.js" ></script>
+
+    
+
+</body>
+</html>

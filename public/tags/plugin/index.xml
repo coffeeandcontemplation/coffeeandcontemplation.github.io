@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Plugin on Coffee and Contemplation</title>
+    <link>http://localhost:1313/tags/plugin/</link>
+    <description>Recent content in Plugin on Coffee and Contemplation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>dev@gmail.com (dev)</managingEditor>
+    <webMaster>dev@gmail.com (dev)</webMaster>
+    <lastBuildDate>Thu, 14 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/plugin/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Autocomplete in neovim with built-in LSP client</title>
+      <link>http://localhost:1313/post/2021-01-14-autocomplete-in-neovim/</link>
+      <pubDate>Thu, 14 Jan 2021 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/post/2021-01-14-autocomplete-in-neovim/</guid>
+      
+      <description>&lt;p&gt;In the &lt;a href=&#34;http://localhost:1313/2021/01/10/language-server-in-vim/&#34;&gt;last blog post&lt;/a&gt;, we saw how to setup the built-in lsp client in neovim for diagnostics and such. Now we&amp;rsquo;ll see how to setup autocomplete.&lt;/p&gt;
+&lt;p&gt;First, install &lt;code&gt;completion-nvim&lt;/code&gt;. Add this to your &lt;code&gt;vimrc&lt;/code&gt; and run &lt;code&gt;PlugInstall&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-vim&#34; data-lang=&#34;vim&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Plug&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;nvim-lua/completion-nvim&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now, in the &lt;code&gt;lsp_config.lua&lt;/code&gt; file, you need to make some changes. The file should look like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;lspconfig &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;lspconfig&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;completion_callback &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; require&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;completion&amp;#39;&lt;/span&gt;.on_attach
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;lspconfig.pyls.setup{on_attach&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;completion_callback}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;lspconfig.tsserver.setup{on_attach&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;completion_callback}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;lspconfig.rust_analyzer.setup{on_attach&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;completion_callback}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This should give you completion. Now, we need a trigger to activate completion. I like the &lt;code&gt;tab&lt;/code&gt; key. The config for this is available in the repo.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Language Server Client in neovim</title>
+      <link>http://localhost:1313/post/2021-01-10-language-server-in-vim/</link>
+      <pubDate>Sun, 10 Jan 2021 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/post/2021-01-10-language-server-in-vim/</guid>
+      
+      <description>&lt;h2 id=&#34;what-is-language-server-protocol&#34;&gt;What is language server protocol?&lt;/h2&gt;
+&lt;p&gt;Development becomes a lot easier if all languages support features like autocomplete, linting, go-to-definition etc. within the editor of your choice. But this is a difficult task for editor devs. Each editor has to build support or integrate with tools that provide language support. Each of these tools behave in different ways making integration difficult. Language server protocol was defined by microsoft to put and end to this. LSP defines a standard protocol for tools(called language servers) to communicate with your editor.&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Fuzzy finding in vim - vim &#43; fzf</title>
+      <link>http://localhost:1313/post/2020-11-13-fuzzy-finding-in-vim/</link>
+      <pubDate>Fri, 13 Nov 2020 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/post/2020-11-13-fuzzy-finding-in-vim/</guid>
+      
+      <description>&lt;p&gt;FZF is the center-piece of my vim configuration. It is another excellent piece of software by &lt;a href=&#34;https://github.com/junegunn&#34;&gt;Junegunn Choi&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;fzf&lt;/code&gt; is a command line fuzzy finder.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now, that doesn&amp;rsquo;t sound like much. But the way it can integrate with your other tools will blow your mind. The repository for FZF is located &lt;a href=&#34;https://github.com/junegunn/fzf&#34;&gt;here&lt;/a&gt; and has extensive documentation on how to use it. Follow &lt;a href=&#34;https://github.com/junegunn/fzf#installation&#34;&gt;these instructions&lt;/a&gt; to install it.&lt;/p&gt;
+&lt;p&gt;To see how it works, run this command:&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Vimming in 2020</title>
+      <link>http://localhost:1313/post/2020-11-07-vimming-in-2020/</link>
+      <pubDate>Sat, 07 Nov 2020 00:00:00 +0000</pubDate>
+      <author>dev@gmail.com (dev)</author>
+      <guid>http://localhost:1313/post/2020-11-07-vimming-in-2020/</guid>
+      
+      <description>&lt;blockquote&gt;
+&lt;p&gt;If you use vim, you can use &lt;code&gt;h,j,k,l&lt;/code&gt; keys to navigate instead of the arrow keys. You won&amp;rsquo;t have to move your hands away from the home row, and you&amp;rsquo;ll end up saving a lot of time.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;One of my seniors in college told me this about vim. It sounded so incredibly ridiculous at that time, that I decided to give it a shot.&lt;/p&gt;
+&lt;p&gt;For the first couple of years, my &lt;code&gt;.vimrc&lt;/code&gt; looked like this.&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>
