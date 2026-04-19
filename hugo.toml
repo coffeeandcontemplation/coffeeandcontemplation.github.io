@@ -1,0 +1,44 @@
+baseURL = "https://coffeeandcontemplation.dev"
+disablePathToLower = true
+languageCode = "en-us"
+defaultContentLanguage = "en-us"
+title = "Coffee and Contemplation"
+theme = "hugo-blog-awesome"
+
+# -----------------------------------------------------------
+# English Language Configuration (Required by the theme)
+# -----------------------------------------------------------
+[Languages.en-us]
+  languageName = "English"
+  languageCode = "en-us"
+  contentDir = "content" 
+  weight = 1
+
+  # The theme looks HERE for the sitename, not in global params
+  [Languages.en-us.params]
+    sitename = "Coffee and Contemplation"
+    defaultColor = "auto" # good default to have from their example
+
+  [Languages.en-us.params.author]
+    name = "dev"
+    email = "dev@gmail.com"
+
+  # The theme looks HERE for the navigation menu
+  [Languages.en-us.menu]
+    [[Languages.en-us.menu.main]]
+      pageRef = "/"
+      name = "Home"
+      url = "/"
+      weight = 10
+
+    [[Languages.en-us.menu.main]]
+      pageRef = "posts"
+      name = "Posts"
+      url = "/post/"
+      weight = 20
+
+    [[Languages.en-us.menu.main]]
+      pageRef = "tags"
+      name = "Tags"
+      url = "/tags/"
+      weight = 30
