@@ -18,9 +18,12 @@ theme = "hugo-blog-awesome"
   [Languages.en-us.params]
     sitename = "Coffee and Contemplation"
     defaultColor = "auto" # good default to have from their example
+    description = "Mornings are for coffee and contemplation"
 
   [Languages.en-us.params.author]
     name = "dev"
+    intro = "Mornings are for coffee and contemplation!"
+    avatar = "avatar.jpg"
     email = "dev@gmail.com"
 
   # The theme looks HERE for the navigation menu
