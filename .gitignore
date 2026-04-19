@@ -1,0 +1,3 @@
+devenv.nix
+devenv.lock
+.devenv/
