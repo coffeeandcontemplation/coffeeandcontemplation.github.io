@@ -1,0 +1,4 @@
+baseURL: https://coffeeandcontemplation.dev
+disablePathToLower: true
+locale: en-us
+title: Coffee and Contemplation
